@@ -15,8 +15,8 @@ type RedisClient struct {
 
 func New(ctx context.Context, cfg settings.RedisSettings) (*RedisClient, error) {
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     cfg.RedisAddress,
-		Password: cfg.RedisPassword,
+		Addr:     cfg.Address,
+		Password: cfg.Password,
 
 		DialTimeout:  time.Duration(cfg.DialTimeout) * time.Second,
 		ReadTimeout:  time.Duration(cfg.ReadTimeout) * time.Second,

@@ -1,6 +1,8 @@
 package grpcserver
 
 import (
+	"context"
+	"fmt"
 	"net"
 	"time"
 
@@ -12,10 +14,15 @@ import (
 	"google.golang.org/grpc/keepalive"
 )
 
+type Server struct {
+	srv *grpc.Server
+	lis net.Listener
+}
+
 func New(
 	srvSettings settings.GRPCServerSettings,
 	log *zap.SugaredLogger,
-) (*grpc.Server, net.Listener, error) {
+) (*Server, error) {
 	s := grpc.NewServer(
 		newChainUnaryInterceptor(log),
 		grpc.KeepaliveParams(getGRPCKeepAliveServerParams(&srvSettings)),
@@ -26,10 +33,39 @@ func New(
 
 	lis, err := net.Listen("tcp", srvSettings.Port)
 	if err != nil {
-		return nil, nil, err
+		return nil, fmt.Errorf("failed to listen: %w", err)
 	}
 
-	return s, lis, err
+	return &Server{
+		srv: s,
+		lis: lis,
+	}, nil
+}
+
+func (s *Server) Start() error {
+	return s.srv.Serve(s.lis)
+}
+
+func (s *Server) Stop(ctx context.Context) error {
+	stopped := make(chan struct{})
+	go func() {
+		s.srv.GracefulStop()
+		close(stopped)
+	}()
+	select {
+	case <-ctx.Done():
+		s.srv.Stop()
+		return ctx.Err()
+	case <-stopped:
+		return nil
+	}
+}
+
+func (s *Server) Addr() string {
+	if s.lis != nil {
+		return s.lis.Addr().String()
+	}
+	return ""
 }
 
 func newChainUnaryInterceptor(log *zap.SugaredLogger) grpc.ServerOption {

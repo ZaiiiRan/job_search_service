@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"net/http"
 	"path/filepath"
+	"time"
 
 	pb "github.com/ZaiiiRan/job_search_service/user-service/gen/go/user_service/v1"
+	"github.com/ZaiiiRan/job_search_service/user-service/internal/config/settings"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	httpSwagger "github.com/swaggo/http-swagger"
 	"google.golang.org/grpc"
@@ -17,7 +19,7 @@ type Server struct {
 	srv *http.Server
 }
 
-func NewServer(ctx context.Context, addr string, grpcAddr string) (*Server, error) {
+func New(ctx context.Context, cfg settings.HTTPServerSettings, grpcAddr string) (*Server, error) {
 	mux := runtime.NewServeMux()
 
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
@@ -25,7 +27,7 @@ func NewServer(ctx context.Context, addr string, grpcAddr string) (*Server, erro
 		return nil, fmt.Errorf("failed to register gateway handler: %w", err)
 	}
 
-	swaggerDir := filepath.Join("gen", "openapiv2", "user-service", "v1")
+	swaggerDir := filepath.Join("gen", "openapiv2", "user_service", "v1")
 
 	rootMux := http.NewServeMux()
 	rootMux.Handle("/", mux)
@@ -43,8 +45,12 @@ func NewServer(ctx context.Context, addr string, grpcAddr string) (*Server, erro
 	)
 
 	srv := &http.Server{
-		Addr:    addr,
-		Handler: rootMux,
+		Addr:              cfg.Port,
+		Handler:           rootMux,
+		ReadHeaderTimeout: time.Duration(cfg.ReadHeaderTimeout) * time.Second,
+		WriteTimeout:      time.Duration(cfg.WriteTimeout) * time.Second,
+		ReadTimeout:       time.Duration(cfg.ReadTimeout) * time.Second,
+		IdleTimeout:       time.Duration(cfg.IdleTimeout) * time.Second,
 	}
 
 	return &Server{srv: srv}, nil

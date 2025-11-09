@@ -3,8 +3,8 @@ package settings
 import "github.com/spf13/viper"
 
 type RedisSettings struct {
-	RedisAddress  string `mapstructure:"redis_address"`
-	RedisPassword string `mapstructure:"redis_password"`
+	Address  string `mapstructure:"address"`
+	Password string `mapstructure:"password"`
 
 	MaxPoolSize     uint `mapstructure:"max_pool_size"`
 	MinPoolSize     uint `mapstructure:"min_pool_size"`
@@ -16,8 +16,8 @@ type RedisSettings struct {
 }
 
 func SetRedisDefaults(v *viper.Viper, prefix string) {
-	v.SetDefault(prefix+".redis_address", "localhost:6379")
-	v.SetDefault(prefix+".redis_password", "")
+	v.SetDefault(prefix+".address", "localhost:6379")
+	v.SetDefault(prefix+".password", "")
 	v.SetDefault(prefix+".min_pool_size", 5)
 	v.SetDefault(prefix+".max_pool_size", 200)
 	v.SetDefault(prefix+".max_conn_idle_time", 60)
