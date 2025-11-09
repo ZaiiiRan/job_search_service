@@ -1,0 +1,599 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "User Service API",
+    "description": "API for user management",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "UserService"
+    }
+  ],
+  "host": "localhost:8081",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/applicant": {
+      "put": {
+        "summary": "Update applicant",
+        "description": "Updates applicant",
+        "operationId": "UserService_UpdateApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateApplicantRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      }
+    },
+    "/api/v1/applicant/batch-create": {
+      "post": {
+        "summary": "Create applicants batch",
+        "description": "Creates applicants batch",
+        "operationId": "UserService_ApplicantBatchCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ApplicantBatchCreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ApplicantBatchCreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      }
+    },
+    "/api/v1/applicant/query": {
+      "post": {
+        "summary": "Query applicants",
+        "description": "Returns applicants",
+        "operationId": "UserService_QueryApplicants",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1QueryApplicantsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1QueryApplicantsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      }
+    },
+    "/api/v1/applicant/{id}": {
+      "delete": {
+        "summary": "Delete applicant",
+        "description": "Deletes applicant",
+        "operationId": "UserService_DeleteApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      }
+    },
+    "/api/v1/employer": {
+      "put": {
+        "summary": "Update employer",
+        "description": "Updates employer",
+        "operationId": "UserService_UpdateEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateEmployerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employers"
+        ]
+      }
+    },
+    "/api/v1/employer/batch-create": {
+      "post": {
+        "summary": "Create employers batch",
+        "description": "Creates employers batch",
+        "operationId": "UserService_EmployerBatchCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1EmployerBatchCreateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1EmployerBatchCreateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employers"
+        ]
+      }
+    },
+    "/api/v1/employer/query": {
+      "post": {
+        "summary": "Query employers",
+        "description": "Returns employers",
+        "operationId": "UserService_QueryEmployers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1QueryEmployersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1QueryEmployersRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employers"
+        ]
+      }
+    },
+    "/api/v1/employer/{id}": {
+      "delete": {
+        "summary": "Delete employer",
+        "description": "Deletes employer",
+        "operationId": "UserService_DeleteEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "employers"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1Applicant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "patronymic": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "contacts": {
+          "$ref": "#/definitions/v1Contacts"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1ApplicantBatchCreateRequest": {
+      "type": "object",
+      "properties": {
+        "applicants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Applicant"
+          }
+        }
+      }
+    },
+    "v1ApplicantBatchCreateResponse": {
+      "type": "object",
+      "properties": {
+        "applicants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Applicant"
+          }
+        }
+      }
+    },
+    "v1Contacts": {
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "type": "string"
+        },
+        "telegram": {
+          "type": "string"
+        }
+      }
+    },
+    "v1DeleteApplicantResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1DeleteEmployerResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    },
+    "v1Employer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "contacts": {
+          "$ref": "#/definitions/v1Contacts"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1EmployerBatchCreateRequest": {
+      "type": "object",
+      "properties": {
+        "employers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Employer"
+          }
+        }
+      }
+    },
+    "v1EmployerBatchCreateResponse": {
+      "type": "object",
+      "properties": {
+        "employers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Employer"
+          }
+        }
+      }
+    },
+    "v1QueryApplicantsRequest": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "integer",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "description": "List of applicant IDs"
+        },
+        "emails": {
+          "type": "string",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of applicant emails"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1QueryApplicantsResponse": {
+      "type": "object",
+      "properties": {
+        "applicants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Applicant"
+          }
+        }
+      }
+    },
+    "v1QueryEmployersRequest": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "integer",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "description": "List of employer IDs"
+        },
+        "emails": {
+          "type": "string",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of employer emails"
+        },
+        "companyNames": {
+          "type": "string",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of company names"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1QueryEmployersResponse": {
+      "type": "object",
+      "properties": {
+        "employers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Employer"
+          }
+        }
+      }
+    },
+    "v1UpdateApplicantRequest": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1UpdateApplicantResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1UpdateEmployerRequest": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    },
+    "v1UpdateEmployerResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    }
+  }
+}
