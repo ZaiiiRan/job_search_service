@@ -25,7 +25,7 @@
     "/api/v1/applicant": {
       "put": {
         "summary": "Update applicant",
-        "description": "Updates applicant",
+        "description": "Updates applicant. Can only be called by an authorized user to update their profile.",
         "operationId": "UserService_UpdateApplicant",
         "responses": {
           "200": {
@@ -59,7 +59,7 @@
     "/api/v1/applicant/batch-create": {
       "post": {
         "summary": "Create applicants batch",
-        "description": "Creates applicants batch",
+        "description": "Creates applicants batch. Required for registration in the authorization microservice.",
         "operationId": "UserService_ApplicantBatchCreate",
         "responses": {
           "200": {
@@ -93,7 +93,7 @@
     "/api/v1/applicant/query": {
       "post": {
         "summary": "Query applicants",
-        "description": "Returns applicants",
+        "description": "Returns applicants. Needed to retrieve data in other microservices.",
         "operationId": "UserService_QueryApplicants",
         "responses": {
           "200": {
@@ -127,7 +127,7 @@
     "/api/v1/applicant/{id}": {
       "delete": {
         "summary": "Delete applicant",
-        "description": "Deletes applicant",
+        "description": "Deletes applicant. Only an authorized user can call this to delete their profile.",
         "operationId": "UserService_DeleteApplicant",
         "responses": {
           "200": {
@@ -160,7 +160,7 @@
     "/api/v1/employer": {
       "put": {
         "summary": "Update employer",
-        "description": "Updates employer",
+        "description": "Updates employer. Can only be called by an authorized user to update their profile.",
         "operationId": "UserService_UpdateEmployer",
         "responses": {
           "200": {
@@ -194,7 +194,7 @@
     "/api/v1/employer/batch-create": {
       "post": {
         "summary": "Create employers batch",
-        "description": "Creates employers batch",
+        "description": "Creates employers batch. Required for registration in the authorization microservice.",
         "operationId": "UserService_EmployerBatchCreate",
         "responses": {
           "200": {
@@ -228,7 +228,7 @@
     "/api/v1/employer/query": {
       "post": {
         "summary": "Query employers",
-        "description": "Returns employers",
+        "description": "Returns employers. Needed to retrieve data in other microservices.",
         "operationId": "UserService_QueryEmployers",
         "responses": {
           "200": {
@@ -262,7 +262,7 @@
     "/api/v1/employer/{id}": {
       "delete": {
         "summary": "Delete employer",
-        "description": "Deletes employer",
+        "description": "Deletes employer. Only an authorized user can call this to delete their profile.",
         "operationId": "UserService_DeleteEmployer",
         "responses": {
           "200": {

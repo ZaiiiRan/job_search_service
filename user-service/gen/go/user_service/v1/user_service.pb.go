@@ -1165,28 +1165,28 @@ const file_user_service_v1_user_service_proto_rawDesc = "" +
 	"\x04page\x18\x04 \x01(\x05R\x04page\x12\x1b\n" +
 	"\tpage_size\x18\x05 \x01(\x05R\bpageSize\"Q\n" +
 	"\x16QueryEmployersResponse\x127\n" +
-	"\temployers\x18\x01 \x03(\v2\x19.user_service.v1.EmployerR\temployers2\x9f\f\n" +
-	"\vUserService\x12\xe0\x01\n" +
-	"\x14ApplicantBatchCreate\x12,.user_service.v1.ApplicantBatchCreateRequest\x1a-.user_service.v1.ApplicantBatchCreateResponse\"k\x92A?\n" +
+	"\temployers\x18\x01 \x03(\v2\x19.user_service.v1.EmployerR\temployers2\x8b\x10\n" +
+	"\vUserService\x12\x9f\x02\n" +
+	"\x14ApplicantBatchCreate\x12,.user_service.v1.ApplicantBatchCreateRequest\x1a-.user_service.v1.ApplicantBatchCreateResponse\"\xa9\x01\x92A}\n" +
 	"\n" +
-	"applicants\x12\x17Create applicants batch\x1a\x18Creates applicants batch\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/api/v1/applicant/batch-create\x12\xb6\x01\n" +
-	"\x0fUpdateApplicant\x12'.user_service.v1.UpdateApplicantRequest\x1a(.user_service.v1.UpdateApplicantResponse\"P\x92A1\n" +
+	"applicants\x12\x17Create applicants batch\x1aVCreates applicants batch. Required for registration in the authorization microservice.\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/api/v1/applicant/batch-create\x12\xfa\x01\n" +
+	"\x0fUpdateApplicant\x12'.user_service.v1.UpdateApplicantRequest\x1a(.user_service.v1.UpdateApplicantResponse\"\x93\x01\x92At\n" +
 	"\n" +
-	"applicants\x12\x10Update applicant\x1a\x11Updates applicant\x82\xd3\xe4\x93\x02\x16:\x01*\x1a\x11/api/v1/applicant\x12\xb8\x01\n" +
-	"\x0fDeleteApplicant\x12'.user_service.v1.DeleteApplicantRequest\x1a(.user_service.v1.DeleteApplicantResponse\"R\x92A1\n" +
+	"applicants\x12\x10Update applicant\x1aTUpdates applicant. Can only be called by an authorized user to update their profile.\x82\xd3\xe4\x93\x02\x16:\x01*\x1a\x11/api/v1/applicant\x12\xf9\x01\n" +
+	"\x0fDeleteApplicant\x12'.user_service.v1.DeleteApplicantRequest\x1a(.user_service.v1.DeleteApplicantResponse\"\x92\x01\x92Aq\n" +
 	"\n" +
-	"applicants\x12\x10Delete applicant\x1a\x11Deletes applicant\x82\xd3\xe4\x93\x02\x18*\x16/api/v1/applicant/{id}\x12\xbd\x01\n" +
-	"\x0fQueryApplicants\x12'.user_service.v1.QueryApplicantsRequest\x1a(.user_service.v1.QueryApplicantsResponse\"W\x92A2\n" +
+	"applicants\x12\x10Delete applicant\x1aQDeletes applicant. Only an authorized user can call this to delete their profile.\x82\xd3\xe4\x93\x02\x18*\x16/api/v1/applicant/{id}\x12\xef\x01\n" +
+	"\x0fQueryApplicants\x12'.user_service.v1.QueryApplicantsRequest\x1a(.user_service.v1.QueryApplicantsResponse\"\x88\x01\x92Ac\n" +
 	"\n" +
-	"applicants\x12\x10Query applicants\x1a\x12Returns applicants\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/api/v1/applicant/query\x12\xd9\x01\n" +
-	"\x13EmployerBatchCreate\x12+.user_service.v1.EmployerBatchCreateRequest\x1a,.user_service.v1.EmployerBatchCreateResponse\"g\x92A<\n" +
-	"\temployers\x12\x16Create employers batch\x1a\x17Creates employers batch\x82\xd3\xe4\x93\x02\":\x01*\"\x1d/api/v1/employer/batch-create\x12\xaf\x01\n" +
-	"\x0eUpdateEmployer\x12&.user_service.v1.UpdateEmployerRequest\x1a'.user_service.v1.UpdateEmployerResponse\"L\x92A.\n" +
-	"\temployers\x12\x0fUpdate employer\x1a\x10Updates employer\x82\xd3\xe4\x93\x02\x15:\x01*\x1a\x10/api/v1/employer\x12\xb1\x01\n" +
-	"\x0eDeleteEmployer\x12&.user_service.v1.DeleteEmployerRequest\x1a'.user_service.v1.DeleteEmployerResponse\"N\x92A.\n" +
-	"\temployers\x12\x0fDelete employer\x1a\x10Deletes employer\x82\xd3\xe4\x93\x02\x17*\x15/api/v1/employer/{id}\x12\xb6\x01\n" +
-	"\x0eQueryEmployers\x12&.user_service.v1.QueryEmployersRequest\x1a'.user_service.v1.QueryEmployersResponse\"S\x92A/\n" +
-	"\temployers\x12\x0fQuery employers\x1a\x11Returns employers\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/api/v1/employer/queryB\xc0\x01\x92Aj\x120\n" +
+	"applicants\x12\x10Query applicants\x1aCReturns applicants. Needed to retrieve data in other microservices.\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/api/v1/applicant/query\x12\x98\x02\n" +
+	"\x13EmployerBatchCreate\x12+.user_service.v1.EmployerBatchCreateRequest\x1a,.user_service.v1.EmployerBatchCreateResponse\"\xa5\x01\x92Az\n" +
+	"\temployers\x12\x16Create employers batch\x1aUCreates employers batch. Required for registration in the authorization microservice.\x82\xd3\xe4\x93\x02\":\x01*\"\x1d/api/v1/employer/batch-create\x12\xf3\x01\n" +
+	"\x0eUpdateEmployer\x12&.user_service.v1.UpdateEmployerRequest\x1a'.user_service.v1.UpdateEmployerResponse\"\x8f\x01\x92Aq\n" +
+	"\temployers\x12\x0fUpdate employer\x1aSUpdates employer. Can only be called by an authorized user to update their profile.\x82\xd3\xe4\x93\x02\x15:\x01*\x1a\x10/api/v1/employer\x12\xf2\x01\n" +
+	"\x0eDeleteEmployer\x12&.user_service.v1.DeleteEmployerRequest\x1a'.user_service.v1.DeleteEmployerResponse\"\x8e\x01\x92An\n" +
+	"\temployers\x12\x0fDelete employer\x1aPDeletes employer. Only an authorized user can call this to delete their profile.\x82\xd3\xe4\x93\x02\x17*\x15/api/v1/employer/{id}\x12\xe8\x01\n" +
+	"\x0eQueryEmployers\x12&.user_service.v1.QueryEmployersRequest\x1a'.user_service.v1.QueryEmployersResponse\"\x84\x01\x92A`\n" +
+	"\temployers\x12\x0fQuery employers\x1aBReturns employers. Needed to retrieve data in other microservices.\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/api/v1/employer/queryB\xc0\x01\x92Aj\x120\n" +
 	"\x10User Service API\x12\x17API for user management2\x031.0\x1a\x0elocalhost:8081*\x02\x01\x022\x10application/json:\x10application/jsonZQgithub.com/ZaiiiRan/job_search_service/user-service/gen/go/user-service/v1;userv1b\x06proto3"
 
 var (

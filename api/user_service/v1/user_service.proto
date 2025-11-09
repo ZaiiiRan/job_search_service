@@ -29,7 +29,7 @@ service UserService {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Create applicants batch"
-            description: "Creates applicants batch"
+            description: "Creates applicants batch. Required for registration in the authorization microservice."
             tags: "applicants"
         };
     }
@@ -41,7 +41,7 @@ service UserService {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Update applicant"
-            description: "Updates applicant"
+            description: "Updates applicant. Can only be called by an authorized user to update their profile."
             tags: "applicants"
         };
     }
@@ -52,7 +52,7 @@ service UserService {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Delete applicant"
-            description: "Deletes applicant"
+            description: "Deletes applicant. Only an authorized user can call this to delete their profile."
             tags: "applicants"
         };
     }
@@ -64,7 +64,7 @@ service UserService {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Query applicants"
-            description: "Returns applicants"
+            description: "Returns applicants. Needed to retrieve data in other microservices."
             tags: "applicants"
         };
     }
@@ -76,7 +76,7 @@ service UserService {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Create employers batch"
-            description: "Creates employers batch"
+            description: "Creates employers batch. Required for registration in the authorization microservice."
             tags: "employers"
         };
     }
@@ -88,7 +88,7 @@ service UserService {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Update employer"
-            description: "Updates employer"
+            description: "Updates employer. Can only be called by an authorized user to update their profile."
             tags: "employers"
         };
     }
@@ -99,7 +99,7 @@ service UserService {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Delete employer"
-            description: "Deletes employer"
+            description: "Deletes employer. Only an authorized user can call this to delete their profile."
             tags: "employers"
         };
     }
@@ -111,7 +111,7 @@ service UserService {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Query employers"
-            description: "Returns employers"
+            description: "Returns employers. Needed to retrieve data in other microservices."
             tags: "employers"
         };
     }
