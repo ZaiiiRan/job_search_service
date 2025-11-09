@@ -1,0 +1,36 @@
+-- +goose Up
+CREATE TABLE IF NOT EXISTS applicants (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    patronymic TEXT,
+    birth_date DATE NOT NULL,
+    city TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    phone_number TEXT,
+    telegram TEXT,
+    is_active BOOLEAN NOT NULL DEFAULT FALSE,
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+CREATE TYPE v1_applicant as (
+    id BIGINT,
+    first_name TEXT,
+    last_name TEXT,
+    patronymic TEXT,
+    birth_date DATE,
+    city TEXT,
+    email TEXT,
+    phone_number TEXT,
+    telegram TEXT,
+    is_active BOOLEAN,
+    is_deleted BOOLEAN,
+    created_at TIMESTAMP WITH TIME ZONE,
+    updated_at TIMESTAMP WITH TIME ZONE
+)
+
+-- + goose Down
+DROP TABLE IF EXISTS applicants;
+DROP TYPE IF EXISTS v1_applicant;
