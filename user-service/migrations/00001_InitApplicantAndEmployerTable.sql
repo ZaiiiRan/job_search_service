@@ -48,8 +48,8 @@ CREATE TABLE IF NOT EXISTS employers (
     updated_at TIMESTAMP WITH TIME ZONE NOT NULL
 );
 
-CREATE UNIQUE INDEX idx_applicants_email_active_unique
-    ON applicants (email)
+CREATE UNIQUE INDEX idx_employers_email_active_unique
+    ON employers (email)
     WHERE is_deleted = FALSE;
 
 CREATE TYPE v1_employer AS (
