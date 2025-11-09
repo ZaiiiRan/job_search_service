@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package user_service.v1;
+
+option go_package = "github.com/ZaiiiRan/job_search_service/user-service/gen/go/user-service/v1;userv1";
+
+import "google/protobuf/timestamp.proto";
+
+message Contacts {
+    optional string phone_number = 1;
+    optional string telegram = 2;
+}
+
+message Applicant {
+    int64 id = 1;
+
+    string first_name = 2;
+    string last_name = 3;
+    optional string patronymic = 4;
+    string birth_date = 5;
+    string city = 6;
+    string email = 7;
+    Contacts contacts = 8;
+
+    bool is_active = 9;
+    bool is_deleted = 10;
+
+    google.protobuf.Timestamp created_at = 11;
+    google.protobuf.Timestamp updated_at = 12;
+}
+
+message Employer {
+    int64 id = 1;
+
+    string company_name = 2;
+    string city = 3;
+    string email = 4;
+    Contacts contacts = 5;
+
+    bool is_active = 6;
+    bool is_deleted = 7;
+
+    google.protobuf.Timestamp created_at = 8;
+    google.protobuf.Timestamp updated_at = 9;
+}
