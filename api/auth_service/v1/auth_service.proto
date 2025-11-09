@@ -21,10 +21,10 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
     produces: "application/json";
 };
 
-service AuthServuce {
+service AuthService {
     rpc RegisterApplicant(RegisterApplicantRequest) returns (RegisterApplicantResponse) {
         option (google.api.http) = {
-            post: "api/v1/applicant/register",
+            post: "/api/v1/applicant/register",
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -36,8 +36,7 @@ service AuthServuce {
 
     rpc GetNewApplicantActivationCode(GetNewApplicantActivationCodeRequest) returns (GetNewApplicantActivationCodeResponse) {
         option (google.api.http) = {
-            get: "api/v1/applicant/new-activation-code",
-            body: "*"
+            get: "/api/v1/applicant/new-activation-code"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Get new applicant activation code"
@@ -48,7 +47,7 @@ service AuthServuce {
 
     rpc LoginApplicant(LoginApplicantRequest) returns (LoginApplicantResponse) {
         option (google.api.http) = {
-            post: "api/v1/applicant/login",
+            post: "/api/v1/applicant/login",
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -60,7 +59,7 @@ service AuthServuce {
 
     rpc RefreshApplicant(RefreshApplicantRequest) returns (RefreshApplicantResponse) {
         option (google.api.http) = {
-            post: "api/v1/applicant/refresh",
+            post: "/api/v1/applicant/refresh",
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -72,7 +71,7 @@ service AuthServuce {
 
     rpc GetResetApplicantPasswordCode(GetResetApplicantPasswordCodeRequest) returns (GetResetApplicantPasswordCodeResponse) {
         option (google.api.http) = {
-            post: "api/v1/applicant/reset-password/code",
+            post: "/api/v1/applicant/reset-password/code",
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -84,7 +83,7 @@ service AuthServuce {
 
     rpc ResetApplicantPassword(ResetApplicantPasswordRequest) returns (ResetApplicantPasswordResponse) {
         option (google.api.http) = {
-            post: "api/v1/applicant/reset-password",
+            post: "/api/v1/applicant/reset-password",
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -96,7 +95,7 @@ service AuthServuce {
 
     rpc ChangeApplicantPassword(ChangeApplicantPasswordRequest) returns (ChangeApplicantPasswordResponse) {
         option (google.api.http) = {
-            post: "api/v1/applicant/change-password",
+            post: "/api/v1/applicant/change-password",
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -108,7 +107,7 @@ service AuthServuce {
 
     rpc RegisterEmployer(RegisterEmployerRequest) returns (RegisterEmployerResponse) {
         option (google.api.http) = {
-            post: "api/v1/employer/register",
+            post: "/api/v1/employer/register",
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -120,8 +119,7 @@ service AuthServuce {
 
     rpc GetNewEmployerActivationCode(GetNewEmployerActivationCodeRequest) returns (GetNewEmployerActivationCodeResponse) {
         option (google.api.http) = {
-            get: "api/v1/employer/new-activation-code",
-            body: "*"
+            get: "/api/v1/employer/new-activation-code",
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Get new employer activation code"
@@ -132,7 +130,7 @@ service AuthServuce {
 
     rpc LoginEmployer(LoginEmployerRequest) returns (LoginEmployerResponse) {
         option (google.api.http) = {
-            post: "api/v1/employer/login",
+            post: "/api/v1/employer/login",
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -144,7 +142,7 @@ service AuthServuce {
 
     rpc RefreshEmployer(RefreshEmployerRequest) returns (RefreshEmployerResponse) {
         option (google.api.http) = {
-            post: "api/v1/employer/refresh",
+            post: "/api/v1/employer/refresh",
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -156,7 +154,7 @@ service AuthServuce {
 
     rpc GetResetEmployerPasswordCode(GetResetEmployerPasswordCodeRequest) returns (GetResetEmployerPasswordCodeResponse) {
         option (google.api.http) = {
-            post: "api/v1/employer/reset-password/code",
+            post: "/api/v1/employer/reset-password/code",
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -168,7 +166,7 @@ service AuthServuce {
 
     rpc ResetEmployerPassword(ResetEmployerPasswordRequest) returns (ResetEmployerPasswordResponse) {
         option (google.api.http) = {
-            post: "api/v1/employer/reset-password",
+            post: "/api/v1/employer/reset-password",
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -180,7 +178,7 @@ service AuthServuce {
 
     rpc ChangeEmployerPassword(ChangeEmployerPasswordRequest) returns (ChangeEmployerPasswordResponse) {
         option (google.api.http) = {
-            post: "api/v1/employer/change-password",
+            post: "/api/v1/employer/change-password",
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {

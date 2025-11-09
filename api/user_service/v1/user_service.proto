@@ -4,7 +4,118 @@ package user_service.v1;
 
 option go_package = "github.com/ZaiiiRan/job_search_service/user-service/gen/go/user-service/v1;userv1";
 
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/protobuf/timestamp.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+        title: "User Service API";
+        version: "1.0";
+        description: "API for user management";
+    };
+    host: "localhost:8081";
+    schemes: HTTP;
+    schemes: HTTPS;
+    consumes: "application/json";
+    produces: "application/json";
+};
+
+service UserService {
+    rpc ApplicantBatchCreate(ApplicantBatchCreateRequest) returns (ApplicantBatchCreateResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/applicant/batch-create"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Create applicants batch"
+            description: "Creates applicants batch"
+            tags: "applicants"
+        };
+    }
+
+    rpc UpdateApplicant(UpdateApplicantRequest) returns (UpdateApplicantResponse) {
+        option (google.api.http) = {
+            put: "/api/v1/applicant"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Update applicant"
+            description: "Updates applicant"
+            tags: "applicants"
+        };
+    }
+
+    rpc DeleteApplicant(DeleteApplicantRequest) returns (DeleteApplicantResponse) {
+        option (google.api.http) = {
+            delete: "/api/v1/applicant/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Delete applicant"
+            description: "Deletes applicant"
+            tags: "applicants"
+        };
+    }
+
+    rpc QueryApplicants(QueryApplicantsRequest) returns (QueryApplicantsResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/applicant/query"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Query applicants"
+            description: "Returns applicants"
+            tags: "applicants"
+        };
+    }
+
+    rpc EmployerBatchCreate(EmployerBatchCreateRequest) returns (EmployerBatchCreateResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/employer/batch-create"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Create employers batch"
+            description: "Creates employers batch"
+            tags: "employers"
+        };
+    }
+
+    rpc UpdateEmployer(UpdateEmployerRequest) returns (UpdateEmployerResponse) {
+        option (google.api.http) = {
+            put: "/api/v1/employer"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Update employer"
+            description: "Updates employer"
+            tags: "employers"
+        };
+    }
+
+    rpc DeleteEmployer(DeleteEmployerRequest) returns (DeleteEmployerResponse) {
+        option (google.api.http) = {
+            delete: "/api/v1/employer/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Delete employer"
+            description: "Deletes employer"
+            tags: "employers"
+        };
+    }
+
+    rpc QueryEmployers(QueryEmployersRequest) returns (QueryEmployersResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/employer/query"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Query employers"
+            description: "Returns employers"
+            tags: "employers"
+        };
+    }
+}
 
 message Contacts {
     optional string phone_number = 1;
@@ -12,7 +123,12 @@ message Contacts {
 }
 
 message Applicant {
-    int64 id = 1;
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
 
     string first_name = 2;
     string last_name = 3;
@@ -29,8 +145,64 @@ message Applicant {
     google.protobuf.Timestamp updated_at = 12;
 }
 
+message ApplicantBatchCreateRequest {
+    repeated Applicant applicants = 1;
+}
+
+message ApplicantBatchCreateResponse {
+    repeated Applicant applicants = 1;
+}
+
+message UpdateApplicantRequest {
+    Applicant applicant = 1;
+}
+
+message UpdateApplicantResponse {
+    Applicant applicant = 1;
+}
+
+message DeleteApplicantRequest {
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+}
+
+message DeleteApplicantResponse {
+    Applicant applicant = 1;
+}
+
+message QueryApplicantsRequest {
+    repeated int64 ids = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of applicant IDs";
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+    repeated string emails = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of applicant emails";
+            type: STRING;
+        }
+    ];
+    int32 page = 3;
+    int32 page_size = 4;
+}
+
+message QueryApplicantsResponse {
+    repeated Applicant applicants = 1;
+}
+
 message Employer {
-    int64 id = 1;
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
 
     string company_name = 2;
     string city = 3;
@@ -42,4 +214,61 @@ message Employer {
 
     google.protobuf.Timestamp created_at = 8;
     google.protobuf.Timestamp updated_at = 9;
+}
+
+message EmployerBatchCreateRequest {
+    repeated Employer employers = 1;
+}
+
+message EmployerBatchCreateResponse {
+    repeated Employer employers = 1;
+}
+
+message UpdateEmployerRequest {
+    Employer employer = 1;
+}
+
+message UpdateEmployerResponse {
+    Employer employer = 1;
+}
+
+message DeleteEmployerRequest {
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+}
+
+message DeleteEmployerResponse {
+    Employer employer = 1;
+}
+
+message QueryEmployersRequest {
+    repeated int64 ids = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of employer IDs";
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+    repeated string emails = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of employer emails";
+            type: STRING;
+        }
+    ];
+    repeated string company_names = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of company names";
+            type: STRING;
+        }
+    ];
+    int32 page = 4;
+    int32 page_size = 5;
+}
+
+message QueryEmployersResponse {
+    repeated Employer employers = 1;
 }
