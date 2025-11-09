@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS applicants (
     patronymic TEXT,
     birth_date DATE NOT NULL,
     city TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL,
     phone_number TEXT,
     telegram TEXT,
     is_active BOOLEAN NOT NULL DEFAULT FALSE,
@@ -14,6 +14,10 @@ CREATE TABLE IF NOT EXISTS applicants (
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE NOT NULL
 );
+
+CREATE UNIQUE INDEX idx_applicants_email_active_unique
+    ON applicants (email)
+    WHERE is_deleted = FALSE;
 
 CREATE TYPE v1_applicant as (
     id BIGINT,
@@ -35,7 +39,7 @@ CREATE TABLE IF NOT EXISTS employers (
     id BIGSERIAL NOT NULL PRIMARY KEY,
     company_name TEXT NOT NULL,
     city TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL,
     phone_number TEXT,
     telegram TEXT,
     is_active BOOLEAN NOT NULL DEFAULT FALSE,
@@ -43,6 +47,10 @@ CREATE TABLE IF NOT EXISTS employers (
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE NOT NULL
 );
+
+CREATE UNIQUE INDEX idx_applicants_email_active_unique
+    ON applicants (email)
+    WHERE is_deleted = FALSE;
 
 CREATE TYPE v1_employer AS (
     id BIGINT,
@@ -58,6 +66,8 @@ CREATE TYPE v1_employer AS (
 );
 
 -- +goose Down
+DROP INDEX IF EXISTS idx_applicants_email_active_unique;
+DROP INDEX IF EXISTS idx_employers_email_active_unique;
 DROP TABLE IF EXISTS applicants;
 DROP TYPE IF EXISTS v1_applicant;
 DROP TABLE IF EXISTS employer;
