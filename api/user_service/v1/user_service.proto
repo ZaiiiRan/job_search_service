@@ -22,14 +22,14 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 service UserService {
-    rpc ApplicantBatchCreate(ApplicantBatchCreateRequest) returns (ApplicantBatchCreateResponse) {
+    rpc CreateApplicant(CreateApplicantRequest) returns (CreateApplicantResponse) {
         option (google.api.http) = {
-            post: "/api/v1/applicant/batch-create"
+            post: "/api/v1/applicant"
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            summary: "Create applicants batch"
-            description: "Creates applicants batch. Required for registration in the authorization microservice."
+            summary: "Create applicant"
+            description: "Creates applicant. Required for registration in the authorization microservice."
             tags: "applicants"
         };
     }
@@ -69,14 +69,25 @@ service UserService {
         };
     }
 
-    rpc EmployerBatchCreate(EmployerBatchCreateRequest) returns (EmployerBatchCreateResponse) {
+    rpc GetApplicant(GetApplicantRequest) returns (GetApplicantResponse) {
         option (google.api.http) = {
-            post: "/api/v1/employer/batch-create"
+            get: "/api/v1/applicant/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get applicant"
+            description: "Returns applicant by id. Needed to retrieve data in other microservices."
+            tags: "applicants"
+        };
+    }
+
+    rpc CreateEmployer(CreateEmployerRequest) returns (CreateEmployerResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/employer"
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            summary: "Create employers batch"
-            description: "Creates employers batch. Required for registration in the authorization microservice."
+            summary: "Create employer"
+            description: "Creates employer. Required for registration in the authorization microservice."
             tags: "employers"
         };
     }
@@ -115,6 +126,17 @@ service UserService {
             tags: "employers"
         };
     }
+
+    rpc GetEmployer(GetEmployerRequest) returns (GetEmployerResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/employer/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get employer"
+            description: "Returns employer by id. Needed to retrieve data in other microservices."
+            tags: "employers"
+        };
+    }
 }
 
 message Contacts {
@@ -145,12 +167,12 @@ message Applicant {
     google.protobuf.Timestamp updated_at = 12;
 }
 
-message ApplicantBatchCreateRequest {
-    repeated Applicant applicants = 1;
+message CreateApplicantRequest {
+    Applicant applicant = 1;
 }
 
-message ApplicantBatchCreateResponse {
-    repeated Applicant applicants = 1;
+message CreateApplicantResponse {
+    Applicant applicant = 1;
 }
 
 message UpdateApplicantRequest {
@@ -196,6 +218,19 @@ message QueryApplicantsResponse {
     repeated Applicant applicants = 1;
 }
 
+message GetApplicantRequest {
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+}
+
+message GetApplicantResponse {
+    Applicant applicant = 1;
+}
+
 message Employer {
     int64 id = 1 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
@@ -216,12 +251,12 @@ message Employer {
     google.protobuf.Timestamp updated_at = 9;
 }
 
-message EmployerBatchCreateRequest {
-    repeated Employer employers = 1;
+message CreateEmployerRequest {
+    Employer employer = 1;
 }
 
-message EmployerBatchCreateResponse {
-    repeated Employer employers = 1;
+message CreateEmployerResponse {
+    Employer employer = 1;
 }
 
 message UpdateEmployerRequest {
@@ -271,4 +306,17 @@ message QueryEmployersRequest {
 
 message QueryEmployersResponse {
     repeated Employer employers = 1;
+}
+
+message GetEmployerRequest {
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+}
+
+message GetEmployerResponse {
+    Employer employer = 1;
 }

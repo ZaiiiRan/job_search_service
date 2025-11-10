@@ -19,28 +19,32 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_ApplicantBatchCreate_FullMethodName = "/user_service.v1.UserService/ApplicantBatchCreate"
-	UserService_UpdateApplicant_FullMethodName      = "/user_service.v1.UserService/UpdateApplicant"
-	UserService_DeleteApplicant_FullMethodName      = "/user_service.v1.UserService/DeleteApplicant"
-	UserService_QueryApplicants_FullMethodName      = "/user_service.v1.UserService/QueryApplicants"
-	UserService_EmployerBatchCreate_FullMethodName  = "/user_service.v1.UserService/EmployerBatchCreate"
-	UserService_UpdateEmployer_FullMethodName       = "/user_service.v1.UserService/UpdateEmployer"
-	UserService_DeleteEmployer_FullMethodName       = "/user_service.v1.UserService/DeleteEmployer"
-	UserService_QueryEmployers_FullMethodName       = "/user_service.v1.UserService/QueryEmployers"
+	UserService_CreateApplicant_FullMethodName = "/user_service.v1.UserService/CreateApplicant"
+	UserService_UpdateApplicant_FullMethodName = "/user_service.v1.UserService/UpdateApplicant"
+	UserService_DeleteApplicant_FullMethodName = "/user_service.v1.UserService/DeleteApplicant"
+	UserService_QueryApplicants_FullMethodName = "/user_service.v1.UserService/QueryApplicants"
+	UserService_GetApplicant_FullMethodName    = "/user_service.v1.UserService/GetApplicant"
+	UserService_CreateEmployer_FullMethodName  = "/user_service.v1.UserService/CreateEmployer"
+	UserService_UpdateEmployer_FullMethodName  = "/user_service.v1.UserService/UpdateEmployer"
+	UserService_DeleteEmployer_FullMethodName  = "/user_service.v1.UserService/DeleteEmployer"
+	UserService_QueryEmployers_FullMethodName  = "/user_service.v1.UserService/QueryEmployers"
+	UserService_GetEmployer_FullMethodName     = "/user_service.v1.UserService/GetEmployer"
 )
 
 // UserServiceClient is the client API for UserService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
-	ApplicantBatchCreate(ctx context.Context, in *ApplicantBatchCreateRequest, opts ...grpc.CallOption) (*ApplicantBatchCreateResponse, error)
+	CreateApplicant(ctx context.Context, in *CreateApplicantRequest, opts ...grpc.CallOption) (*CreateApplicantResponse, error)
 	UpdateApplicant(ctx context.Context, in *UpdateApplicantRequest, opts ...grpc.CallOption) (*UpdateApplicantResponse, error)
 	DeleteApplicant(ctx context.Context, in *DeleteApplicantRequest, opts ...grpc.CallOption) (*DeleteApplicantResponse, error)
 	QueryApplicants(ctx context.Context, in *QueryApplicantsRequest, opts ...grpc.CallOption) (*QueryApplicantsResponse, error)
-	EmployerBatchCreate(ctx context.Context, in *EmployerBatchCreateRequest, opts ...grpc.CallOption) (*EmployerBatchCreateResponse, error)
+	GetApplicant(ctx context.Context, in *GetApplicantRequest, opts ...grpc.CallOption) (*GetApplicantResponse, error)
+	CreateEmployer(ctx context.Context, in *CreateEmployerRequest, opts ...grpc.CallOption) (*CreateEmployerResponse, error)
 	UpdateEmployer(ctx context.Context, in *UpdateEmployerRequest, opts ...grpc.CallOption) (*UpdateEmployerResponse, error)
 	DeleteEmployer(ctx context.Context, in *DeleteEmployerRequest, opts ...grpc.CallOption) (*DeleteEmployerResponse, error)
 	QueryEmployers(ctx context.Context, in *QueryEmployersRequest, opts ...grpc.CallOption) (*QueryEmployersResponse, error)
+	GetEmployer(ctx context.Context, in *GetEmployerRequest, opts ...grpc.CallOption) (*GetEmployerResponse, error)
 }
 
 type userServiceClient struct {
@@ -51,10 +55,10 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) ApplicantBatchCreate(ctx context.Context, in *ApplicantBatchCreateRequest, opts ...grpc.CallOption) (*ApplicantBatchCreateResponse, error) {
+func (c *userServiceClient) CreateApplicant(ctx context.Context, in *CreateApplicantRequest, opts ...grpc.CallOption) (*CreateApplicantResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ApplicantBatchCreateResponse)
-	err := c.cc.Invoke(ctx, UserService_ApplicantBatchCreate_FullMethodName, in, out, cOpts...)
+	out := new(CreateApplicantResponse)
+	err := c.cc.Invoke(ctx, UserService_CreateApplicant_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -91,10 +95,20 @@ func (c *userServiceClient) QueryApplicants(ctx context.Context, in *QueryApplic
 	return out, nil
 }
 
-func (c *userServiceClient) EmployerBatchCreate(ctx context.Context, in *EmployerBatchCreateRequest, opts ...grpc.CallOption) (*EmployerBatchCreateResponse, error) {
+func (c *userServiceClient) GetApplicant(ctx context.Context, in *GetApplicantRequest, opts ...grpc.CallOption) (*GetApplicantResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(EmployerBatchCreateResponse)
-	err := c.cc.Invoke(ctx, UserService_EmployerBatchCreate_FullMethodName, in, out, cOpts...)
+	out := new(GetApplicantResponse)
+	err := c.cc.Invoke(ctx, UserService_GetApplicant_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) CreateEmployer(ctx context.Context, in *CreateEmployerRequest, opts ...grpc.CallOption) (*CreateEmployerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateEmployerResponse)
+	err := c.cc.Invoke(ctx, UserService_CreateEmployer_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -131,18 +145,30 @@ func (c *userServiceClient) QueryEmployers(ctx context.Context, in *QueryEmploye
 	return out, nil
 }
 
+func (c *userServiceClient) GetEmployer(ctx context.Context, in *GetEmployerRequest, opts ...grpc.CallOption) (*GetEmployerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetEmployerResponse)
+	err := c.cc.Invoke(ctx, UserService_GetEmployer_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
 type UserServiceServer interface {
-	ApplicantBatchCreate(context.Context, *ApplicantBatchCreateRequest) (*ApplicantBatchCreateResponse, error)
+	CreateApplicant(context.Context, *CreateApplicantRequest) (*CreateApplicantResponse, error)
 	UpdateApplicant(context.Context, *UpdateApplicantRequest) (*UpdateApplicantResponse, error)
 	DeleteApplicant(context.Context, *DeleteApplicantRequest) (*DeleteApplicantResponse, error)
 	QueryApplicants(context.Context, *QueryApplicantsRequest) (*QueryApplicantsResponse, error)
-	EmployerBatchCreate(context.Context, *EmployerBatchCreateRequest) (*EmployerBatchCreateResponse, error)
+	GetApplicant(context.Context, *GetApplicantRequest) (*GetApplicantResponse, error)
+	CreateEmployer(context.Context, *CreateEmployerRequest) (*CreateEmployerResponse, error)
 	UpdateEmployer(context.Context, *UpdateEmployerRequest) (*UpdateEmployerResponse, error)
 	DeleteEmployer(context.Context, *DeleteEmployerRequest) (*DeleteEmployerResponse, error)
 	QueryEmployers(context.Context, *QueryEmployersRequest) (*QueryEmployersResponse, error)
+	GetEmployer(context.Context, *GetEmployerRequest) (*GetEmployerResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -153,8 +179,8 @@ type UserServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedUserServiceServer struct{}
 
-func (UnimplementedUserServiceServer) ApplicantBatchCreate(context.Context, *ApplicantBatchCreateRequest) (*ApplicantBatchCreateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ApplicantBatchCreate not implemented")
+func (UnimplementedUserServiceServer) CreateApplicant(context.Context, *CreateApplicantRequest) (*CreateApplicantResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateApplicant not implemented")
 }
 func (UnimplementedUserServiceServer) UpdateApplicant(context.Context, *UpdateApplicantRequest) (*UpdateApplicantResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateApplicant not implemented")
@@ -165,8 +191,11 @@ func (UnimplementedUserServiceServer) DeleteApplicant(context.Context, *DeleteAp
 func (UnimplementedUserServiceServer) QueryApplicants(context.Context, *QueryApplicantsRequest) (*QueryApplicantsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryApplicants not implemented")
 }
-func (UnimplementedUserServiceServer) EmployerBatchCreate(context.Context, *EmployerBatchCreateRequest) (*EmployerBatchCreateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EmployerBatchCreate not implemented")
+func (UnimplementedUserServiceServer) GetApplicant(context.Context, *GetApplicantRequest) (*GetApplicantResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetApplicant not implemented")
+}
+func (UnimplementedUserServiceServer) CreateEmployer(context.Context, *CreateEmployerRequest) (*CreateEmployerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateEmployer not implemented")
 }
 func (UnimplementedUserServiceServer) UpdateEmployer(context.Context, *UpdateEmployerRequest) (*UpdateEmployerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateEmployer not implemented")
@@ -176,6 +205,9 @@ func (UnimplementedUserServiceServer) DeleteEmployer(context.Context, *DeleteEmp
 }
 func (UnimplementedUserServiceServer) QueryEmployers(context.Context, *QueryEmployersRequest) (*QueryEmployersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryEmployers not implemented")
+}
+func (UnimplementedUserServiceServer) GetEmployer(context.Context, *GetEmployerRequest) (*GetEmployerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEmployer not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -198,20 +230,20 @@ func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
 	s.RegisterService(&UserService_ServiceDesc, srv)
 }
 
-func _UserService_ApplicantBatchCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ApplicantBatchCreateRequest)
+func _UserService_CreateApplicant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateApplicantRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).ApplicantBatchCreate(ctx, in)
+		return srv.(UserServiceServer).CreateApplicant(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_ApplicantBatchCreate_FullMethodName,
+		FullMethod: UserService_CreateApplicant_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).ApplicantBatchCreate(ctx, req.(*ApplicantBatchCreateRequest))
+		return srv.(UserServiceServer).CreateApplicant(ctx, req.(*CreateApplicantRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -270,20 +302,38 @@ func _UserService_QueryApplicants_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_EmployerBatchCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EmployerBatchCreateRequest)
+func _UserService_GetApplicant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetApplicantRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).EmployerBatchCreate(ctx, in)
+		return srv.(UserServiceServer).GetApplicant(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_EmployerBatchCreate_FullMethodName,
+		FullMethod: UserService_GetApplicant_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).EmployerBatchCreate(ctx, req.(*EmployerBatchCreateRequest))
+		return srv.(UserServiceServer).GetApplicant(ctx, req.(*GetApplicantRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_CreateEmployer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateEmployerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).CreateEmployer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_CreateEmployer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).CreateEmployer(ctx, req.(*CreateEmployerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -342,6 +392,24 @@ func _UserService_QueryEmployers_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetEmployer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEmployerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetEmployer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetEmployer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetEmployer(ctx, req.(*GetEmployerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -350,8 +418,8 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "ApplicantBatchCreate",
-			Handler:    _UserService_ApplicantBatchCreate_Handler,
+			MethodName: "CreateApplicant",
+			Handler:    _UserService_CreateApplicant_Handler,
 		},
 		{
 			MethodName: "UpdateApplicant",
@@ -366,8 +434,12 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_QueryApplicants_Handler,
 		},
 		{
-			MethodName: "EmployerBatchCreate",
-			Handler:    _UserService_EmployerBatchCreate_Handler,
+			MethodName: "GetApplicant",
+			Handler:    _UserService_GetApplicant_Handler,
+		},
+		{
+			MethodName: "CreateEmployer",
+			Handler:    _UserService_CreateEmployer_Handler,
 		},
 		{
 			MethodName: "UpdateEmployer",
@@ -380,6 +452,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "QueryEmployers",
 			Handler:    _UserService_QueryEmployers_Handler,
+		},
+		{
+			MethodName: "GetEmployer",
+			Handler:    _UserService_GetEmployer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

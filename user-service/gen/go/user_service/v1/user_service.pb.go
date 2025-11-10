@@ -208,27 +208,27 @@ func (x *Applicant) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
-type ApplicantBatchCreateRequest struct {
+type CreateApplicantRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Applicants    []*Applicant           `protobuf:"bytes,1,rep,name=applicants,proto3" json:"applicants,omitempty"`
+	Applicant     *Applicant             `protobuf:"bytes,1,opt,name=applicant,proto3" json:"applicant,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ApplicantBatchCreateRequest) Reset() {
-	*x = ApplicantBatchCreateRequest{}
+func (x *CreateApplicantRequest) Reset() {
+	*x = CreateApplicantRequest{}
 	mi := &file_user_service_v1_user_service_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ApplicantBatchCreateRequest) String() string {
+func (x *CreateApplicantRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ApplicantBatchCreateRequest) ProtoMessage() {}
+func (*CreateApplicantRequest) ProtoMessage() {}
 
-func (x *ApplicantBatchCreateRequest) ProtoReflect() protoreflect.Message {
+func (x *CreateApplicantRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_user_service_v1_user_service_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -240,39 +240,39 @@ func (x *ApplicantBatchCreateRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ApplicantBatchCreateRequest.ProtoReflect.Descriptor instead.
-func (*ApplicantBatchCreateRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateApplicantRequest.ProtoReflect.Descriptor instead.
+func (*CreateApplicantRequest) Descriptor() ([]byte, []int) {
 	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *ApplicantBatchCreateRequest) GetApplicants() []*Applicant {
+func (x *CreateApplicantRequest) GetApplicant() *Applicant {
 	if x != nil {
-		return x.Applicants
+		return x.Applicant
 	}
 	return nil
 }
 
-type ApplicantBatchCreateResponse struct {
+type CreateApplicantResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Applicants    []*Applicant           `protobuf:"bytes,1,rep,name=applicants,proto3" json:"applicants,omitempty"`
+	Applicant     *Applicant             `protobuf:"bytes,1,opt,name=applicant,proto3" json:"applicant,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ApplicantBatchCreateResponse) Reset() {
-	*x = ApplicantBatchCreateResponse{}
+func (x *CreateApplicantResponse) Reset() {
+	*x = CreateApplicantResponse{}
 	mi := &file_user_service_v1_user_service_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ApplicantBatchCreateResponse) String() string {
+func (x *CreateApplicantResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ApplicantBatchCreateResponse) ProtoMessage() {}
+func (*CreateApplicantResponse) ProtoMessage() {}
 
-func (x *ApplicantBatchCreateResponse) ProtoReflect() protoreflect.Message {
+func (x *CreateApplicantResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_user_service_v1_user_service_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -284,14 +284,14 @@ func (x *ApplicantBatchCreateResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ApplicantBatchCreateResponse.ProtoReflect.Descriptor instead.
-func (*ApplicantBatchCreateResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateApplicantResponse.ProtoReflect.Descriptor instead.
+func (*CreateApplicantResponse) Descriptor() ([]byte, []int) {
 	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *ApplicantBatchCreateResponse) GetApplicants() []*Applicant {
+func (x *CreateApplicantResponse) GetApplicant() *Applicant {
 	if x != nil {
-		return x.Applicants
+		return x.Applicant
 	}
 	return nil
 }
@@ -584,6 +584,94 @@ func (x *QueryApplicantsResponse) GetApplicants() []*Applicant {
 	return nil
 }
 
+type GetApplicantRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetApplicantRequest) Reset() {
+	*x = GetApplicantRequest{}
+	mi := &file_user_service_v1_user_service_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetApplicantRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetApplicantRequest) ProtoMessage() {}
+
+func (x *GetApplicantRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_service_v1_user_service_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetApplicantRequest.ProtoReflect.Descriptor instead.
+func (*GetApplicantRequest) Descriptor() ([]byte, []int) {
+	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GetApplicantRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type GetApplicantResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Applicant     *Applicant             `protobuf:"bytes,1,opt,name=applicant,proto3" json:"applicant,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetApplicantResponse) Reset() {
+	*x = GetApplicantResponse{}
+	mi := &file_user_service_v1_user_service_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetApplicantResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetApplicantResponse) ProtoMessage() {}
+
+func (x *GetApplicantResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_service_v1_user_service_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetApplicantResponse.ProtoReflect.Descriptor instead.
+func (*GetApplicantResponse) Descriptor() ([]byte, []int) {
+	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetApplicantResponse) GetApplicant() *Applicant {
+	if x != nil {
+		return x.Applicant
+	}
+	return nil
+}
+
 type Employer struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -601,7 +689,7 @@ type Employer struct {
 
 func (x *Employer) Reset() {
 	*x = Employer{}
-	mi := &file_user_service_v1_user_service_proto_msgTypes[10]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -613,7 +701,7 @@ func (x *Employer) String() string {
 func (*Employer) ProtoMessage() {}
 
 func (x *Employer) ProtoReflect() protoreflect.Message {
-	mi := &file_user_service_v1_user_service_proto_msgTypes[10]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -626,7 +714,7 @@ func (x *Employer) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Employer.ProtoReflect.Descriptor instead.
 func (*Employer) Descriptor() ([]byte, []int) {
-	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{10}
+	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *Employer) GetId() int64 {
@@ -692,28 +780,28 @@ func (x *Employer) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
-type EmployerBatchCreateRequest struct {
+type CreateEmployerRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Employers     []*Employer            `protobuf:"bytes,1,rep,name=employers,proto3" json:"employers,omitempty"`
+	Employer      *Employer              `protobuf:"bytes,1,opt,name=employer,proto3" json:"employer,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *EmployerBatchCreateRequest) Reset() {
-	*x = EmployerBatchCreateRequest{}
-	mi := &file_user_service_v1_user_service_proto_msgTypes[11]
+func (x *CreateEmployerRequest) Reset() {
+	*x = CreateEmployerRequest{}
+	mi := &file_user_service_v1_user_service_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *EmployerBatchCreateRequest) String() string {
+func (x *CreateEmployerRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*EmployerBatchCreateRequest) ProtoMessage() {}
+func (*CreateEmployerRequest) ProtoMessage() {}
 
-func (x *EmployerBatchCreateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_user_service_v1_user_service_proto_msgTypes[11]
+func (x *CreateEmployerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_service_v1_user_service_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -724,40 +812,40 @@ func (x *EmployerBatchCreateRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use EmployerBatchCreateRequest.ProtoReflect.Descriptor instead.
-func (*EmployerBatchCreateRequest) Descriptor() ([]byte, []int) {
-	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{11}
+// Deprecated: Use CreateEmployerRequest.ProtoReflect.Descriptor instead.
+func (*CreateEmployerRequest) Descriptor() ([]byte, []int) {
+	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{13}
 }
 
-func (x *EmployerBatchCreateRequest) GetEmployers() []*Employer {
+func (x *CreateEmployerRequest) GetEmployer() *Employer {
 	if x != nil {
-		return x.Employers
+		return x.Employer
 	}
 	return nil
 }
 
-type EmployerBatchCreateResponse struct {
+type CreateEmployerResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Employers     []*Employer            `protobuf:"bytes,1,rep,name=employers,proto3" json:"employers,omitempty"`
+	Employer      *Employer              `protobuf:"bytes,1,opt,name=employer,proto3" json:"employer,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *EmployerBatchCreateResponse) Reset() {
-	*x = EmployerBatchCreateResponse{}
-	mi := &file_user_service_v1_user_service_proto_msgTypes[12]
+func (x *CreateEmployerResponse) Reset() {
+	*x = CreateEmployerResponse{}
+	mi := &file_user_service_v1_user_service_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *EmployerBatchCreateResponse) String() string {
+func (x *CreateEmployerResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*EmployerBatchCreateResponse) ProtoMessage() {}
+func (*CreateEmployerResponse) ProtoMessage() {}
 
-func (x *EmployerBatchCreateResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_service_v1_user_service_proto_msgTypes[12]
+func (x *CreateEmployerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_service_v1_user_service_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -768,14 +856,14 @@ func (x *EmployerBatchCreateResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use EmployerBatchCreateResponse.ProtoReflect.Descriptor instead.
-func (*EmployerBatchCreateResponse) Descriptor() ([]byte, []int) {
-	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{12}
+// Deprecated: Use CreateEmployerResponse.ProtoReflect.Descriptor instead.
+func (*CreateEmployerResponse) Descriptor() ([]byte, []int) {
+	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{14}
 }
 
-func (x *EmployerBatchCreateResponse) GetEmployers() []*Employer {
+func (x *CreateEmployerResponse) GetEmployer() *Employer {
 	if x != nil {
-		return x.Employers
+		return x.Employer
 	}
 	return nil
 }
@@ -789,7 +877,7 @@ type UpdateEmployerRequest struct {
 
 func (x *UpdateEmployerRequest) Reset() {
 	*x = UpdateEmployerRequest{}
-	mi := &file_user_service_v1_user_service_proto_msgTypes[13]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -801,7 +889,7 @@ func (x *UpdateEmployerRequest) String() string {
 func (*UpdateEmployerRequest) ProtoMessage() {}
 
 func (x *UpdateEmployerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_user_service_v1_user_service_proto_msgTypes[13]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -814,7 +902,7 @@ func (x *UpdateEmployerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateEmployerRequest.ProtoReflect.Descriptor instead.
 func (*UpdateEmployerRequest) Descriptor() ([]byte, []int) {
-	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{13}
+	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *UpdateEmployerRequest) GetEmployer() *Employer {
@@ -833,7 +921,7 @@ type UpdateEmployerResponse struct {
 
 func (x *UpdateEmployerResponse) Reset() {
 	*x = UpdateEmployerResponse{}
-	mi := &file_user_service_v1_user_service_proto_msgTypes[14]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -845,7 +933,7 @@ func (x *UpdateEmployerResponse) String() string {
 func (*UpdateEmployerResponse) ProtoMessage() {}
 
 func (x *UpdateEmployerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_service_v1_user_service_proto_msgTypes[14]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -858,7 +946,7 @@ func (x *UpdateEmployerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateEmployerResponse.ProtoReflect.Descriptor instead.
 func (*UpdateEmployerResponse) Descriptor() ([]byte, []int) {
-	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{14}
+	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *UpdateEmployerResponse) GetEmployer() *Employer {
@@ -877,7 +965,7 @@ type DeleteEmployerRequest struct {
 
 func (x *DeleteEmployerRequest) Reset() {
 	*x = DeleteEmployerRequest{}
-	mi := &file_user_service_v1_user_service_proto_msgTypes[15]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -889,7 +977,7 @@ func (x *DeleteEmployerRequest) String() string {
 func (*DeleteEmployerRequest) ProtoMessage() {}
 
 func (x *DeleteEmployerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_user_service_v1_user_service_proto_msgTypes[15]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -902,7 +990,7 @@ func (x *DeleteEmployerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteEmployerRequest.ProtoReflect.Descriptor instead.
 func (*DeleteEmployerRequest) Descriptor() ([]byte, []int) {
-	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{15}
+	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *DeleteEmployerRequest) GetId() int64 {
@@ -921,7 +1009,7 @@ type DeleteEmployerResponse struct {
 
 func (x *DeleteEmployerResponse) Reset() {
 	*x = DeleteEmployerResponse{}
-	mi := &file_user_service_v1_user_service_proto_msgTypes[16]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -933,7 +1021,7 @@ func (x *DeleteEmployerResponse) String() string {
 func (*DeleteEmployerResponse) ProtoMessage() {}
 
 func (x *DeleteEmployerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_service_v1_user_service_proto_msgTypes[16]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -946,7 +1034,7 @@ func (x *DeleteEmployerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteEmployerResponse.ProtoReflect.Descriptor instead.
 func (*DeleteEmployerResponse) Descriptor() ([]byte, []int) {
-	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{16}
+	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *DeleteEmployerResponse) GetEmployer() *Employer {
@@ -969,7 +1057,7 @@ type QueryEmployersRequest struct {
 
 func (x *QueryEmployersRequest) Reset() {
 	*x = QueryEmployersRequest{}
-	mi := &file_user_service_v1_user_service_proto_msgTypes[17]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -981,7 +1069,7 @@ func (x *QueryEmployersRequest) String() string {
 func (*QueryEmployersRequest) ProtoMessage() {}
 
 func (x *QueryEmployersRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_user_service_v1_user_service_proto_msgTypes[17]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -994,7 +1082,7 @@ func (x *QueryEmployersRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryEmployersRequest.ProtoReflect.Descriptor instead.
 func (*QueryEmployersRequest) Descriptor() ([]byte, []int) {
-	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{17}
+	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *QueryEmployersRequest) GetIds() []int64 {
@@ -1041,7 +1129,7 @@ type QueryEmployersResponse struct {
 
 func (x *QueryEmployersResponse) Reset() {
 	*x = QueryEmployersResponse{}
-	mi := &file_user_service_v1_user_service_proto_msgTypes[18]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1053,7 +1141,7 @@ func (x *QueryEmployersResponse) String() string {
 func (*QueryEmployersResponse) ProtoMessage() {}
 
 func (x *QueryEmployersResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_service_v1_user_service_proto_msgTypes[18]
+	mi := &file_user_service_v1_user_service_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1066,12 +1154,100 @@ func (x *QueryEmployersResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QueryEmployersResponse.ProtoReflect.Descriptor instead.
 func (*QueryEmployersResponse) Descriptor() ([]byte, []int) {
-	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{18}
+	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *QueryEmployersResponse) GetEmployers() []*Employer {
 	if x != nil {
 		return x.Employers
+	}
+	return nil
+}
+
+type GetEmployerRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetEmployerRequest) Reset() {
+	*x = GetEmployerRequest{}
+	mi := &file_user_service_v1_user_service_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetEmployerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetEmployerRequest) ProtoMessage() {}
+
+func (x *GetEmployerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_service_v1_user_service_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetEmployerRequest.ProtoReflect.Descriptor instead.
+func (*GetEmployerRequest) Descriptor() ([]byte, []int) {
+	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *GetEmployerRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type GetEmployerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Employer      *Employer              `protobuf:"bytes,1,opt,name=employer,proto3" json:"employer,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetEmployerResponse) Reset() {
+	*x = GetEmployerResponse{}
+	mi := &file_user_service_v1_user_service_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetEmployerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetEmployerResponse) ProtoMessage() {}
+
+func (x *GetEmployerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_service_v1_user_service_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetEmployerResponse.ProtoReflect.Descriptor instead.
+func (*GetEmployerResponse) Descriptor() ([]byte, []int) {
+	return file_user_service_v1_user_service_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *GetEmployerResponse) GetEmployer() *Employer {
+	if x != nil {
+		return x.Employer
 	}
 	return nil
 }
@@ -1107,15 +1283,11 @@ const file_user_service_v1_user_service_proto_rawDesc = "" +
 	"created_at\x18\v \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
 	"updated_at\x18\f \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAtB\r\n" +
-	"\v_patronymic\"Y\n" +
-	"\x1bApplicantBatchCreateRequest\x12:\n" +
-	"\n" +
-	"applicants\x18\x01 \x03(\v2\x1a.user_service.v1.ApplicantR\n" +
-	"applicants\"Z\n" +
-	"\x1cApplicantBatchCreateResponse\x12:\n" +
-	"\n" +
-	"applicants\x18\x01 \x03(\v2\x1a.user_service.v1.ApplicantR\n" +
-	"applicants\"R\n" +
+	"\v_patronymic\"R\n" +
+	"\x16CreateApplicantRequest\x128\n" +
+	"\tapplicant\x18\x01 \x01(\v2\x1a.user_service.v1.ApplicantR\tapplicant\"S\n" +
+	"\x17CreateApplicantResponse\x128\n" +
+	"\tapplicant\x18\x01 \x01(\v2\x1a.user_service.v1.ApplicantR\tapplicant\"R\n" +
 	"\x16UpdateApplicantRequest\x128\n" +
 	"\tapplicant\x18\x01 \x01(\v2\x1a.user_service.v1.ApplicantR\tapplicant\"S\n" +
 	"\x17UpdateApplicantResponse\x128\n" +
@@ -1132,7 +1304,11 @@ const file_user_service_v1_user_service_proto_rawDesc = "" +
 	"\x17QueryApplicantsResponse\x12:\n" +
 	"\n" +
 	"applicants\x18\x01 \x03(\v2\x1a.user_service.v1.ApplicantR\n" +
-	"applicants\"\xe1\x02\n" +
+	"applicants\"6\n" +
+	"\x13GetApplicantRequest\x12\x1f\n" +
+	"\x02id\x18\x01 \x01(\x03B\x0f\x92A\f\x9a\x02\x01\x03\xa2\x02\x05int64R\x02id\"P\n" +
+	"\x14GetApplicantResponse\x128\n" +
+	"\tapplicant\x18\x01 \x01(\v2\x1a.user_service.v1.ApplicantR\tapplicant\"\xe1\x02\n" +
 	"\bEmployer\x12\x1f\n" +
 	"\x02id\x18\x01 \x01(\x03B\x0f\x92A\f\x9a\x02\x01\x03\xa2\x02\x05int64R\x02id\x12!\n" +
 	"\fcompany_name\x18\x02 \x01(\tR\vcompanyName\x12\x12\n" +
@@ -1145,11 +1321,11 @@ const file_user_service_v1_user_service_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"U\n" +
-	"\x1aEmployerBatchCreateRequest\x127\n" +
-	"\temployers\x18\x01 \x03(\v2\x19.user_service.v1.EmployerR\temployers\"V\n" +
-	"\x1bEmployerBatchCreateResponse\x127\n" +
-	"\temployers\x18\x01 \x03(\v2\x19.user_service.v1.EmployerR\temployers\"N\n" +
+	"updated_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"N\n" +
+	"\x15CreateEmployerRequest\x125\n" +
+	"\bemployer\x18\x01 \x01(\v2\x19.user_service.v1.EmployerR\bemployer\"O\n" +
+	"\x16CreateEmployerResponse\x125\n" +
+	"\bemployer\x18\x01 \x01(\v2\x19.user_service.v1.EmployerR\bemployer\"N\n" +
 	"\x15UpdateEmployerRequest\x125\n" +
 	"\bemployer\x18\x01 \x01(\v2\x19.user_service.v1.EmployerR\bemployer\"O\n" +
 	"\x16UpdateEmployerResponse\x125\n" +
@@ -1165,11 +1341,15 @@ const file_user_service_v1_user_service_proto_rawDesc = "" +
 	"\x04page\x18\x04 \x01(\x05R\x04page\x12\x1b\n" +
 	"\tpage_size\x18\x05 \x01(\x05R\bpageSize\"Q\n" +
 	"\x16QueryEmployersResponse\x127\n" +
-	"\temployers\x18\x01 \x03(\v2\x19.user_service.v1.EmployerR\temployers2\x8b\x10\n" +
-	"\vUserService\x12\x9f\x02\n" +
-	"\x14ApplicantBatchCreate\x12,.user_service.v1.ApplicantBatchCreateRequest\x1a-.user_service.v1.ApplicantBatchCreateResponse\"\xa9\x01\x92A}\n" +
+	"\temployers\x18\x01 \x03(\v2\x19.user_service.v1.EmployerR\temployers\"5\n" +
+	"\x12GetEmployerRequest\x12\x1f\n" +
+	"\x02id\x18\x01 \x01(\x03B\x0f\x92A\f\x9a\x02\x01\x03\xa2\x02\x05int64R\x02id\"L\n" +
+	"\x13GetEmployerResponse\x125\n" +
+	"\bemployer\x18\x01 \x01(\v2\x19.user_service.v1.EmployerR\bemployer2\xfe\x12\n" +
+	"\vUserService\x12\xf5\x01\n" +
+	"\x0fCreateApplicant\x12'.user_service.v1.CreateApplicantRequest\x1a(.user_service.v1.CreateApplicantResponse\"\x8e\x01\x92Ao\n" +
 	"\n" +
-	"applicants\x12\x17Create applicants batch\x1aVCreates applicants batch. Required for registration in the authorization microservice.\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/api/v1/applicant/batch-create\x12\xfa\x01\n" +
+	"applicants\x12\x10Create applicant\x1aOCreates applicant. Required for registration in the authorization microservice.\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/api/v1/applicant\x12\xfa\x01\n" +
 	"\x0fUpdateApplicant\x12'.user_service.v1.UpdateApplicantRequest\x1a(.user_service.v1.UpdateApplicantResponse\"\x93\x01\x92At\n" +
 	"\n" +
 	"applicants\x12\x10Update applicant\x1aTUpdates applicant. Can only be called by an authorized user to update their profile.\x82\xd3\xe4\x93\x02\x16:\x01*\x1a\x11/api/v1/applicant\x12\xf9\x01\n" +
@@ -1178,15 +1358,20 @@ const file_user_service_v1_user_service_proto_rawDesc = "" +
 	"applicants\x12\x10Delete applicant\x1aQDeletes applicant. Only an authorized user can call this to delete their profile.\x82\xd3\xe4\x93\x02\x18*\x16/api/v1/applicant/{id}\x12\xef\x01\n" +
 	"\x0fQueryApplicants\x12'.user_service.v1.QueryApplicantsRequest\x1a(.user_service.v1.QueryApplicantsResponse\"\x88\x01\x92Ac\n" +
 	"\n" +
-	"applicants\x12\x10Query applicants\x1aCReturns applicants. Needed to retrieve data in other microservices.\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/api/v1/applicant/query\x12\x98\x02\n" +
-	"\x13EmployerBatchCreate\x12+.user_service.v1.EmployerBatchCreateRequest\x1a,.user_service.v1.EmployerBatchCreateResponse\"\xa5\x01\x92Az\n" +
-	"\temployers\x12\x16Create employers batch\x1aUCreates employers batch. Required for registration in the authorization microservice.\x82\xd3\xe4\x93\x02\":\x01*\"\x1d/api/v1/employer/batch-create\x12\xf3\x01\n" +
+	"applicants\x12\x10Query applicants\x1aCReturns applicants. Needed to retrieve data in other microservices.\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/api/v1/applicant/query\x12\xe4\x01\n" +
+	"\fGetApplicant\x12$.user_service.v1.GetApplicantRequest\x1a%.user_service.v1.GetApplicantResponse\"\x86\x01\x92Ae\n" +
+	"\n" +
+	"applicants\x12\rGet applicant\x1aHReturns applicant by id. Needed to retrieve data in other microservices.\x82\xd3\xe4\x93\x02\x18\x12\x16/api/v1/applicant/{id}\x12\xee\x01\n" +
+	"\x0eCreateEmployer\x12&.user_service.v1.CreateEmployerRequest\x1a'.user_service.v1.CreateEmployerResponse\"\x8a\x01\x92Al\n" +
+	"\temployers\x12\x0fCreate employer\x1aNCreates employer. Required for registration in the authorization microservice.\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/api/v1/employer\x12\xf3\x01\n" +
 	"\x0eUpdateEmployer\x12&.user_service.v1.UpdateEmployerRequest\x1a'.user_service.v1.UpdateEmployerResponse\"\x8f\x01\x92Aq\n" +
 	"\temployers\x12\x0fUpdate employer\x1aSUpdates employer. Can only be called by an authorized user to update their profile.\x82\xd3\xe4\x93\x02\x15:\x01*\x1a\x10/api/v1/employer\x12\xf2\x01\n" +
 	"\x0eDeleteEmployer\x12&.user_service.v1.DeleteEmployerRequest\x1a'.user_service.v1.DeleteEmployerResponse\"\x8e\x01\x92An\n" +
 	"\temployers\x12\x0fDelete employer\x1aPDeletes employer. Only an authorized user can call this to delete their profile.\x82\xd3\xe4\x93\x02\x17*\x15/api/v1/employer/{id}\x12\xe8\x01\n" +
 	"\x0eQueryEmployers\x12&.user_service.v1.QueryEmployersRequest\x1a'.user_service.v1.QueryEmployersResponse\"\x84\x01\x92A`\n" +
-	"\temployers\x12\x0fQuery employers\x1aBReturns employers. Needed to retrieve data in other microservices.\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/api/v1/employer/queryB\xc0\x01\x92Aj\x120\n" +
+	"\temployers\x12\x0fQuery employers\x1aBReturns employers. Needed to retrieve data in other microservices.\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/api/v1/employer/query\x12\xdd\x01\n" +
+	"\vGetEmployer\x12#.user_service.v1.GetEmployerRequest\x1a$.user_service.v1.GetEmployerResponse\"\x82\x01\x92Ab\n" +
+	"\temployers\x12\fGet employer\x1aGReturns employer by id. Needed to retrieve data in other microservices.\x82\xd3\xe4\x93\x02\x17\x12\x15/api/v1/employer/{id}B\xc0\x01\x92Aj\x120\n" +
 	"\x10User Service API\x12\x17API for user management2\x031.0\x1a\x0elocalhost:8081*\x02\x01\x022\x10application/json:\x10application/jsonZQgithub.com/ZaiiiRan/job_search_service/user-service/gen/go/user-service/v1;userv1b\x06proto3"
 
 var (
@@ -1201,69 +1386,79 @@ func file_user_service_v1_user_service_proto_rawDescGZIP() []byte {
 	return file_user_service_v1_user_service_proto_rawDescData
 }
 
-var file_user_service_v1_user_service_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
+var file_user_service_v1_user_service_proto_msgTypes = make([]protoimpl.MessageInfo, 23)
 var file_user_service_v1_user_service_proto_goTypes = []any{
-	(*Contacts)(nil),                     // 0: user_service.v1.Contacts
-	(*Applicant)(nil),                    // 1: user_service.v1.Applicant
-	(*ApplicantBatchCreateRequest)(nil),  // 2: user_service.v1.ApplicantBatchCreateRequest
-	(*ApplicantBatchCreateResponse)(nil), // 3: user_service.v1.ApplicantBatchCreateResponse
-	(*UpdateApplicantRequest)(nil),       // 4: user_service.v1.UpdateApplicantRequest
-	(*UpdateApplicantResponse)(nil),      // 5: user_service.v1.UpdateApplicantResponse
-	(*DeleteApplicantRequest)(nil),       // 6: user_service.v1.DeleteApplicantRequest
-	(*DeleteApplicantResponse)(nil),      // 7: user_service.v1.DeleteApplicantResponse
-	(*QueryApplicantsRequest)(nil),       // 8: user_service.v1.QueryApplicantsRequest
-	(*QueryApplicantsResponse)(nil),      // 9: user_service.v1.QueryApplicantsResponse
-	(*Employer)(nil),                     // 10: user_service.v1.Employer
-	(*EmployerBatchCreateRequest)(nil),   // 11: user_service.v1.EmployerBatchCreateRequest
-	(*EmployerBatchCreateResponse)(nil),  // 12: user_service.v1.EmployerBatchCreateResponse
-	(*UpdateEmployerRequest)(nil),        // 13: user_service.v1.UpdateEmployerRequest
-	(*UpdateEmployerResponse)(nil),       // 14: user_service.v1.UpdateEmployerResponse
-	(*DeleteEmployerRequest)(nil),        // 15: user_service.v1.DeleteEmployerRequest
-	(*DeleteEmployerResponse)(nil),       // 16: user_service.v1.DeleteEmployerResponse
-	(*QueryEmployersRequest)(nil),        // 17: user_service.v1.QueryEmployersRequest
-	(*QueryEmployersResponse)(nil),       // 18: user_service.v1.QueryEmployersResponse
-	(*timestamppb.Timestamp)(nil),        // 19: google.protobuf.Timestamp
+	(*Contacts)(nil),                // 0: user_service.v1.Contacts
+	(*Applicant)(nil),               // 1: user_service.v1.Applicant
+	(*CreateApplicantRequest)(nil),  // 2: user_service.v1.CreateApplicantRequest
+	(*CreateApplicantResponse)(nil), // 3: user_service.v1.CreateApplicantResponse
+	(*UpdateApplicantRequest)(nil),  // 4: user_service.v1.UpdateApplicantRequest
+	(*UpdateApplicantResponse)(nil), // 5: user_service.v1.UpdateApplicantResponse
+	(*DeleteApplicantRequest)(nil),  // 6: user_service.v1.DeleteApplicantRequest
+	(*DeleteApplicantResponse)(nil), // 7: user_service.v1.DeleteApplicantResponse
+	(*QueryApplicantsRequest)(nil),  // 8: user_service.v1.QueryApplicantsRequest
+	(*QueryApplicantsResponse)(nil), // 9: user_service.v1.QueryApplicantsResponse
+	(*GetApplicantRequest)(nil),     // 10: user_service.v1.GetApplicantRequest
+	(*GetApplicantResponse)(nil),    // 11: user_service.v1.GetApplicantResponse
+	(*Employer)(nil),                // 12: user_service.v1.Employer
+	(*CreateEmployerRequest)(nil),   // 13: user_service.v1.CreateEmployerRequest
+	(*CreateEmployerResponse)(nil),  // 14: user_service.v1.CreateEmployerResponse
+	(*UpdateEmployerRequest)(nil),   // 15: user_service.v1.UpdateEmployerRequest
+	(*UpdateEmployerResponse)(nil),  // 16: user_service.v1.UpdateEmployerResponse
+	(*DeleteEmployerRequest)(nil),   // 17: user_service.v1.DeleteEmployerRequest
+	(*DeleteEmployerResponse)(nil),  // 18: user_service.v1.DeleteEmployerResponse
+	(*QueryEmployersRequest)(nil),   // 19: user_service.v1.QueryEmployersRequest
+	(*QueryEmployersResponse)(nil),  // 20: user_service.v1.QueryEmployersResponse
+	(*GetEmployerRequest)(nil),      // 21: user_service.v1.GetEmployerRequest
+	(*GetEmployerResponse)(nil),     // 22: user_service.v1.GetEmployerResponse
+	(*timestamppb.Timestamp)(nil),   // 23: google.protobuf.Timestamp
 }
 var file_user_service_v1_user_service_proto_depIdxs = []int32{
 	0,  // 0: user_service.v1.Applicant.contacts:type_name -> user_service.v1.Contacts
-	19, // 1: user_service.v1.Applicant.created_at:type_name -> google.protobuf.Timestamp
-	19, // 2: user_service.v1.Applicant.updated_at:type_name -> google.protobuf.Timestamp
-	1,  // 3: user_service.v1.ApplicantBatchCreateRequest.applicants:type_name -> user_service.v1.Applicant
-	1,  // 4: user_service.v1.ApplicantBatchCreateResponse.applicants:type_name -> user_service.v1.Applicant
+	23, // 1: user_service.v1.Applicant.created_at:type_name -> google.protobuf.Timestamp
+	23, // 2: user_service.v1.Applicant.updated_at:type_name -> google.protobuf.Timestamp
+	1,  // 3: user_service.v1.CreateApplicantRequest.applicant:type_name -> user_service.v1.Applicant
+	1,  // 4: user_service.v1.CreateApplicantResponse.applicant:type_name -> user_service.v1.Applicant
 	1,  // 5: user_service.v1.UpdateApplicantRequest.applicant:type_name -> user_service.v1.Applicant
 	1,  // 6: user_service.v1.UpdateApplicantResponse.applicant:type_name -> user_service.v1.Applicant
 	1,  // 7: user_service.v1.DeleteApplicantResponse.applicant:type_name -> user_service.v1.Applicant
 	1,  // 8: user_service.v1.QueryApplicantsResponse.applicants:type_name -> user_service.v1.Applicant
-	0,  // 9: user_service.v1.Employer.contacts:type_name -> user_service.v1.Contacts
-	19, // 10: user_service.v1.Employer.created_at:type_name -> google.protobuf.Timestamp
-	19, // 11: user_service.v1.Employer.updated_at:type_name -> google.protobuf.Timestamp
-	10, // 12: user_service.v1.EmployerBatchCreateRequest.employers:type_name -> user_service.v1.Employer
-	10, // 13: user_service.v1.EmployerBatchCreateResponse.employers:type_name -> user_service.v1.Employer
-	10, // 14: user_service.v1.UpdateEmployerRequest.employer:type_name -> user_service.v1.Employer
-	10, // 15: user_service.v1.UpdateEmployerResponse.employer:type_name -> user_service.v1.Employer
-	10, // 16: user_service.v1.DeleteEmployerResponse.employer:type_name -> user_service.v1.Employer
-	10, // 17: user_service.v1.QueryEmployersResponse.employers:type_name -> user_service.v1.Employer
-	2,  // 18: user_service.v1.UserService.ApplicantBatchCreate:input_type -> user_service.v1.ApplicantBatchCreateRequest
-	4,  // 19: user_service.v1.UserService.UpdateApplicant:input_type -> user_service.v1.UpdateApplicantRequest
-	6,  // 20: user_service.v1.UserService.DeleteApplicant:input_type -> user_service.v1.DeleteApplicantRequest
-	8,  // 21: user_service.v1.UserService.QueryApplicants:input_type -> user_service.v1.QueryApplicantsRequest
-	11, // 22: user_service.v1.UserService.EmployerBatchCreate:input_type -> user_service.v1.EmployerBatchCreateRequest
-	13, // 23: user_service.v1.UserService.UpdateEmployer:input_type -> user_service.v1.UpdateEmployerRequest
-	15, // 24: user_service.v1.UserService.DeleteEmployer:input_type -> user_service.v1.DeleteEmployerRequest
-	17, // 25: user_service.v1.UserService.QueryEmployers:input_type -> user_service.v1.QueryEmployersRequest
-	3,  // 26: user_service.v1.UserService.ApplicantBatchCreate:output_type -> user_service.v1.ApplicantBatchCreateResponse
-	5,  // 27: user_service.v1.UserService.UpdateApplicant:output_type -> user_service.v1.UpdateApplicantResponse
-	7,  // 28: user_service.v1.UserService.DeleteApplicant:output_type -> user_service.v1.DeleteApplicantResponse
-	9,  // 29: user_service.v1.UserService.QueryApplicants:output_type -> user_service.v1.QueryApplicantsResponse
-	12, // 30: user_service.v1.UserService.EmployerBatchCreate:output_type -> user_service.v1.EmployerBatchCreateResponse
-	14, // 31: user_service.v1.UserService.UpdateEmployer:output_type -> user_service.v1.UpdateEmployerResponse
-	16, // 32: user_service.v1.UserService.DeleteEmployer:output_type -> user_service.v1.DeleteEmployerResponse
-	18, // 33: user_service.v1.UserService.QueryEmployers:output_type -> user_service.v1.QueryEmployersResponse
-	26, // [26:34] is the sub-list for method output_type
-	18, // [18:26] is the sub-list for method input_type
-	18, // [18:18] is the sub-list for extension type_name
-	18, // [18:18] is the sub-list for extension extendee
-	0,  // [0:18] is the sub-list for field type_name
+	1,  // 9: user_service.v1.GetApplicantResponse.applicant:type_name -> user_service.v1.Applicant
+	0,  // 10: user_service.v1.Employer.contacts:type_name -> user_service.v1.Contacts
+	23, // 11: user_service.v1.Employer.created_at:type_name -> google.protobuf.Timestamp
+	23, // 12: user_service.v1.Employer.updated_at:type_name -> google.protobuf.Timestamp
+	12, // 13: user_service.v1.CreateEmployerRequest.employer:type_name -> user_service.v1.Employer
+	12, // 14: user_service.v1.CreateEmployerResponse.employer:type_name -> user_service.v1.Employer
+	12, // 15: user_service.v1.UpdateEmployerRequest.employer:type_name -> user_service.v1.Employer
+	12, // 16: user_service.v1.UpdateEmployerResponse.employer:type_name -> user_service.v1.Employer
+	12, // 17: user_service.v1.DeleteEmployerResponse.employer:type_name -> user_service.v1.Employer
+	12, // 18: user_service.v1.QueryEmployersResponse.employers:type_name -> user_service.v1.Employer
+	12, // 19: user_service.v1.GetEmployerResponse.employer:type_name -> user_service.v1.Employer
+	2,  // 20: user_service.v1.UserService.CreateApplicant:input_type -> user_service.v1.CreateApplicantRequest
+	4,  // 21: user_service.v1.UserService.UpdateApplicant:input_type -> user_service.v1.UpdateApplicantRequest
+	6,  // 22: user_service.v1.UserService.DeleteApplicant:input_type -> user_service.v1.DeleteApplicantRequest
+	8,  // 23: user_service.v1.UserService.QueryApplicants:input_type -> user_service.v1.QueryApplicantsRequest
+	10, // 24: user_service.v1.UserService.GetApplicant:input_type -> user_service.v1.GetApplicantRequest
+	13, // 25: user_service.v1.UserService.CreateEmployer:input_type -> user_service.v1.CreateEmployerRequest
+	15, // 26: user_service.v1.UserService.UpdateEmployer:input_type -> user_service.v1.UpdateEmployerRequest
+	17, // 27: user_service.v1.UserService.DeleteEmployer:input_type -> user_service.v1.DeleteEmployerRequest
+	19, // 28: user_service.v1.UserService.QueryEmployers:input_type -> user_service.v1.QueryEmployersRequest
+	21, // 29: user_service.v1.UserService.GetEmployer:input_type -> user_service.v1.GetEmployerRequest
+	3,  // 30: user_service.v1.UserService.CreateApplicant:output_type -> user_service.v1.CreateApplicantResponse
+	5,  // 31: user_service.v1.UserService.UpdateApplicant:output_type -> user_service.v1.UpdateApplicantResponse
+	7,  // 32: user_service.v1.UserService.DeleteApplicant:output_type -> user_service.v1.DeleteApplicantResponse
+	9,  // 33: user_service.v1.UserService.QueryApplicants:output_type -> user_service.v1.QueryApplicantsResponse
+	11, // 34: user_service.v1.UserService.GetApplicant:output_type -> user_service.v1.GetApplicantResponse
+	14, // 35: user_service.v1.UserService.CreateEmployer:output_type -> user_service.v1.CreateEmployerResponse
+	16, // 36: user_service.v1.UserService.UpdateEmployer:output_type -> user_service.v1.UpdateEmployerResponse
+	18, // 37: user_service.v1.UserService.DeleteEmployer:output_type -> user_service.v1.DeleteEmployerResponse
+	20, // 38: user_service.v1.UserService.QueryEmployers:output_type -> user_service.v1.QueryEmployersResponse
+	22, // 39: user_service.v1.UserService.GetEmployer:output_type -> user_service.v1.GetEmployerResponse
+	30, // [30:40] is the sub-list for method output_type
+	20, // [20:30] is the sub-list for method input_type
+	20, // [20:20] is the sub-list for extension type_name
+	20, // [20:20] is the sub-list for extension extendee
+	0,  // [0:20] is the sub-list for field type_name
 }
 
 func init() { file_user_service_v1_user_service_proto_init() }
@@ -1279,7 +1474,7 @@ func file_user_service_v1_user_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_service_v1_user_service_proto_rawDesc), len(file_user_service_v1_user_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   19,
+			NumMessages:   23,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -23,6 +23,38 @@
   ],
   "paths": {
     "/api/v1/applicant": {
+      "post": {
+        "summary": "Create applicant",
+        "description": "Creates applicant. Required for registration in the authorization microservice.",
+        "operationId": "UserService_CreateApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateApplicantRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      },
       "put": {
         "summary": "Update applicant",
         "description": "Updates applicant. Can only be called by an authorized user to update their profile.",
@@ -48,40 +80,6 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v1UpdateApplicantRequest"
-            }
-          }
-        ],
-        "tags": [
-          "applicants"
-        ]
-      }
-    },
-    "/api/v1/applicant/batch-create": {
-      "post": {
-        "summary": "Create applicants batch",
-        "description": "Creates applicants batch. Required for registration in the authorization microservice.",
-        "operationId": "UserService_ApplicantBatchCreate",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1ApplicantBatchCreateResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1ApplicantBatchCreateRequest"
             }
           }
         ],
@@ -125,6 +123,37 @@
       }
     },
     "/api/v1/applicant/{id}": {
+      "get": {
+        "summary": "Get applicant",
+        "description": "Returns applicant by id. Needed to retrieve data in other microservices.",
+        "operationId": "UserService_GetApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      },
       "delete": {
         "summary": "Delete applicant",
         "description": "Deletes applicant. Only an authorized user can call this to delete their profile.",
@@ -158,6 +187,38 @@
       }
     },
     "/api/v1/employer": {
+      "post": {
+        "summary": "Create employer",
+        "description": "Creates employer. Required for registration in the authorization microservice.",
+        "operationId": "UserService_CreateEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateEmployerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employers"
+        ]
+      },
       "put": {
         "summary": "Update employer",
         "description": "Updates employer. Can only be called by an authorized user to update their profile.",
@@ -183,40 +244,6 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/v1UpdateEmployerRequest"
-            }
-          }
-        ],
-        "tags": [
-          "employers"
-        ]
-      }
-    },
-    "/api/v1/employer/batch-create": {
-      "post": {
-        "summary": "Create employers batch",
-        "description": "Creates employers batch. Required for registration in the authorization microservice.",
-        "operationId": "UserService_EmployerBatchCreate",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1EmployerBatchCreateResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1EmployerBatchCreateRequest"
             }
           }
         ],
@@ -260,6 +287,37 @@
       }
     },
     "/api/v1/employer/{id}": {
+      "get": {
+        "summary": "Get employer",
+        "description": "Returns employer by id. Needed to retrieve data in other microservices.",
+        "operationId": "UserService_GetEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "employers"
+        ]
+      },
       "delete": {
         "summary": "Delete employer",
         "description": "Deletes employer. Only an authorized user can call this to delete their profile.",
@@ -366,30 +424,6 @@
         }
       }
     },
-    "v1ApplicantBatchCreateRequest": {
-      "type": "object",
-      "properties": {
-        "applicants": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1Applicant"
-          }
-        }
-      }
-    },
-    "v1ApplicantBatchCreateResponse": {
-      "type": "object",
-      "properties": {
-        "applicants": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1Applicant"
-          }
-        }
-      }
-    },
     "v1Contacts": {
       "type": "object",
       "properties": {
@@ -398,6 +432,38 @@
         },
         "telegram": {
           "type": "string"
+        }
+      }
+    },
+    "v1CreateApplicantRequest": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1CreateApplicantResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1CreateEmployerRequest": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    },
+    "v1CreateEmployerResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
         }
       }
     },
@@ -452,27 +518,19 @@
         }
       }
     },
-    "v1EmployerBatchCreateRequest": {
+    "v1GetApplicantResponse": {
       "type": "object",
       "properties": {
-        "employers": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1Employer"
-          }
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
         }
       }
     },
-    "v1EmployerBatchCreateResponse": {
+    "v1GetEmployerResponse": {
       "type": "object",
       "properties": {
-        "employers": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/v1Employer"
-          }
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
         }
       }
     },

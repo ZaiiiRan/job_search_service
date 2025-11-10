@@ -15,9 +15,9 @@ func newUserHandler() *userHandler {
 	return &userHandler{}
 }
 
-func (h *userHandler) ApplicantBatchCreate(ctx context.Context, req *pb.ApplicantBatchCreateRequest) (*pb.ApplicantBatchCreateResponse, error) {
-	utils.SanitizeApplicantBatchCreateRequest(req)
-	return &pb.ApplicantBatchCreateResponse{}, nil
+func (h *userHandler) CreateApplicant(ctx context.Context, req *pb.CreateApplicantRequest) (*pb.CreateApplicantResponse, error) {
+	utils.SanitizeCreateApplicantRequest(req)
+	return &pb.CreateApplicantResponse{}, nil
 }
 
 func (h *userHandler) UpdateApplicant(ctx context.Context, req *pb.UpdateApplicantRequest) (*pb.UpdateApplicantResponse, error) {
@@ -34,9 +34,13 @@ func (h *userHandler) QueryApplicants(ctx context.Context, req *pb.QueryApplican
 	return &pb.QueryApplicantsResponse{}, nil
 }
 
-func (h *userHandler) EmployerBatchCreate(ctx context.Context, req *pb.EmployerBatchCreateRequest) (*pb.EmployerBatchCreateResponse, error) {
-	utils.SanitizeEmployerBatchCreateRequest(req)
-	return &pb.EmployerBatchCreateResponse{}, nil
+func (h *userHandler) GetApplicant(ctx context.Context, req *pb.GetApplicantRequest) (*pb.GetApplicantResponse, error) {
+	return &pb.GetApplicantResponse{}, nil
+}
+
+func (h *userHandler) CreateEmployer(ctx context.Context, req *pb.CreateEmployerRequest) (*pb.CreateEmployerResponse, error) {
+	utils.SanitizeCreateEmployerRequest(req)
+	return &pb.CreateEmployerResponse{}, nil
 }
 
 func (h *userHandler) UpdateEmployer(ctx context.Context, req *pb.UpdateEmployerRequest) (*pb.UpdateEmployerResponse, error) {
@@ -51,4 +55,8 @@ func (h *userHandler) DeleteEmployer(ctx context.Context, req *pb.DeleteEmployer
 func (h *userHandler) QueryEmployers(ctx context.Context, req *pb.QueryEmployersRequest) (*pb.QueryEmployersResponse, error) {
 	utils.SanitizeQueryEmployersRequest(req)
 	return &pb.QueryEmployersResponse{}, nil
+}
+
+func (h *userHandler) GetEmployer(ctx context.Context, req *pb.GetEmployerRequest) (*pb.GetEmployerResponse, error) {
+	return &pb.GetEmployerResponse{}, nil
 }

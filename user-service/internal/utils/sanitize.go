@@ -34,10 +34,8 @@ func SanitizeApplicant(applicant *pb.Applicant) {
 	}
 }
 
-func SanitizeApplicantBatchCreateRequest(req *pb.ApplicantBatchCreateRequest) {
-	for _, applicant := range req.Applicants {
-		SanitizeApplicant(applicant)
-	}
+func SanitizeCreateApplicantRequest(req *pb.CreateApplicantRequest) {
+	SanitizeApplicant(req.Applicant)
 }
 
 func SanitizeUpdateApplicantRequest(req *pb.UpdateApplicantRequest) {
@@ -59,10 +57,8 @@ func SanitizeEmployer(employer *pb.Employer) {
 	}
 }
 
-func SanitizeEmployerBatchCreateRequest(req *pb.EmployerBatchCreateRequest) {
-	for _, employer := range req.Employers {
-		SanitizeEmployer(employer)
-	}
+func SanitizeCreateEmployerRequest(req *pb.CreateEmployerRequest) {
+	SanitizeEmployer(req.Employer)
 }
 
 func SanitizeUpdateEmployerRequest(req *pb.UpdateEmployerRequest) {
