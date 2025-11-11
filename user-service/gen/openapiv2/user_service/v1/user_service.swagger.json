@@ -545,12 +545,33 @@
           },
           "description": "List of applicant IDs"
         },
-        "emails": {
+        "fullEmails": {
           "type": "string",
           "items": {
             "type": "string"
           },
           "description": "List of applicant emails"
+        },
+        "substrEmails": {
+          "type": "string",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of applicant email substrings"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
         },
         "page": {
           "type": "integer",
@@ -585,19 +606,47 @@
           },
           "description": "List of employer IDs"
         },
-        "emails": {
+        "fullEmails": {
           "type": "string",
           "items": {
             "type": "string"
           },
           "description": "List of employer emails"
         },
-        "companyNames": {
+        "fullCompanyNames": {
           "type": "string",
           "items": {
             "type": "string"
           },
           "description": "List of company names"
+        },
+        "substrEmails": {
+          "type": "string",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of employer email substrings"
+        },
+        "substrCompanyNames": {
+          "type": "string",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of company name substrings"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
         },
         "page": {
           "type": "integer",

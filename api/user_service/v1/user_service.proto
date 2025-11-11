@@ -204,14 +204,24 @@ message QueryApplicantsRequest {
             format: "int64";
         }
     ];
-    repeated string emails = 2 [
+    repeated string full_emails = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "List of applicant emails";
             type: STRING;
         }
     ];
-    int32 page = 3;
-    int32 page_size = 4;
+    repeated string substr_emails = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of applicant email substrings";
+            type: STRING;
+        }
+    ];
+    optional bool is_active = 4;
+    optional bool is_deleted = 5;
+    optional google.protobuf.Timestamp createdAfter = 6;
+    optional google.protobuf.Timestamp updatedAfter = 7; 
+    int32 page = 8;
+    int32 page_size = 9;
 }
 
 message QueryApplicantsResponse {
@@ -288,20 +298,36 @@ message QueryEmployersRequest {
             format: "int64";
         }
     ];
-    repeated string emails = 2 [
+    repeated string full_emails = 2 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "List of employer emails";
             type: STRING;
         }
     ];
-    repeated string company_names = 3 [
+    repeated string full_company_names = 3 [
         (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
             description: "List of company names";
             type: STRING;
         }
     ];
-    int32 page = 4;
-    int32 page_size = 5;
+    repeated string substr_emails = 4 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of employer email substrings";
+            type: STRING;
+        }
+    ];
+    repeated string substr_company_names = 5 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of company name substrings";
+            type: STRING;
+        }
+    ];
+    optional bool is_active = 6;
+    optional bool is_deleted = 7;
+    optional google.protobuf.Timestamp createdAfter = 8;
+    optional google.protobuf.Timestamp updatedAfter = 9; 
+    int32 page = 10;
+    int32 page_size = 11;
 }
 
 message QueryEmployersResponse {

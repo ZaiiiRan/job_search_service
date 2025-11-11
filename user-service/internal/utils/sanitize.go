@@ -43,8 +43,11 @@ func SanitizeUpdateApplicantRequest(req *pb.UpdateApplicantRequest) {
 }
 
 func SanitizeQueryApplicantsRequest(req *pb.QueryApplicantsRequest) {
-	for _, email := range req.Emails {
-		email = strings.TrimSpace(email)
+	for i, email := range req.FullEmails {
+		req.FullEmails[i] = strings.TrimSpace(email)
+	}
+	for i, emailSubstr := range req.SubstrEmails {
+		req.SubstrEmails[i] = strings.TrimSpace(emailSubstr)
 	}
 }
 
@@ -66,10 +69,16 @@ func SanitizeUpdateEmployerRequest(req *pb.UpdateEmployerRequest) {
 }
 
 func SanitizeQueryEmployersRequest(req *pb.QueryEmployersRequest) {
-	for i, email := range req.Emails {
-		req.Emails[i] = strings.TrimSpace(email)
+	for i, email := range req.FullEmails {
+		req.FullEmails[i] = strings.TrimSpace(email)
 	}
-	for i, companyName := range req.CompanyNames {
-		req.CompanyNames[i] = strings.TrimSpace(companyName)
+	for i, companyName := range req.FullCompanyNames {
+		req.FullCompanyNames[i] = strings.TrimSpace(companyName)
+	}
+	for i, emailSubstr := range req.SubstrEmails {
+		req.SubstrEmails[i] = strings.TrimSpace(emailSubstr)
+	}
+	for i, companyNameSubstr := range req.SubstrCompanyNames {
+		req.SubstrCompanyNames[i] = strings.TrimSpace(companyNameSubstr)
 	}
 }

@@ -11,7 +11,6 @@ import (
 	dal "github.com/ZaiiiRan/job_search_service/user-service/internal/repositories/models"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/postgres"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/redis"
-	"github.com/ZaiiiRan/job_search_service/user-service/internal/utils"
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -94,7 +93,9 @@ func (s *service) QueryApplicants(ctx context.Context, req *pb.QueryApplicantsRe
 		return nil, verr.ToStatus()
 	}
 
-	query := dal.NewQueryApplicantsDal(req.Ids, req.Emails, utils.BoolPtr(true), utils.BoolPtr(false), int(req.Page), int(req.PageSize))
+	query := dal.NewQueryApplicantsDal(req.Ids, req.FullEmails, req.SubstrEmails, 
+		req.IsActive, req.IsDeleted, int(req.Page), int(req.PageSize),
+	)
 	list, err := s.dataProvider.QueryList(ctx, query)
 	if err != nil {
 		l.Errorw("applicant.query_applicants_failed", "err", err)
@@ -171,9 +172,14 @@ func validateQuery(req *pb.QueryApplicantsRequest) validationerror.ValidationErr
 			verr[fmt.Sprintf("ids[%d]", i)] = "id must be positive"
 		}
 	}
-	for i, email := range req.Emails {
+	for i, email := range req.FullEmails {
 		if email == "" {
 			verr[fmt.Sprintf("emails[%d]", i)] = "email cannot be empty"
+		}
+	}
+	for i, emailSubstr := range req.SubstrEmails {
+		if emailSubstr == "" {
+			verr[fmt.Sprintf("substr_emails[%d]", i)] = "email cannot be empty"
 		}
 	}
 

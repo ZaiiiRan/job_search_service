@@ -475,9 +475,14 @@ func (x *DeleteApplicantResponse) GetApplicant() *Applicant {
 type QueryApplicantsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Ids           []int64                `protobuf:"varint,1,rep,packed,name=ids,proto3" json:"ids,omitempty"`
-	Emails        []string               `protobuf:"bytes,2,rep,name=emails,proto3" json:"emails,omitempty"`
-	Page          int32                  `protobuf:"varint,3,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize      int32                  `protobuf:"varint,4,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	FullEmails    []string               `protobuf:"bytes,2,rep,name=full_emails,json=fullEmails,proto3" json:"full_emails,omitempty"`
+	SubstrEmails  []string               `protobuf:"bytes,3,rep,name=substr_emails,json=substrEmails,proto3" json:"substr_emails,omitempty"`
+	IsActive      *bool                  `protobuf:"varint,4,opt,name=is_active,json=isActive,proto3,oneof" json:"is_active,omitempty"`
+	IsDeleted     *bool                  `protobuf:"varint,5,opt,name=is_deleted,json=isDeleted,proto3,oneof" json:"is_deleted,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	Page          int32                  `protobuf:"varint,8,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize      int32                  `protobuf:"varint,9,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -519,9 +524,44 @@ func (x *QueryApplicantsRequest) GetIds() []int64 {
 	return nil
 }
 
-func (x *QueryApplicantsRequest) GetEmails() []string {
+func (x *QueryApplicantsRequest) GetFullEmails() []string {
 	if x != nil {
-		return x.Emails
+		return x.FullEmails
+	}
+	return nil
+}
+
+func (x *QueryApplicantsRequest) GetSubstrEmails() []string {
+	if x != nil {
+		return x.SubstrEmails
+	}
+	return nil
+}
+
+func (x *QueryApplicantsRequest) GetIsActive() bool {
+	if x != nil && x.IsActive != nil {
+		return *x.IsActive
+	}
+	return false
+}
+
+func (x *QueryApplicantsRequest) GetIsDeleted() bool {
+	if x != nil && x.IsDeleted != nil {
+		return *x.IsDeleted
+	}
+	return false
+}
+
+func (x *QueryApplicantsRequest) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *QueryApplicantsRequest) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
 	}
 	return nil
 }
@@ -1045,14 +1085,20 @@ func (x *DeleteEmployerResponse) GetEmployer() *Employer {
 }
 
 type QueryEmployersRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Ids           []int64                `protobuf:"varint,1,rep,packed,name=ids,proto3" json:"ids,omitempty"`
-	Emails        []string               `protobuf:"bytes,2,rep,name=emails,proto3" json:"emails,omitempty"`
-	CompanyNames  []string               `protobuf:"bytes,3,rep,name=company_names,json=companyNames,proto3" json:"company_names,omitempty"`
-	Page          int32                  `protobuf:"varint,4,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize      int32                  `protobuf:"varint,5,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Ids                []int64                `protobuf:"varint,1,rep,packed,name=ids,proto3" json:"ids,omitempty"`
+	FullEmails         []string               `protobuf:"bytes,2,rep,name=full_emails,json=fullEmails,proto3" json:"full_emails,omitempty"`
+	FullCompanyNames   []string               `protobuf:"bytes,3,rep,name=full_company_names,json=fullCompanyNames,proto3" json:"full_company_names,omitempty"`
+	SubstrEmails       []string               `protobuf:"bytes,4,rep,name=substr_emails,json=substrEmails,proto3" json:"substr_emails,omitempty"`
+	SubstrCompanyNames []string               `protobuf:"bytes,5,rep,name=substr_company_names,json=substrCompanyNames,proto3" json:"substr_company_names,omitempty"`
+	IsActive           *bool                  `protobuf:"varint,6,opt,name=is_active,json=isActive,proto3,oneof" json:"is_active,omitempty"`
+	IsDeleted          *bool                  `protobuf:"varint,7,opt,name=is_deleted,json=isDeleted,proto3,oneof" json:"is_deleted,omitempty"`
+	CreatedAt          *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3,oneof" json:"created_at,omitempty"`
+	UpdatedAt          *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3,oneof" json:"updated_at,omitempty"`
+	Page               int32                  `protobuf:"varint,10,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize           int32                  `protobuf:"varint,11,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
 }
 
 func (x *QueryEmployersRequest) Reset() {
@@ -1092,16 +1138,58 @@ func (x *QueryEmployersRequest) GetIds() []int64 {
 	return nil
 }
 
-func (x *QueryEmployersRequest) GetEmails() []string {
+func (x *QueryEmployersRequest) GetFullEmails() []string {
 	if x != nil {
-		return x.Emails
+		return x.FullEmails
 	}
 	return nil
 }
 
-func (x *QueryEmployersRequest) GetCompanyNames() []string {
+func (x *QueryEmployersRequest) GetFullCompanyNames() []string {
 	if x != nil {
-		return x.CompanyNames
+		return x.FullCompanyNames
+	}
+	return nil
+}
+
+func (x *QueryEmployersRequest) GetSubstrEmails() []string {
+	if x != nil {
+		return x.SubstrEmails
+	}
+	return nil
+}
+
+func (x *QueryEmployersRequest) GetSubstrCompanyNames() []string {
+	if x != nil {
+		return x.SubstrCompanyNames
+	}
+	return nil
+}
+
+func (x *QueryEmployersRequest) GetIsActive() bool {
+	if x != nil && x.IsActive != nil {
+		return *x.IsActive
+	}
+	return false
+}
+
+func (x *QueryEmployersRequest) GetIsDeleted() bool {
+	if x != nil && x.IsDeleted != nil {
+		return *x.IsDeleted
+	}
+	return false
+}
+
+func (x *QueryEmployersRequest) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *QueryEmployersRequest) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
 	}
 	return nil
 }
@@ -1295,12 +1383,26 @@ const file_user_service_v1_user_service_proto_rawDesc = "" +
 	"\x16DeleteApplicantRequest\x12\x1f\n" +
 	"\x02id\x18\x01 \x01(\x03B\x0f\x92A\f\x9a\x02\x01\x03\xa2\x02\x05int64R\x02id\"S\n" +
 	"\x17DeleteApplicantResponse\x128\n" +
-	"\tapplicant\x18\x01 \x01(\v2\x1a.user_service.v1.ApplicantR\tapplicant\"\xbe\x01\n" +
+	"\tapplicant\x18\x01 \x01(\v2\x1a.user_service.v1.ApplicantR\tapplicant\"\x9a\x04\n" +
 	"\x16QueryApplicantsRequest\x128\n" +
-	"\x03ids\x18\x01 \x03(\x03B&\x92A#2\x15List of applicant IDs\x9a\x02\x01\x03\xa2\x02\x05int64R\x03ids\x129\n" +
-	"\x06emails\x18\x02 \x03(\tB!\x92A\x1e2\x18List of applicant emails\x9a\x02\x01\aR\x06emails\x12\x12\n" +
-	"\x04page\x18\x03 \x01(\x05R\x04page\x12\x1b\n" +
-	"\tpage_size\x18\x04 \x01(\x05R\bpageSize\"U\n" +
+	"\x03ids\x18\x01 \x03(\x03B&\x92A#2\x15List of applicant IDs\x9a\x02\x01\x03\xa2\x02\x05int64R\x03ids\x12B\n" +
+	"\vfull_emails\x18\x02 \x03(\tB!\x92A\x1e2\x18List of applicant emails\x9a\x02\x01\aR\n" +
+	"fullEmails\x12P\n" +
+	"\rsubstr_emails\x18\x03 \x03(\tB+\x92A(2\"List of applicant email substrings\x9a\x02\x01\aR\fsubstrEmails\x12 \n" +
+	"\tis_active\x18\x04 \x01(\bH\x00R\bisActive\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"is_deleted\x18\x05 \x01(\bH\x01R\tisDeleted\x88\x01\x01\x12>\n" +
+	"\n" +
+	"created_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampH\x02R\tcreatedAt\x88\x01\x01\x12>\n" +
+	"\n" +
+	"updated_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampH\x03R\tupdatedAt\x88\x01\x01\x12\x12\n" +
+	"\x04page\x18\b \x01(\x05R\x04page\x12\x1b\n" +
+	"\tpage_size\x18\t \x01(\x05R\bpageSizeB\f\n" +
+	"\n" +
+	"_is_activeB\r\n" +
+	"\v_is_deletedB\r\n" +
+	"\v_created_atB\r\n" +
+	"\v_updated_at\"U\n" +
 	"\x17QueryApplicantsResponse\x12:\n" +
 	"\n" +
 	"applicants\x18\x01 \x03(\v2\x1a.user_service.v1.ApplicantR\n" +
@@ -1333,13 +1435,29 @@ const file_user_service_v1_user_service_proto_rawDesc = "" +
 	"\x15DeleteEmployerRequest\x12\x1f\n" +
 	"\x02id\x18\x01 \x01(\x03B\x0f\x92A\f\x9a\x02\x01\x03\xa2\x02\x05int64R\x02id\"O\n" +
 	"\x16DeleteEmployerResponse\x125\n" +
-	"\bemployer\x18\x01 \x01(\v2\x19.user_service.v1.EmployerR\bemployer\"\x80\x02\n" +
+	"\bemployer\x18\x01 \x01(\v2\x19.user_service.v1.EmployerR\bemployer\"\xc0\x05\n" +
 	"\x15QueryEmployersRequest\x127\n" +
-	"\x03ids\x18\x01 \x03(\x03B%\x92A\"2\x14List of employer IDs\x9a\x02\x01\x03\xa2\x02\x05int64R\x03ids\x128\n" +
-	"\x06emails\x18\x02 \x03(\tB \x92A\x1d2\x17List of employer emails\x9a\x02\x01\aR\x06emails\x12C\n" +
-	"\rcompany_names\x18\x03 \x03(\tB\x1e\x92A\x1b2\x15List of company names\x9a\x02\x01\aR\fcompanyNames\x12\x12\n" +
-	"\x04page\x18\x04 \x01(\x05R\x04page\x12\x1b\n" +
-	"\tpage_size\x18\x05 \x01(\x05R\bpageSize\"Q\n" +
+	"\x03ids\x18\x01 \x03(\x03B%\x92A\"2\x14List of employer IDs\x9a\x02\x01\x03\xa2\x02\x05int64R\x03ids\x12A\n" +
+	"\vfull_emails\x18\x02 \x03(\tB \x92A\x1d2\x17List of employer emails\x9a\x02\x01\aR\n" +
+	"fullEmails\x12L\n" +
+	"\x12full_company_names\x18\x03 \x03(\tB\x1e\x92A\x1b2\x15List of company names\x9a\x02\x01\aR\x10fullCompanyNames\x12O\n" +
+	"\rsubstr_emails\x18\x04 \x03(\tB*\x92A'2!List of employer email substrings\x9a\x02\x01\aR\fsubstrEmails\x12Z\n" +
+	"\x14substr_company_names\x18\x05 \x03(\tB(\x92A%2\x1fList of company name substrings\x9a\x02\x01\aR\x12substrCompanyNames\x12 \n" +
+	"\tis_active\x18\x06 \x01(\bH\x00R\bisActive\x88\x01\x01\x12\"\n" +
+	"\n" +
+	"is_deleted\x18\a \x01(\bH\x01R\tisDeleted\x88\x01\x01\x12>\n" +
+	"\n" +
+	"created_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampH\x02R\tcreatedAt\x88\x01\x01\x12>\n" +
+	"\n" +
+	"updated_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampH\x03R\tupdatedAt\x88\x01\x01\x12\x12\n" +
+	"\x04page\x18\n" +
+	" \x01(\x05R\x04page\x12\x1b\n" +
+	"\tpage_size\x18\v \x01(\x05R\bpageSizeB\f\n" +
+	"\n" +
+	"_is_activeB\r\n" +
+	"\v_is_deletedB\r\n" +
+	"\v_created_atB\r\n" +
+	"\v_updated_at\"Q\n" +
 	"\x16QueryEmployersResponse\x127\n" +
 	"\temployers\x18\x01 \x03(\v2\x19.user_service.v1.EmployerR\temployers\"5\n" +
 	"\x12GetEmployerRequest\x12\x1f\n" +
@@ -1422,43 +1540,47 @@ var file_user_service_v1_user_service_proto_depIdxs = []int32{
 	1,  // 5: user_service.v1.UpdateApplicantRequest.applicant:type_name -> user_service.v1.Applicant
 	1,  // 6: user_service.v1.UpdateApplicantResponse.applicant:type_name -> user_service.v1.Applicant
 	1,  // 7: user_service.v1.DeleteApplicantResponse.applicant:type_name -> user_service.v1.Applicant
-	1,  // 8: user_service.v1.QueryApplicantsResponse.applicants:type_name -> user_service.v1.Applicant
-	1,  // 9: user_service.v1.GetApplicantResponse.applicant:type_name -> user_service.v1.Applicant
-	0,  // 10: user_service.v1.Employer.contacts:type_name -> user_service.v1.Contacts
-	23, // 11: user_service.v1.Employer.created_at:type_name -> google.protobuf.Timestamp
-	23, // 12: user_service.v1.Employer.updated_at:type_name -> google.protobuf.Timestamp
-	12, // 13: user_service.v1.CreateEmployerRequest.employer:type_name -> user_service.v1.Employer
-	12, // 14: user_service.v1.CreateEmployerResponse.employer:type_name -> user_service.v1.Employer
-	12, // 15: user_service.v1.UpdateEmployerRequest.employer:type_name -> user_service.v1.Employer
-	12, // 16: user_service.v1.UpdateEmployerResponse.employer:type_name -> user_service.v1.Employer
-	12, // 17: user_service.v1.DeleteEmployerResponse.employer:type_name -> user_service.v1.Employer
-	12, // 18: user_service.v1.QueryEmployersResponse.employers:type_name -> user_service.v1.Employer
-	12, // 19: user_service.v1.GetEmployerResponse.employer:type_name -> user_service.v1.Employer
-	2,  // 20: user_service.v1.UserService.CreateApplicant:input_type -> user_service.v1.CreateApplicantRequest
-	4,  // 21: user_service.v1.UserService.UpdateApplicant:input_type -> user_service.v1.UpdateApplicantRequest
-	6,  // 22: user_service.v1.UserService.DeleteApplicant:input_type -> user_service.v1.DeleteApplicantRequest
-	8,  // 23: user_service.v1.UserService.QueryApplicants:input_type -> user_service.v1.QueryApplicantsRequest
-	10, // 24: user_service.v1.UserService.GetApplicant:input_type -> user_service.v1.GetApplicantRequest
-	13, // 25: user_service.v1.UserService.CreateEmployer:input_type -> user_service.v1.CreateEmployerRequest
-	15, // 26: user_service.v1.UserService.UpdateEmployer:input_type -> user_service.v1.UpdateEmployerRequest
-	17, // 27: user_service.v1.UserService.DeleteEmployer:input_type -> user_service.v1.DeleteEmployerRequest
-	19, // 28: user_service.v1.UserService.QueryEmployers:input_type -> user_service.v1.QueryEmployersRequest
-	21, // 29: user_service.v1.UserService.GetEmployer:input_type -> user_service.v1.GetEmployerRequest
-	3,  // 30: user_service.v1.UserService.CreateApplicant:output_type -> user_service.v1.CreateApplicantResponse
-	5,  // 31: user_service.v1.UserService.UpdateApplicant:output_type -> user_service.v1.UpdateApplicantResponse
-	7,  // 32: user_service.v1.UserService.DeleteApplicant:output_type -> user_service.v1.DeleteApplicantResponse
-	9,  // 33: user_service.v1.UserService.QueryApplicants:output_type -> user_service.v1.QueryApplicantsResponse
-	11, // 34: user_service.v1.UserService.GetApplicant:output_type -> user_service.v1.GetApplicantResponse
-	14, // 35: user_service.v1.UserService.CreateEmployer:output_type -> user_service.v1.CreateEmployerResponse
-	16, // 36: user_service.v1.UserService.UpdateEmployer:output_type -> user_service.v1.UpdateEmployerResponse
-	18, // 37: user_service.v1.UserService.DeleteEmployer:output_type -> user_service.v1.DeleteEmployerResponse
-	20, // 38: user_service.v1.UserService.QueryEmployers:output_type -> user_service.v1.QueryEmployersResponse
-	22, // 39: user_service.v1.UserService.GetEmployer:output_type -> user_service.v1.GetEmployerResponse
-	30, // [30:40] is the sub-list for method output_type
-	20, // [20:30] is the sub-list for method input_type
-	20, // [20:20] is the sub-list for extension type_name
-	20, // [20:20] is the sub-list for extension extendee
-	0,  // [0:20] is the sub-list for field type_name
+	23, // 8: user_service.v1.QueryApplicantsRequest.created_at:type_name -> google.protobuf.Timestamp
+	23, // 9: user_service.v1.QueryApplicantsRequest.updated_at:type_name -> google.protobuf.Timestamp
+	1,  // 10: user_service.v1.QueryApplicantsResponse.applicants:type_name -> user_service.v1.Applicant
+	1,  // 11: user_service.v1.GetApplicantResponse.applicant:type_name -> user_service.v1.Applicant
+	0,  // 12: user_service.v1.Employer.contacts:type_name -> user_service.v1.Contacts
+	23, // 13: user_service.v1.Employer.created_at:type_name -> google.protobuf.Timestamp
+	23, // 14: user_service.v1.Employer.updated_at:type_name -> google.protobuf.Timestamp
+	12, // 15: user_service.v1.CreateEmployerRequest.employer:type_name -> user_service.v1.Employer
+	12, // 16: user_service.v1.CreateEmployerResponse.employer:type_name -> user_service.v1.Employer
+	12, // 17: user_service.v1.UpdateEmployerRequest.employer:type_name -> user_service.v1.Employer
+	12, // 18: user_service.v1.UpdateEmployerResponse.employer:type_name -> user_service.v1.Employer
+	12, // 19: user_service.v1.DeleteEmployerResponse.employer:type_name -> user_service.v1.Employer
+	23, // 20: user_service.v1.QueryEmployersRequest.created_at:type_name -> google.protobuf.Timestamp
+	23, // 21: user_service.v1.QueryEmployersRequest.updated_at:type_name -> google.protobuf.Timestamp
+	12, // 22: user_service.v1.QueryEmployersResponse.employers:type_name -> user_service.v1.Employer
+	12, // 23: user_service.v1.GetEmployerResponse.employer:type_name -> user_service.v1.Employer
+	2,  // 24: user_service.v1.UserService.CreateApplicant:input_type -> user_service.v1.CreateApplicantRequest
+	4,  // 25: user_service.v1.UserService.UpdateApplicant:input_type -> user_service.v1.UpdateApplicantRequest
+	6,  // 26: user_service.v1.UserService.DeleteApplicant:input_type -> user_service.v1.DeleteApplicantRequest
+	8,  // 27: user_service.v1.UserService.QueryApplicants:input_type -> user_service.v1.QueryApplicantsRequest
+	10, // 28: user_service.v1.UserService.GetApplicant:input_type -> user_service.v1.GetApplicantRequest
+	13, // 29: user_service.v1.UserService.CreateEmployer:input_type -> user_service.v1.CreateEmployerRequest
+	15, // 30: user_service.v1.UserService.UpdateEmployer:input_type -> user_service.v1.UpdateEmployerRequest
+	17, // 31: user_service.v1.UserService.DeleteEmployer:input_type -> user_service.v1.DeleteEmployerRequest
+	19, // 32: user_service.v1.UserService.QueryEmployers:input_type -> user_service.v1.QueryEmployersRequest
+	21, // 33: user_service.v1.UserService.GetEmployer:input_type -> user_service.v1.GetEmployerRequest
+	3,  // 34: user_service.v1.UserService.CreateApplicant:output_type -> user_service.v1.CreateApplicantResponse
+	5,  // 35: user_service.v1.UserService.UpdateApplicant:output_type -> user_service.v1.UpdateApplicantResponse
+	7,  // 36: user_service.v1.UserService.DeleteApplicant:output_type -> user_service.v1.DeleteApplicantResponse
+	9,  // 37: user_service.v1.UserService.QueryApplicants:output_type -> user_service.v1.QueryApplicantsResponse
+	11, // 38: user_service.v1.UserService.GetApplicant:output_type -> user_service.v1.GetApplicantResponse
+	14, // 39: user_service.v1.UserService.CreateEmployer:output_type -> user_service.v1.CreateEmployerResponse
+	16, // 40: user_service.v1.UserService.UpdateEmployer:output_type -> user_service.v1.UpdateEmployerResponse
+	18, // 41: user_service.v1.UserService.DeleteEmployer:output_type -> user_service.v1.DeleteEmployerResponse
+	20, // 42: user_service.v1.UserService.QueryEmployers:output_type -> user_service.v1.QueryEmployersResponse
+	22, // 43: user_service.v1.UserService.GetEmployer:output_type -> user_service.v1.GetEmployerResponse
+	34, // [34:44] is the sub-list for method output_type
+	24, // [24:34] is the sub-list for method input_type
+	24, // [24:24] is the sub-list for extension type_name
+	24, // [24:24] is the sub-list for extension extendee
+	0,  // [0:24] is the sub-list for field type_name
 }
 
 func init() { file_user_service_v1_user_service_proto_init() }
@@ -1468,6 +1590,8 @@ func file_user_service_v1_user_service_proto_init() {
 	}
 	file_user_service_v1_user_service_proto_msgTypes[0].OneofWrappers = []any{}
 	file_user_service_v1_user_service_proto_msgTypes[1].OneofWrappers = []any{}
+	file_user_service_v1_user_service_proto_msgTypes[8].OneofWrappers = []any{}
+	file_user_service_v1_user_service_proto_msgTypes[19].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
