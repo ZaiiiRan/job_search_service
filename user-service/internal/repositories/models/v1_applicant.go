@@ -11,7 +11,7 @@ type V1ApplicantDal struct {
 	FirstName   string    `db:"first_name" json:"first_name"`
 	LastName    string    `db:"last_name" json:"last_name"`
 	Patronymic  *string   `db:"patronymic" json:"patronymic"`
-	BirthDate   string    `db:"birth_date" json:"birth_date"`
+	BirthDate   time.Time `db:"birth_date" json:"birth_date"`
 	City        string    `db:"city" json:"city"`
 	Email       string    `db:"email" json:"email"`
 	PhoneNumber *string   `db:"phone_number" json:"phone_number"`
@@ -27,12 +27,14 @@ func V1ApplicantDalFromDomain(a *applicant.Applicant) V1ApplicantDal {
 		return V1ApplicantDal{}
 	}
 
+	date, _ := time.Parse("02.01.2006", a.BirthDate())
+
 	return V1ApplicantDal{
 		Id:          a.Id(),
 		FirstName:   a.FirstName(),
 		LastName:    a.LastName(),
 		Patronymic:  a.Patronymic(),
-		BirthDate:   a.BirthDate(),
+		BirthDate:   date,
 		City:        a.City(),
 		Email:       a.Email(),
 		PhoneNumber: a.PhoneNumber(),
@@ -83,7 +85,7 @@ func (a V1ApplicantDal) ToDomain() *applicant.Applicant {
 		a.Id,
 		a.FirstName, a.LastName,
 		a.Patronymic,
-		a.BirthDate, a.City, a.Email,
+		a.BirthDate.Format("02.01.2006"), a.City, a.Email,
 		a.PhoneNumber, a.Telegram,
 		a.IsActive, a.IsDeleted,
 		a.CreatedAt, a.UpdatedAt,

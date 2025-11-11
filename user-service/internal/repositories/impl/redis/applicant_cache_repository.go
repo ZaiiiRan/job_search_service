@@ -38,6 +38,9 @@ func (r *ApplicantCacheRepository) GetApplicant(ctx context.Context, id int64) (
 	if err != nil {
 		return nil, err
 	}
+	if dal == nil {
+		return nil, nil
+	}
 	return dal.ToDomain(), nil
 }
 

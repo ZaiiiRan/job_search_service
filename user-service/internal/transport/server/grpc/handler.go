@@ -4,20 +4,24 @@ import (
 	"context"
 
 	pb "github.com/ZaiiiRan/job_search_service/user-service/gen/go/user_service/v1"
+	applicantservice "github.com/ZaiiiRan/job_search_service/user-service/internal/services/applicant"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/utils"
 )
 
 type userHandler struct {
+	applicantService applicantservice.ApplicantService
 	pb.UnimplementedUserServiceServer
 }
 
-func newUserHandler() *userHandler {
-	return &userHandler{}
+func newUserHandler(applicantService applicantservice.ApplicantService) *userHandler {
+	return &userHandler{
+		applicantService: applicantService,
+	}
 }
 
 func (h *userHandler) CreateApplicant(ctx context.Context, req *pb.CreateApplicantRequest) (*pb.CreateApplicantResponse, error) {
 	utils.SanitizeCreateApplicantRequest(req)
-	return &pb.CreateApplicantResponse{}, nil
+	return h.applicantService.CreateApplicant(ctx, req)
 }
 
 func (h *userHandler) UpdateApplicant(ctx context.Context, req *pb.UpdateApplicantRequest) (*pb.UpdateApplicantResponse, error) {
@@ -31,11 +35,11 @@ func (h *userHandler) DeleteApplicant(ctx context.Context, req *pb.DeleteApplica
 
 func (h *userHandler) QueryApplicants(ctx context.Context, req *pb.QueryApplicantsRequest) (*pb.QueryApplicantsResponse, error) {
 	utils.SanitizeQueryApplicantsRequest(req)
-	return &pb.QueryApplicantsResponse{}, nil
+	return h.applicantService.QueryApplicants(ctx, req)
 }
 
 func (h *userHandler) GetApplicant(ctx context.Context, req *pb.GetApplicantRequest) (*pb.GetApplicantResponse, error) {
-	return &pb.GetApplicantResponse{}, nil
+	return h.applicantService.GetApplicant(ctx, req)
 }
 
 func (h *userHandler) CreateEmployer(ctx context.Context, req *pb.CreateEmployerRequest) (*pb.CreateEmployerResponse, error) {

@@ -35,8 +35,11 @@ func (r *EmployerCacheRepository) SetEmployer(ctx context.Context, emp *employer
 
 func (r *EmployerCacheRepository) GetEmployer(ctx context.Context, id int64) (*employer.Employer, error) {
 	dal, err := get[models.V1EmployerDal](ctx, r.redis, r.keyById(id))
-	if err != nil || dal == nil {
+	if err != nil {
 		return nil, err
+	}
+	if dal == nil {
+		return nil, nil
 	}
 	return dal.ToDomain(), nil
 }
