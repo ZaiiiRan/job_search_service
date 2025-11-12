@@ -11,6 +11,9 @@ type EmployerCacheRepository interface {
 	SetEmployer(ctx context.Context, employer *employer.Employer) error
 	GetEmployer(ctx context.Context, id int64) (*employer.Employer, error)
 	DeleteEmployer(ctx context.Context, id int64) error
+	SetEmployerByEmail(ctx context.Context, employer *employer.Employer) error
+	GetEmployerByEmail(ctx context.Context, email string) (*employer.Employer, error)
+	DeleteEmployerByEmail(ctx context.Context, email string) error
 	SetEmployerList(ctx context.Context, query *models.QueryEmployersDal, employers []*employer.Employer) error
 	GetEmployerList(ctx context.Context, query *models.QueryEmployersDal) ([]*employer.Employer, error)
 	InvalidateEmployerList(ctx context.Context) error

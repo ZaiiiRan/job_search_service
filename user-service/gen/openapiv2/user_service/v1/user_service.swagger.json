@@ -88,6 +88,38 @@
         ]
       }
     },
+    "/api/v1/applicant/by-email/{email}": {
+      "get": {
+        "summary": "Get applicant by email",
+        "description": "Returns not deleted applicant by email. Required in the authorization microservice.",
+        "operationId": "UserService_GetApplicantByEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetApplicantByEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      }
+    },
     "/api/v1/applicant/query": {
       "post": {
         "summary": "Query applicants",
@@ -125,7 +157,7 @@
     "/api/v1/applicant/{id}": {
       "get": {
         "summary": "Get applicant",
-        "description": "Returns applicant by id. Needed to retrieve data in other microservices.",
+        "description": "Returns applicant by id including deeleted applicants. Needed to retrieve data in other microservices.",
         "operationId": "UserService_GetApplicant",
         "responses": {
           "200": {
@@ -252,6 +284,38 @@
         ]
       }
     },
+    "/api/v1/employer/by-email/{email}": {
+      "get": {
+        "summary": "Get employer by email",
+        "description": "Returns not deleted employer by email. Required in the authorization microservice.",
+        "operationId": "UserService_GetEmployerByEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEmployerByEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "employer"
+        ]
+      }
+    },
     "/api/v1/employer/query": {
       "post": {
         "summary": "Query employers",
@@ -289,7 +353,7 @@
     "/api/v1/employer/{id}": {
       "get": {
         "summary": "Get employer",
-        "description": "Returns employer by id. Needed to retrieve data in other microservices.",
+        "description": "Returns employer by id including deeleted employers. Needed to retrieve data in other microservices.",
         "operationId": "UserService_GetEmployer",
         "responses": {
           "200": {
@@ -518,11 +582,27 @@
         }
       }
     },
+    "v1GetApplicantByEmailResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
     "v1GetApplicantResponse": {
       "type": "object",
       "properties": {
         "applicant": {
           "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1GetEmployerByEmailResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
         }
       }
     },
@@ -564,14 +644,6 @@
         },
         "isDeleted": {
           "type": "boolean"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time"
         },
         "page": {
           "type": "integer",
@@ -639,14 +711,6 @@
         },
         "isDeleted": {
           "type": "boolean"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time"
         },
         "page": {
           "type": "integer",

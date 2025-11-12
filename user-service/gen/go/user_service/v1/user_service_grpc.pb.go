@@ -19,16 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_CreateApplicant_FullMethodName = "/user_service.v1.UserService/CreateApplicant"
-	UserService_UpdateApplicant_FullMethodName = "/user_service.v1.UserService/UpdateApplicant"
-	UserService_DeleteApplicant_FullMethodName = "/user_service.v1.UserService/DeleteApplicant"
-	UserService_QueryApplicants_FullMethodName = "/user_service.v1.UserService/QueryApplicants"
-	UserService_GetApplicant_FullMethodName    = "/user_service.v1.UserService/GetApplicant"
-	UserService_CreateEmployer_FullMethodName  = "/user_service.v1.UserService/CreateEmployer"
-	UserService_UpdateEmployer_FullMethodName  = "/user_service.v1.UserService/UpdateEmployer"
-	UserService_DeleteEmployer_FullMethodName  = "/user_service.v1.UserService/DeleteEmployer"
-	UserService_QueryEmployers_FullMethodName  = "/user_service.v1.UserService/QueryEmployers"
-	UserService_GetEmployer_FullMethodName     = "/user_service.v1.UserService/GetEmployer"
+	UserService_CreateApplicant_FullMethodName     = "/user_service.v1.UserService/CreateApplicant"
+	UserService_UpdateApplicant_FullMethodName     = "/user_service.v1.UserService/UpdateApplicant"
+	UserService_DeleteApplicant_FullMethodName     = "/user_service.v1.UserService/DeleteApplicant"
+	UserService_QueryApplicants_FullMethodName     = "/user_service.v1.UserService/QueryApplicants"
+	UserService_GetApplicant_FullMethodName        = "/user_service.v1.UserService/GetApplicant"
+	UserService_GetApplicantByEmail_FullMethodName = "/user_service.v1.UserService/GetApplicantByEmail"
+	UserService_CreateEmployer_FullMethodName      = "/user_service.v1.UserService/CreateEmployer"
+	UserService_UpdateEmployer_FullMethodName      = "/user_service.v1.UserService/UpdateEmployer"
+	UserService_DeleteEmployer_FullMethodName      = "/user_service.v1.UserService/DeleteEmployer"
+	UserService_QueryEmployers_FullMethodName      = "/user_service.v1.UserService/QueryEmployers"
+	UserService_GetEmployer_FullMethodName         = "/user_service.v1.UserService/GetEmployer"
+	UserService_GetEmployerByEmail_FullMethodName  = "/user_service.v1.UserService/GetEmployerByEmail"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -40,11 +42,13 @@ type UserServiceClient interface {
 	DeleteApplicant(ctx context.Context, in *DeleteApplicantRequest, opts ...grpc.CallOption) (*DeleteApplicantResponse, error)
 	QueryApplicants(ctx context.Context, in *QueryApplicantsRequest, opts ...grpc.CallOption) (*QueryApplicantsResponse, error)
 	GetApplicant(ctx context.Context, in *GetApplicantRequest, opts ...grpc.CallOption) (*GetApplicantResponse, error)
+	GetApplicantByEmail(ctx context.Context, in *GetApplicantByEmailRequest, opts ...grpc.CallOption) (*GetApplicantByEmailResponse, error)
 	CreateEmployer(ctx context.Context, in *CreateEmployerRequest, opts ...grpc.CallOption) (*CreateEmployerResponse, error)
 	UpdateEmployer(ctx context.Context, in *UpdateEmployerRequest, opts ...grpc.CallOption) (*UpdateEmployerResponse, error)
 	DeleteEmployer(ctx context.Context, in *DeleteEmployerRequest, opts ...grpc.CallOption) (*DeleteEmployerResponse, error)
 	QueryEmployers(ctx context.Context, in *QueryEmployersRequest, opts ...grpc.CallOption) (*QueryEmployersResponse, error)
 	GetEmployer(ctx context.Context, in *GetEmployerRequest, opts ...grpc.CallOption) (*GetEmployerResponse, error)
+	GetEmployerByEmail(ctx context.Context, in *GetEmployerByEmailRequest, opts ...grpc.CallOption) (*GetEmployerByEmailResponse, error)
 }
 
 type userServiceClient struct {
@@ -105,6 +109,16 @@ func (c *userServiceClient) GetApplicant(ctx context.Context, in *GetApplicantRe
 	return out, nil
 }
 
+func (c *userServiceClient) GetApplicantByEmail(ctx context.Context, in *GetApplicantByEmailRequest, opts ...grpc.CallOption) (*GetApplicantByEmailResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetApplicantByEmailResponse)
+	err := c.cc.Invoke(ctx, UserService_GetApplicantByEmail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) CreateEmployer(ctx context.Context, in *CreateEmployerRequest, opts ...grpc.CallOption) (*CreateEmployerResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateEmployerResponse)
@@ -155,6 +169,16 @@ func (c *userServiceClient) GetEmployer(ctx context.Context, in *GetEmployerRequ
 	return out, nil
 }
 
+func (c *userServiceClient) GetEmployerByEmail(ctx context.Context, in *GetEmployerByEmailRequest, opts ...grpc.CallOption) (*GetEmployerByEmailResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetEmployerByEmailResponse)
+	err := c.cc.Invoke(ctx, UserService_GetEmployerByEmail_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -164,11 +188,13 @@ type UserServiceServer interface {
 	DeleteApplicant(context.Context, *DeleteApplicantRequest) (*DeleteApplicantResponse, error)
 	QueryApplicants(context.Context, *QueryApplicantsRequest) (*QueryApplicantsResponse, error)
 	GetApplicant(context.Context, *GetApplicantRequest) (*GetApplicantResponse, error)
+	GetApplicantByEmail(context.Context, *GetApplicantByEmailRequest) (*GetApplicantByEmailResponse, error)
 	CreateEmployer(context.Context, *CreateEmployerRequest) (*CreateEmployerResponse, error)
 	UpdateEmployer(context.Context, *UpdateEmployerRequest) (*UpdateEmployerResponse, error)
 	DeleteEmployer(context.Context, *DeleteEmployerRequest) (*DeleteEmployerResponse, error)
 	QueryEmployers(context.Context, *QueryEmployersRequest) (*QueryEmployersResponse, error)
 	GetEmployer(context.Context, *GetEmployerRequest) (*GetEmployerResponse, error)
+	GetEmployerByEmail(context.Context, *GetEmployerByEmailRequest) (*GetEmployerByEmailResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -194,6 +220,9 @@ func (UnimplementedUserServiceServer) QueryApplicants(context.Context, *QueryApp
 func (UnimplementedUserServiceServer) GetApplicant(context.Context, *GetApplicantRequest) (*GetApplicantResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetApplicant not implemented")
 }
+func (UnimplementedUserServiceServer) GetApplicantByEmail(context.Context, *GetApplicantByEmailRequest) (*GetApplicantByEmailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetApplicantByEmail not implemented")
+}
 func (UnimplementedUserServiceServer) CreateEmployer(context.Context, *CreateEmployerRequest) (*CreateEmployerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateEmployer not implemented")
 }
@@ -208,6 +237,9 @@ func (UnimplementedUserServiceServer) QueryEmployers(context.Context, *QueryEmpl
 }
 func (UnimplementedUserServiceServer) GetEmployer(context.Context, *GetEmployerRequest) (*GetEmployerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEmployer not implemented")
+}
+func (UnimplementedUserServiceServer) GetEmployerByEmail(context.Context, *GetEmployerByEmailRequest) (*GetEmployerByEmailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEmployerByEmail not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -320,6 +352,24 @@ func _UserService_GetApplicant_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetApplicantByEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetApplicantByEmailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetApplicantByEmail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetApplicantByEmail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetApplicantByEmail(ctx, req.(*GetApplicantByEmailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_CreateEmployer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateEmployerRequest)
 	if err := dec(in); err != nil {
@@ -410,6 +460,24 @@ func _UserService_GetEmployer_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetEmployerByEmail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEmployerByEmailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetEmployerByEmail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetEmployerByEmail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetEmployerByEmail(ctx, req.(*GetEmployerByEmailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -438,6 +506,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_GetApplicant_Handler,
 		},
 		{
+			MethodName: "GetApplicantByEmail",
+			Handler:    _UserService_GetApplicantByEmail_Handler,
+		},
+		{
 			MethodName: "CreateEmployer",
 			Handler:    _UserService_CreateEmployer_Handler,
 		},
@@ -456,6 +528,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetEmployer",
 			Handler:    _UserService_GetEmployer_Handler,
+		},
+		{
+			MethodName: "GetEmployerByEmail",
+			Handler:    _UserService_GetEmployerByEmail_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

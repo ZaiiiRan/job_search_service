@@ -75,7 +75,18 @@ service UserService {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Get applicant"
-            description: "Returns applicant by id. Needed to retrieve data in other microservices."
+            description: "Returns applicant by id including deeleted applicants. Needed to retrieve data in other microservices."
+            tags: "applicants"
+        };
+    }
+
+    rpc GetApplicantByEmail(GetApplicantByEmailRequest) returns (GetApplicantByEmailResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/applicant/by-email/{email}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get applicant by email"
+            description: "Returns not deleted applicant by email. Required in the authorization microservice."
             tags: "applicants"
         };
     }
@@ -133,8 +144,19 @@ service UserService {
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Get employer"
-            description: "Returns employer by id. Needed to retrieve data in other microservices."
+            description: "Returns employer by id including deeleted employers. Needed to retrieve data in other microservices."
             tags: "employers"
+        };
+    }
+
+    rpc GetEmployerByEmail(GetEmployerByEmailRequest) returns (GetEmployerByEmailResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/employer/by-email/{email}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get employer by email"
+            description: "Returns not deleted employer by email. Required in the authorization microservice."
+            tags: "employer"
         };
     }
 }
@@ -218,10 +240,8 @@ message QueryApplicantsRequest {
     ];
     optional bool is_active = 4;
     optional bool is_deleted = 5;
-    optional google.protobuf.Timestamp createdAfter = 6;
-    optional google.protobuf.Timestamp updatedAfter = 7; 
-    int32 page = 8;
-    int32 page_size = 9;
+    int32 page = 6;
+    int32 page_size = 7;
 }
 
 message QueryApplicantsResponse {
@@ -240,6 +260,15 @@ message GetApplicantRequest {
 message GetApplicantResponse {
     Applicant applicant = 1;
 }
+
+message GetApplicantByEmailRequest {
+    string email = 1;
+}
+
+message GetApplicantByEmailResponse {
+    Applicant applicant = 1;
+}
+
 
 message Employer {
     int64 id = 1 [
@@ -324,10 +353,8 @@ message QueryEmployersRequest {
     ];
     optional bool is_active = 6;
     optional bool is_deleted = 7;
-    optional google.protobuf.Timestamp createdAfter = 8;
-    optional google.protobuf.Timestamp updatedAfter = 9; 
-    int32 page = 10;
-    int32 page_size = 11;
+    int32 page = 8;
+    int32 page_size = 9;
 }
 
 message QueryEmployersResponse {
@@ -344,5 +371,13 @@ message GetEmployerRequest {
 }
 
 message GetEmployerResponse {
+    Employer employer = 1;
+}
+
+message GetEmployerByEmailRequest {
+    string email = 1;
+}
+
+message GetEmployerByEmailResponse {
     Employer employer = 1;
 }

@@ -174,40 +174,15 @@ func (r *EmployerRepository) Query(ctx context.Context, q *models.QueryEmployers
 		WHERE 1=1
 	`)
 
-	if len(q.Ids) > 0 {
-		sb.WriteString(fmt.Sprintf(" AND id = ANY($%d)", argPos))
-		args = append(args, q.Ids)
-		argPos++
-	}
-
-	if len(q.Emails) > 0 {
-		sb.WriteString(fmt.Sprintf(" AND email = ANY($%d)", argPos))
-		args = append(args, q.Emails)
-		argPos++
-	}
-
-	if len(q.CompanyNames) > 0 {
-		sb.WriteString(fmt.Sprintf(" AND company_name = ANY($%d)", argPos))
-		args = append(args, q.CompanyNames)
-		argPos++
-	}
-
-	if q.IsActive != nil {
-		sb.WriteString(fmt.Sprintf(" AND is_active = $%d", argPos))
-		args = append(args, *q.IsActive)
-		argPos++
-	}
-
-	if q.IsDeleted != nil {
-		sb.WriteString(fmt.Sprintf(" AND is_deleted = $%d", argPos))
-		args = append(args, *q.IsDeleted)
-		argPos++
-	}
-
-	sb.WriteString(" ORDER BY id")
-
-	sb.WriteString(fmt.Sprintf(" LIMIT $%d OFFSET $%d", argPos, argPos+1))
-	args = append(args, q.Limit, q.Offset)
+	appendAnyEqual(&sb, "id", q.Ids, &args, &argPos)
+	appendAnyEqual(&sb, "email", q.Emails, &args, &argPos)
+	appendILike(&sb, "email", q.EmailSubstrs, &args, &argPos)
+	appendAnyEqual(&sb, "company_name", q.CompanyNames, &args, &argPos)
+	appendILike(&sb, "company_name", q.CompanyNameSubstrs, &args, &argPos)
+	appendBool(&sb, "is_active", q.IsActive, &args, &argPos)
+	appendBool(&sb, "is_deleted", q.IsDeleted, &args, &argPos)
+	appendOrder(&sb, "id", true)
+	appendLimitOffset(&sb, q.Limit, q.Offset, &args, &argPos)
 
 	rows, err := r.conn.Query(ctx, sb.String(), args...)
 	if err != nil {

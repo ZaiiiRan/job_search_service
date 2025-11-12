@@ -12,10 +12,11 @@ import (
 )
 
 const (
-	applicantKeyPrefix  = "applicant"
-	applicantListPrefix = "applicant:list"
-	applicantTTL        = 10 * time.Minute
-	applicantListTTL    = 5 * time.Minute
+	applicantKeyPrefix        = "applicant"
+	applicantKeyPrefixByEmail = "applicant:email"
+	applicantListPrefix       = "applicant:list"
+	applicantTTL              = 10 * time.Minute
+	applicantListTTL          = 5 * time.Minute
 )
 
 type ApplicantCacheRepository struct {
@@ -46,6 +47,32 @@ func (r *ApplicantCacheRepository) GetApplicant(ctx context.Context, id int64) (
 
 func (r *ApplicantCacheRepository) DeleteApplicant(ctx context.Context, id int64) error {
 	return del(ctx, r.redis, r.keyById(id))
+}
+
+func (r *ApplicantCacheRepository) SetApplicantByEmail(ctx context.Context, applicant *applicant.Applicant) error {
+	dal := models.V1ApplicantDalFromDomain(applicant)
+	return set(ctx, r.redis, r.keyByEmail(dal.Email), dal, applicantTTL)
+}
+
+func (r *ApplicantCacheRepository) GetApplicantByEmail(ctx context.Context, email string) (*applicant.Applicant, error) {
+	if email == "" {
+		return nil, nil
+	}
+	dal, err := get[models.V1ApplicantDal](ctx, r.redis, r.keyByEmail(email))
+	if err != nil {
+		return nil, err
+	}
+	if dal == nil {
+		return nil, nil
+	}
+	return dal.ToDomain(), nil
+}
+
+func (r *ApplicantCacheRepository) DeleteApplicantByEmail(ctx context.Context, email string) error {
+	if email == "" {
+		return nil
+	}
+	return del(ctx, r.redis, r.keyByEmail(email))
 }
 
 func (r *ApplicantCacheRepository) SetApplicantList(ctx context.Context, query *models.QueryApplicantsDal, applicants []*applicant.Applicant) error {
@@ -84,6 +111,10 @@ func (r *ApplicantCacheRepository) InvalidateApplicantList(ctx context.Context) 
 
 func (r *ApplicantCacheRepository) keyById(id int64) string {
 	return fmt.Sprintf("%s:%d", applicantKeyPrefix, id)
+}
+
+func (r *ApplicantCacheRepository) keyByEmail(email string) string {
+	return fmt.Sprintf("%s:%s", applicantKeyPrefixByEmail, email)
 }
 
 func (r *ApplicantCacheRepository) keyByQuery(query *models.QueryApplicantsDal) (string, error) {

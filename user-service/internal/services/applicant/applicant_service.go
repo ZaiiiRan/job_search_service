@@ -20,6 +20,7 @@ import (
 type ApplicantService interface {
 	CreateApplicant(ctx context.Context, req *pb.CreateApplicantRequest) (*pb.CreateApplicantResponse, error)
 	GetApplicant(ctx context.Context, req *pb.GetApplicantRequest) (*pb.GetApplicantResponse, error)
+	GetApplicantByEmail(ctx context.Context, req *pb.GetApplicantByEmailRequest) (*pb.GetApplicantByEmailResponse, error)
 	QueryApplicants(ctx context.Context, req *pb.QueryApplicantsRequest) (*pb.QueryApplicantsResponse, error)
 }
 
@@ -64,12 +65,17 @@ func (s *service) CreateApplicant(ctx context.Context, req *pb.CreateApplicantRe
 		return nil, status.Errorf(codes.Internal, "internal server error")
 	}
 
-	l.Infow("applicant.create_applicant.created", "applicant", a)
+	l.Infow("applicant.create_applicant.created")
 	return &pb.CreateApplicantResponse{Applicant: toPbApplicant(a)}, nil
 }
 
 func (s *service) GetApplicant(ctx context.Context, req *pb.GetApplicantRequest) (*pb.GetApplicantResponse, error) {
 	l := s.log.With("op", "get_applicant", "req_id", ctxmetadata.GetReqIdFromContext(ctx), "id", req.Id)
+
+	if req.Id < 1 {
+		l.Errorw("applicant.get_applicant_failed", "err", "id must be positive")
+		return nil, status.Errorf(codes.InvalidArgument, "id must be positive")
+	}
 
 	a, err := s.dataProvider.GetById(ctx, req.Id)
 	if err != nil {
@@ -80,8 +86,28 @@ func (s *service) GetApplicant(ctx context.Context, req *pb.GetApplicantRequest)
 		return nil, status.Errorf(codes.NotFound, "applicant not found")
 	}
 
-	l.Infow("applicant.get_applicant.success", "applicant", a)
+	l.Infow("applicant.get_applicant.success")
 	return &pb.GetApplicantResponse{Applicant: toPbApplicant(a)}, nil
+}
+func (s *service) GetApplicantByEmail(ctx context.Context, req *pb.GetApplicantByEmailRequest) (*pb.GetApplicantByEmailResponse, error) {
+	l := s.log.With("op", "get_applicant_by_email", "req_id", ctxmetadata.GetReqIdFromContext(ctx), "email", req.Email)
+
+	if req.Email == "" {
+		l.Errorw("applicant.get_applicant_by_email_failed", "err", "email cannot be empty")
+		return nil, status.Errorf(codes.InvalidArgument, "email cannot be empty")
+	}
+
+	a, err := s.dataProvider.GetByEmail(ctx, req.Email)
+	if err != nil {
+		l.Errorw("applicant.get_applicant_by_email_failed", "err", err)
+		return nil, status.Errorf(codes.Internal, "internal server error")
+	}
+	if a == nil {
+		return nil, status.Errorf(codes.NotFound, "applicant not found")
+	}
+
+	l.Infow("applicant.get_applicant_by_email.success")
+	return &pb.GetApplicantByEmailResponse{Applicant: toPbApplicant(a)}, nil
 }
 
 func (s *service) QueryApplicants(ctx context.Context, req *pb.QueryApplicantsRequest) (*pb.QueryApplicantsResponse, error) {
@@ -93,7 +119,7 @@ func (s *service) QueryApplicants(ctx context.Context, req *pb.QueryApplicantsRe
 		return nil, verr.ToStatus()
 	}
 
-	query := dal.NewQueryApplicantsDal(req.Ids, req.FullEmails, req.SubstrEmails, 
+	query := dal.NewQueryApplicantsDal(req.Ids, req.FullEmails, req.SubstrEmails,
 		req.IsActive, req.IsDeleted, int(req.Page), int(req.PageSize),
 	)
 	list, err := s.dataProvider.QueryList(ctx, query)
@@ -110,7 +136,7 @@ func (s *service) QueryApplicants(ctx context.Context, req *pb.QueryApplicantsRe
 		result = append(result, toPbApplicant(a))
 	}
 
-	l.Infow("applicant.query_applicants.success", "applicants", result)
+	l.Infow("applicant.query_applicants.success")
 	return &pb.QueryApplicantsResponse{Applicants: result}, nil
 }
 

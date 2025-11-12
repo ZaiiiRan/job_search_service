@@ -12,10 +12,11 @@ import (
 )
 
 const (
-	employerKeyPrefix  = "employer"
-	employerListPrefix = "employer:list"
-	employerTTL        = 10 * time.Minute
-	employerListTTL    = 5 * time.Minute
+	employerKeyPrefix        = "employer"
+	employerKeyPrefixByEmail = "employer:email"
+	employerListPrefix       = "employer:list"
+	employerTTL              = 10 * time.Minute
+	employerListTTL          = 5 * time.Minute
 )
 
 type EmployerCacheRepository struct {
@@ -46,6 +47,32 @@ func (r *EmployerCacheRepository) GetEmployer(ctx context.Context, id int64) (*e
 
 func (r *EmployerCacheRepository) DeleteEmployer(ctx context.Context, id int64) error {
 	return del(ctx, r.redis, r.keyById(id))
+}
+
+func (r *EmployerCacheRepository) SetEmployerByEmail(ctx context.Context, emp *employer.Employer) error {
+	dal := models.V1EmployerDalFromDomain(emp)
+	return set(ctx, r.redis, r.keyByEmail(dal.Email), dal, employerTTL)
+}
+
+func (r *EmployerCacheRepository) GetEmployerByEmail(ctx context.Context, email string) (*employer.Employer, error) {
+	if email == "" {
+		return nil, nil
+	}
+	dal, err := get[models.V1EmployerDal](ctx, r.redis, r.keyByEmail(email))
+	if err != nil {
+		return nil, err
+	}
+	if dal == nil {
+		return nil, nil
+	}
+	return dal.ToDomain(), nil
+}
+
+func (r *EmployerCacheRepository) DeleteEmployerByEmail(ctx context.Context, email string) error {
+	if email == "" {
+		return nil
+	}
+	return del(ctx, r.redis, r.keyByEmail(email))
 }
 
 func (r *EmployerCacheRepository) SetEmployerList(ctx context.Context, query *models.QueryEmployersDal, employers []*employer.Employer) error {
@@ -85,6 +112,10 @@ func (r *EmployerCacheRepository) InvalidateEmployerList(ctx context.Context) er
 
 func (r *EmployerCacheRepository) keyById(id int64) string {
 	return fmt.Sprintf("%s:%d", employerKeyPrefix, id)
+}
+
+func (r *EmployerCacheRepository) keyByEmail(email string) string {
+	return fmt.Sprintf("%s:%s", employerKeyPrefixByEmail, email)
 }
 
 func (r *EmployerCacheRepository) keyByQuery(query *models.QueryEmployersDal) (string, error) {

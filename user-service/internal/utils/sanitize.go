@@ -51,6 +51,10 @@ func SanitizeQueryApplicantsRequest(req *pb.QueryApplicantsRequest) {
 	}
 }
 
+func SanitizeGetApplicantByEmailRequest(req *pb.GetApplicantByEmailRequest) {
+	req.Email = strings.TrimSpace(req.Email)
+}
+
 func SanitizeEmployer(employer *pb.Employer) {
 	if employer != nil {
 		employer.CompanyName = strings.TrimSpace(employer.CompanyName)
@@ -81,4 +85,8 @@ func SanitizeQueryEmployersRequest(req *pb.QueryEmployersRequest) {
 	for i, companyNameSubstr := range req.SubstrCompanyNames {
 		req.SubstrCompanyNames[i] = strings.TrimSpace(companyNameSubstr)
 	}
+}
+
+func SanitizeGetEmployerByEmailRequest(req *pb.GetEmployerByEmailRequest) {
+	req.Email = strings.TrimSpace(req.Email)
 }

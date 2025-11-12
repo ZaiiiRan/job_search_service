@@ -188,37 +188,13 @@ func (r *ApplicantRepository) Query(ctx context.Context, query *models.QueryAppl
 		WHERE 1=1
 	`)
 
-	if len(query.Ids) > 0 {
-		sb.WriteString(fmt.Sprintf(" AND id = ANY($%d)", argPos))
-		args = append(args, query.Ids)
-		argPos++
-	}
-
-	if len(query.Emails) > 0 {
-		sb.WriteString(fmt.Sprintf(" AND email = ANY($%d)", argPos))
-		args = append(args, query.Emails)
-		argPos++
-	}
-
-	if query.IsActive != nil {
-		sb.WriteString(fmt.Sprintf(" AND is_active = $%d", argPos))
-		args = append(args, *query.IsActive)
-		argPos++
-	}
-
-	if query.IsDeleted != nil {
-		sb.WriteString(fmt.Sprintf(" AND is_deleted = $%d", argPos))
-		args = append(args, *query.IsDeleted)
-		argPos++
-	}
-
-	sb.WriteString(" ORDER BY id")
-
-	limit := query.Limit
-	offset := query.Offset
-
-	sb.WriteString(fmt.Sprintf(" LIMIT $%d OFFSET $%d", argPos, argPos+1))
-	args = append(args, limit, offset)
+	appendAnyEqual(&sb, "id", query.Ids, &args, &argPos)
+	appendAnyEqual(&sb, "email", query.Emails, &args, &argPos)
+	appendILike(&sb, "email", query.EmailSubstrs, &args, &argPos)
+	appendBool(&sb, "is_active", query.IsActive, &args, &argPos)
+	appendBool(&sb, "is_deleted", query.IsDeleted, &args, &argPos)
+	appendOrder(&sb, "id", true)
+	appendLimitOffset(&sb, query.Limit, query.Offset, &args, &argPos)
 
 	rows, err := r.conn.Query(ctx, sb.String(), args...)
 	if err != nil {

@@ -42,6 +42,11 @@ func (h *userHandler) GetApplicant(ctx context.Context, req *pb.GetApplicantRequ
 	return h.applicantService.GetApplicant(ctx, req)
 }
 
+func (h *userHandler) GetApplicantByEmail(ctx context.Context, req *pb.GetApplicantByEmailRequest) (*pb.GetApplicantByEmailResponse, error) {
+	utils.SanitizeGetApplicantByEmailRequest(req)
+	return h.applicantService.GetApplicantByEmail(ctx, req)
+}
+
 func (h *userHandler) CreateEmployer(ctx context.Context, req *pb.CreateEmployerRequest) (*pb.CreateEmployerResponse, error) {
 	utils.SanitizeCreateEmployerRequest(req)
 	return &pb.CreateEmployerResponse{}, nil
@@ -63,4 +68,9 @@ func (h *userHandler) QueryEmployers(ctx context.Context, req *pb.QueryEmployers
 
 func (h *userHandler) GetEmployer(ctx context.Context, req *pb.GetEmployerRequest) (*pb.GetEmployerResponse, error) {
 	return &pb.GetEmployerResponse{}, nil
+}
+
+func (h *userHandler) GetEmployerByEmail(ctx context.Context, req *pb.GetEmployerByEmailRequest) (*pb.GetEmployerByEmailResponse, error) {
+	utils.SanitizeGetEmployerByEmailRequest(req)
+	return &pb.GetEmployerByEmailResponse{}, nil
 }

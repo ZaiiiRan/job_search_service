@@ -23,11 +23,9 @@ func newApplicantDataProvider(pg *postgres.PostgresClient, redis *redis.RedisCli
 
 func (p *applicantDataProvider) GetByEmail(ctx context.Context, email string) (*applicant.Applicant, error) {
 	cacheRepo := cache.NewApplicantCacheRepository(p.redis)
-	query := dal.NewQueryApplicantsDal(nil, []string{email}, nil, nil, utils.BoolPtr(false), 1, 1)
-
-	list, err := cacheRepo.GetApplicantList(ctx, query)
-	if err == nil && len(list) > 0 {
-		return list[0], nil
+	a, err := cacheRepo.GetApplicantByEmail(ctx, email)
+	if err == nil && a != nil {
+		return a, nil
 	}
 
 	pgConn, err := p.pg.GetConn(ctx)
@@ -37,7 +35,8 @@ func (p *applicantDataProvider) GetByEmail(ctx context.Context, email string) (*
 	defer pgConn.Release()
 
 	dbRepo := repo.NewApplicantRepository(pgConn)
-	list, err = dbRepo.Query(ctx, query)
+	query := dal.NewQueryApplicantsDal(nil, []string{email}, nil, nil, utils.BoolPtr(false), 1, 1)
+	list, err := dbRepo.Query(ctx, query)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +46,7 @@ func (p *applicantDataProvider) GetByEmail(ctx context.Context, email string) (*
 	}
 
 	cacheRepo.SetApplicant(ctx, list[0])
-	cacheRepo.SetApplicantList(ctx, query, list)
+	cacheRepo.SetApplicantByEmail(ctx, list[0])
 
 	return list[0], err
 }
