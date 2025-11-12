@@ -24,7 +24,6 @@ func New(
 	companyName, city, email string,
 	phoneNumber, telegram *string,
 	isActive, isDeleted bool,
-	createdAt, updatedAt time.Time,
 ) (*Employer, validationerror.ValidationError) {
 	verr := make(validationerror.ValidationError)
 

@@ -5,17 +5,20 @@ import (
 
 	pb "github.com/ZaiiiRan/job_search_service/user-service/gen/go/user_service/v1"
 	applicantservice "github.com/ZaiiiRan/job_search_service/user-service/internal/services/applicant"
+	employerservice "github.com/ZaiiiRan/job_search_service/user-service/internal/services/employer"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/utils"
 )
 
 type userHandler struct {
 	applicantService applicantservice.ApplicantService
+	employerService  employerservice.EmployerService
 	pb.UnimplementedUserServiceServer
 }
 
-func newUserHandler(applicantService applicantservice.ApplicantService) *userHandler {
+func newUserHandler(applicantService applicantservice.ApplicantService, employerService employerservice.EmployerService) *userHandler {
 	return &userHandler{
 		applicantService: applicantService,
+		employerService:  employerService,
 	}
 }
 
@@ -49,7 +52,7 @@ func (h *userHandler) GetApplicantByEmail(ctx context.Context, req *pb.GetApplic
 
 func (h *userHandler) CreateEmployer(ctx context.Context, req *pb.CreateEmployerRequest) (*pb.CreateEmployerResponse, error) {
 	utils.SanitizeCreateEmployerRequest(req)
-	return &pb.CreateEmployerResponse{}, nil
+	return h.employerService.CreateEmployer(ctx, req)
 }
 
 func (h *userHandler) UpdateEmployer(ctx context.Context, req *pb.UpdateEmployerRequest) (*pb.UpdateEmployerResponse, error) {
@@ -63,14 +66,14 @@ func (h *userHandler) DeleteEmployer(ctx context.Context, req *pb.DeleteEmployer
 
 func (h *userHandler) QueryEmployers(ctx context.Context, req *pb.QueryEmployersRequest) (*pb.QueryEmployersResponse, error) {
 	utils.SanitizeQueryEmployersRequest(req)
-	return &pb.QueryEmployersResponse{}, nil
+	return h.employerService.QueryEmployers(ctx, req)
 }
 
 func (h *userHandler) GetEmployer(ctx context.Context, req *pb.GetEmployerRequest) (*pb.GetEmployerResponse, error) {
-	return &pb.GetEmployerResponse{}, nil
+	return h.employerService.GetEmployer(ctx, req)
 }
 
 func (h *userHandler) GetEmployerByEmail(ctx context.Context, req *pb.GetEmployerByEmailRequest) (*pb.GetEmployerByEmailResponse, error) {
 	utils.SanitizeGetEmployerByEmailRequest(req)
-	return &pb.GetEmployerByEmailResponse{}, nil
+	return h.employerService.GetEmployerByEmail(ctx, req)
 }

@@ -86,7 +86,6 @@ func (p *applicantDataProvider) Save(ctx context.Context, a *applicant.Applicant
 	defer pgConn.Release()
 
 	dbRepo := repo.NewApplicantRepository(pgConn)
-	cacheRepo := cache.NewApplicantCacheRepository(p.redis)
 
 	if a.Id() == 0 {
 		if err := dbRepo.Create(ctx, a); err != nil {
@@ -98,8 +97,10 @@ func (p *applicantDataProvider) Save(ctx context.Context, a *applicant.Applicant
 		}
 	}
 
+	cacheRepo := cache.NewApplicantCacheRepository(p.redis)
 	cacheRepo.InvalidateApplicantList(ctx)
 	cacheRepo.SetApplicant(ctx, a)
+
 	return nil
 }
 
@@ -125,5 +126,6 @@ func (p *applicantDataProvider) QueryList(ctx context.Context, query *dal.QueryA
 	if len(list) > 0 {
 		cacheRepo.SetApplicantList(ctx, query, list)
 	}
-	return list, nil
+
+	return list, err
 }

@@ -10,6 +10,7 @@ import (
 	pb "github.com/ZaiiiRan/job_search_service/user-service/gen/go/user_service/v1"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/config/settings"
 	applicantservice "github.com/ZaiiiRan/job_search_service/user-service/internal/services/applicant"
+	employerservice "github.com/ZaiiiRan/job_search_service/user-service/internal/services/employer"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
@@ -23,6 +24,7 @@ type Server struct {
 func New(
 	srvSettings settings.GRPCServerSettings,
 	applicantService applicantservice.ApplicantService,
+	employerService employerservice.EmployerService,
 	log *zap.SugaredLogger,
 ) (*Server, error) {
 	s := grpc.NewServer(
@@ -31,7 +33,7 @@ func New(
 		grpc.KeepaliveEnforcementPolicy(getGRPCKeepAliveEnforcement(&srvSettings)),
 	)
 
-	pb.RegisterUserServiceServer(s, newUserHandler(applicantService))
+	pb.RegisterUserServiceServer(s, newUserHandler(applicantService, employerService))
 
 	lis, err := net.Listen("tcp", srvSettings.Port)
 	if err != nil {

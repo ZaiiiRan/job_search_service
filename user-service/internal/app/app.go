@@ -10,6 +10,7 @@ import (
 	"github.com/ZaiiiRan/job_search_service/common/pkg/logger"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/config"
 	applicantservice "github.com/ZaiiiRan/job_search_service/user-service/internal/services/applicant"
+	employerservice "github.com/ZaiiiRan/job_search_service/user-service/internal/services/employer"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/postgres"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/redis"
 	grpcserver "github.com/ZaiiiRan/job_search_service/user-service/internal/transport/server/grpc"
@@ -26,6 +27,7 @@ type App struct {
 	redisClient    *redis.RedisClient
 
 	applicantService applicantservice.ApplicantService
+	employerService  employerservice.EmployerService
 
 	grpcServer  *grpcserver.Server
 	httpGateway *httpgateway.Server
@@ -54,6 +56,7 @@ func (a *App) Run(ctx context.Context) error {
 	}
 
 	a.initApplicantService()
+	a.initEmployerService()
 
 	if err := a.initGrpcServer(); err != nil {
 		return err
@@ -119,8 +122,12 @@ func (a *App) initApplicantService() {
 	a.applicantService = applicantservice.New(a.postgresClient, a.redisClient, a.log)
 }
 
+func (a *App) initEmployerService() {
+	a.employerService = employerservice.New(a.postgresClient, a.redisClient, a.log)
+}
+
 func (a *App) initGrpcServer() error {
-	srv, err := grpcserver.New(a.cfg.GRPCServer, a.applicantService, a.log)
+	srv, err := grpcserver.New(a.cfg.GRPCServer, a.applicantService, a.employerService, a.log)
 	if err != nil {
 		a.log.Errorw("app.grpc_server_init_failed", "err", err)
 		return err

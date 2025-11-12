@@ -200,7 +200,7 @@ func validateQuery(req *pb.QueryApplicantsRequest) validationerror.ValidationErr
 	}
 	for i, email := range req.FullEmails {
 		if email == "" {
-			verr[fmt.Sprintf("emails[%d]", i)] = "email cannot be empty"
+			verr[fmt.Sprintf("full_emails[%d]", i)] = "email cannot be empty"
 		}
 	}
 	for i, emailSubstr := range req.SubstrEmails {
