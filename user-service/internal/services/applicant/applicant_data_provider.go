@@ -35,7 +35,7 @@ func (p *applicantDataProvider) GetByEmail(ctx context.Context, email string) (*
 	defer pgConn.Release()
 
 	dbRepo := repo.NewApplicantRepository(pgConn)
-	query := dal.NewQueryApplicantsDal(nil, []string{email}, nil, nil, utils.BoolPtr(false), 1, 1)
+	query := dal.NewQueryApplicantsDal(nil, []string{email}, nil, nil, utils.BoolPtr(false), nil, nil, nil, nil, 1, 1)
 	list, err := dbRepo.Query(ctx, query)
 	if err != nil {
 		return nil, err
@@ -65,7 +65,7 @@ func (p *applicantDataProvider) GetById(ctx context.Context, id int64) (*applica
 	defer pgConn.Release()
 
 	dbRepo := repo.NewApplicantRepository(pgConn)
-	query := dal.NewQueryApplicantsDal([]int64{id}, nil, nil, nil, nil, 1, 1)
+	query := dal.NewQueryApplicantsDal([]int64{id}, nil, nil, nil, nil, nil, nil, nil, nil, 1, 1)
 	list, err := dbRepo.Query(ctx, query)
 	if err != nil {
 		return nil, err

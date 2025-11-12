@@ -120,7 +120,8 @@ func (s *service) QueryApplicants(ctx context.Context, req *pb.QueryApplicantsRe
 	}
 
 	query := dal.NewQueryApplicantsDal(req.Ids, req.FullEmails, req.SubstrEmails,
-		req.IsActive, req.IsDeleted, int(req.Page), int(req.PageSize),
+		req.IsActive, req.IsDeleted, nil, nil, nil, nil,
+		int(req.Page), int(req.PageSize),
 	)
 	list, err := s.dataProvider.QueryList(ctx, query)
 	if err != nil {

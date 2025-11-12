@@ -38,7 +38,7 @@ func (p *employerDataProvider) GetByEmail(ctx context.Context, email string) (*e
 	defer pgConn.Release()
 
 	dbRepo := repo.NewEmployerRepository(pgConn)
-	query := dal.NewQueryEmployersDal(nil, []string{email}, nil, nil, nil, nil, utils.BoolPtr(false), 1, 1)
+	query := dal.NewQueryEmployersDal(nil, []string{email}, nil, nil, nil, nil, utils.BoolPtr(false), nil, nil, nil, nil, 1, 1)
 	list, err := dbRepo.Query(ctx, query)
 	if err != nil {
 		return nil, err
@@ -68,7 +68,7 @@ func (p *employerDataProvider) GetById(ctx context.Context, id int64) (*employer
 	defer pgConn.Release()
 
 	dbRepo := repo.NewEmployerRepository(pgConn)
-	query := dal.NewQueryEmployersDal([]int64{id}, nil, nil, nil, nil, nil, nil, 1, 1)
+	query := dal.NewQueryEmployersDal([]int64{id}, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 1, 1)
 	list, err := dbRepo.Query(ctx, query)
 	if err != nil {
 		return nil, err

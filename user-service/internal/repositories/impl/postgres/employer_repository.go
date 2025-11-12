@@ -181,6 +181,8 @@ func (r *EmployerRepository) Query(ctx context.Context, q *models.QueryEmployers
 	appendILike(&sb, "company_name", q.CompanyNameSubstrs, &args, &argPos)
 	appendBool(&sb, "is_active", q.IsActive, &args, &argPos)
 	appendBool(&sb, "is_deleted", q.IsDeleted, &args, &argPos)
+	appendRange(&sb, "created_at", q.CreatedFrom, q.CreatedTo, &args, &argPos)
+	appendRange(&sb, "updated_at", q.UpdatedFrom, q.UpdatedTo, &args, &argPos)
 	appendOrder(&sb, "id", true)
 	appendLimitOffset(&sb, q.Limit, q.Offset, &args, &argPos)
 

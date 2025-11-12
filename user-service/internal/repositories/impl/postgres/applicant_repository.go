@@ -193,6 +193,8 @@ func (r *ApplicantRepository) Query(ctx context.Context, query *models.QueryAppl
 	appendILike(&sb, "email", query.EmailSubstrs, &args, &argPos)
 	appendBool(&sb, "is_active", query.IsActive, &args, &argPos)
 	appendBool(&sb, "is_deleted", query.IsDeleted, &args, &argPos)
+	appendRange(&sb, "created_at", query.CreatedFrom, query.CreatedTo, &args, &argPos)
+	appendRange(&sb, "updated_at", query.UpdatedFrom, query.UpdatedTo, &args, &argPos)
 	appendOrder(&sb, "id", true)
 	appendLimitOffset(&sb, query.Limit, query.Offset, &args, &argPos)
 

@@ -240,8 +240,12 @@ message QueryApplicantsRequest {
     ];
     optional bool is_active = 4;
     optional bool is_deleted = 5;
-    int32 page = 6;
-    int32 page_size = 7;
+    optional google.protobuf.Timestamp created_from = 6;
+    optional google.protobuf.Timestamp created_to = 7;
+    optional google.protobuf.Timestamp updated_from = 8;
+    optional google.protobuf.Timestamp updated_to = 9;
+    int32 page = 10;
+    int32 page_size = 11;
 }
 
 message QueryApplicantsResponse {
@@ -353,8 +357,12 @@ message QueryEmployersRequest {
     ];
     optional bool is_active = 6;
     optional bool is_deleted = 7;
-    int32 page = 8;
-    int32 page_size = 9;
+    optional google.protobuf.Timestamp created_from = 8;
+    optional google.protobuf.Timestamp created_to = 9;
+    optional google.protobuf.Timestamp updated_from = 10;
+    optional google.protobuf.Timestamp updated_to = 11;
+    int32 page = 12;
+    int32 page_size = 13;
 }
 
 message QueryEmployersResponse {

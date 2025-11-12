@@ -118,7 +118,8 @@ func (s *service) QueryEmployers(ctx context.Context, req *pb.QueryEmployersRequ
 	}
 
 	query := dal.NewQueryEmployersDal(req.Ids, req.FullEmails, req.SubstrEmails, req.FullCompanyNames,
-		req.SubstrCompanyNames, req.IsActive, req.IsDeleted, int(req.Page), int(req.PageSize),
+		req.SubstrCompanyNames, req.IsActive, req.IsDeleted, nil, nil, nil, nil,
+		int(req.Page), int(req.PageSize),
 	)
 	list, err := s.dataProvider.QueryList(ctx, query)
 	if err != nil {
