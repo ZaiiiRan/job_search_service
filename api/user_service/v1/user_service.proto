@@ -156,7 +156,7 @@ service UserService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Get employer by email"
             description: "Returns not deleted employer by email. Required in the authorization microservice."
-            tags: "employer"
+            tags: "employers"
         };
     }
 }
