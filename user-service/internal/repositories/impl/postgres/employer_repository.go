@@ -82,7 +82,7 @@ func (r *EmployerRepository) Create(ctx context.Context, e *employer.Employer) e
 		); err != nil {
 			return fmt.Errorf("scan employer: %w", err)
 		}
-		e = res.ToDomain()
+		*e = *res.ToDomain()
 		return nil
 	}
 
@@ -140,7 +140,7 @@ func (r *EmployerRepository) Update(ctx context.Context, e *employer.Employer) e
 		); err != nil {
 			return fmt.Errorf("scan employer: %w", err)
 		}
-		e = res.ToDomain()
+		*e = *res.ToDomain()
 		return nil
 	}
 

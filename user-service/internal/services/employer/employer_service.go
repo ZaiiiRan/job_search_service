@@ -3,6 +3,7 @@ package employerservice
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/ZaiiiRan/job_search_service/common/pkg/ctxmetadata"
 	pb "github.com/ZaiiiRan/job_search_service/user-service/gen/go/user_service/v1"
@@ -11,6 +12,7 @@ import (
 	dal "github.com/ZaiiiRan/job_search_service/user-service/internal/repositories/models"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/postgres"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/redis"
+	"github.com/ZaiiiRan/job_search_service/user-service/internal/utils"
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -111,16 +113,12 @@ func (s *service) GetEmployerByEmail(ctx context.Context, req *pb.GetEmployerByE
 func (s *service) QueryEmployers(ctx context.Context, req *pb.QueryEmployersRequest) (*pb.QueryEmployersResponse, error) {
 	l := s.log.With("op", "query_employers", "req_id", ctxmetadata.GetReqIdFromContext(ctx), "query", req)
 
-	verr := validateQuery(req)
+	query, verr := s.createQuery(req)
 	if len(verr) > 0 {
 		l.Errorw("employer.query_employers.validation_error", "err", verr)
 		return nil, verr.ToStatus()
 	}
 
-	query := dal.NewQueryEmployersDal(req.Ids, req.FullEmails, req.SubstrEmails, req.FullCompanyNames,
-		req.SubstrCompanyNames, req.IsActive, req.IsDeleted, nil, nil, nil, nil,
-		int(req.Page), int(req.PageSize),
-	)
 	list, err := s.dataProvider.QueryList(ctx, query)
 	if err != nil {
 		l.Errorw("employer.query_employers_failed", "err", err)
@@ -155,6 +153,33 @@ func (s *service) createEmployer(r *pb.Employer) (*employer.Employer, validation
 		r.Contacts.PhoneNumber, r.Contacts.Telegram,
 		false, false,
 	)
+}
+
+func (s *service) createQuery(req *pb.QueryEmployersRequest) (*dal.QueryEmployersDal, validationerror.ValidationError) {
+	verr := validateQuery(req)
+	if len(verr) > 0 {
+		return nil, verr
+	}
+
+	var createdFrom, createdTo, updatedFrom, updatedTo *time.Time
+	if req.CreatedFrom != nil {
+		createdFrom = utils.TimePtr(req.CreatedFrom.AsTime())
+	}
+	if req.CreatedTo != nil {
+		createdTo = utils.TimePtr(req.CreatedTo.AsTime())
+	}
+	if req.UpdatedFrom != nil {
+		updatedFrom = utils.TimePtr(req.UpdatedFrom.AsTime())
+	}
+	if req.UpdatedTo != nil {
+		updatedTo = utils.TimePtr(req.UpdatedTo.AsTime())
+	}
+
+	return dal.NewQueryEmployersDal(
+		req.Ids, req.FullEmails, req.SubstrEmails, req.FullCompanyNames, req.SubstrCompanyNames,
+		req.IsActive, req.IsDeleted, createdFrom, createdTo, updatedFrom, updatedTo,
+		int(req.Page), int(req.PageSize),
+	), nil
 }
 
 func toPbEmployer(e *employer.Employer) *pb.Employer {

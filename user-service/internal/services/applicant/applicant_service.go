@@ -3,6 +3,7 @@ package applicantservice
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/ZaiiiRan/job_search_service/common/pkg/ctxmetadata"
 	pb "github.com/ZaiiiRan/job_search_service/user-service/gen/go/user_service/v1"
@@ -11,6 +12,7 @@ import (
 	dal "github.com/ZaiiiRan/job_search_service/user-service/internal/repositories/models"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/postgres"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/redis"
+	"github.com/ZaiiiRan/job_search_service/user-service/internal/utils"
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -39,7 +41,7 @@ func New(pgClient *postgres.PostgresClient, redisClient *redis.RedisClient, log 
 func (s *service) CreateApplicant(ctx context.Context, req *pb.CreateApplicantRequest) (*pb.CreateApplicantResponse, error) {
 	l := s.log.With("op", "create_applicant", "req_id", ctxmetadata.GetReqIdFromContext(ctx))
 
-	a, verr := s.createApplicant(req)
+	a, verr := s.createApplicant(req.Applicant)
 	if len(verr) > 0 {
 		l.Errorw("applicant.create_applicant_failed.validation_error", "err", verr)
 		return nil, verr.ToStatus()
@@ -113,16 +115,12 @@ func (s *service) GetApplicantByEmail(ctx context.Context, req *pb.GetApplicantB
 func (s *service) QueryApplicants(ctx context.Context, req *pb.QueryApplicantsRequest) (*pb.QueryApplicantsResponse, error) {
 	l := s.log.With("op", "query_applicants", "req_id", ctxmetadata.GetReqIdFromContext(ctx), "query", req)
 
-	verr := validateQuery(req)
+	query, verr := s.createQuery(req)
 	if len(verr) > 0 {
 		l.Errorw("applicant.query_applicants.validation_error", "err", verr)
 		return nil, verr.ToStatus()
 	}
 
-	query := dal.NewQueryApplicantsDal(req.Ids, req.FullEmails, req.SubstrEmails,
-		req.IsActive, req.IsDeleted, nil, nil, nil, nil,
-		int(req.Page), int(req.PageSize),
-	)
 	list, err := s.dataProvider.QueryList(ctx, query)
 	if err != nil {
 		l.Errorw("applicant.query_applicants_failed", "err", err)
@@ -141,8 +139,7 @@ func (s *service) QueryApplicants(ctx context.Context, req *pb.QueryApplicantsRe
 	return &pb.QueryApplicantsResponse{Applicants: result}, nil
 }
 
-func (s *service) createApplicant(req *pb.CreateApplicantRequest) (*applicant.Applicant, validationerror.ValidationError) {
-	r := req.Applicant
+func (s *service) createApplicant(r *pb.Applicant) (*applicant.Applicant, validationerror.ValidationError) {
 	if r.Patronymic != nil && *r.Patronymic == "" {
 		r.Patronymic = nil
 	}
@@ -162,6 +159,33 @@ func (s *service) createApplicant(req *pb.CreateApplicantRequest) (*applicant.Ap
 		r.Contacts.PhoneNumber, r.Contacts.Telegram,
 		false, false,
 	)
+}
+
+func (s *service) createQuery(req *pb.QueryApplicantsRequest) (*dal.QueryApplicantsDal, validationerror.ValidationError) {
+	verr := validateQuery(req)
+	if len(verr) > 0 {
+		return nil, verr
+	}
+
+	var createdFrom, createdTo, updatedFrom, updatedTo *time.Time
+	if req.CreatedFrom != nil {
+		createdFrom = utils.TimePtr(req.CreatedFrom.AsTime())
+	}
+	if req.CreatedTo != nil {
+		createdTo = utils.TimePtr(req.CreatedTo.AsTime())
+	}
+	if req.UpdatedFrom != nil {
+		updatedFrom = utils.TimePtr(req.UpdatedFrom.AsTime())
+	}
+	if req.UpdatedTo != nil {
+		updatedTo = utils.TimePtr(req.UpdatedTo.AsTime())
+	}
+
+	return dal.NewQueryApplicantsDal(
+		req.Ids, req.FullEmails, req.SubstrEmails,
+		req.IsActive, req.IsDeleted, createdFrom, createdTo, updatedFrom, updatedTo,
+		int(req.Page), int(req.PageSize),
+	), nil
 }
 
 func toPbApplicant(a *applicant.Applicant) *pb.Applicant {

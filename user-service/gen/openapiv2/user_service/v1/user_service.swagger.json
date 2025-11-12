@@ -312,7 +312,7 @@
           }
         ],
         "tags": [
-          "employer"
+          "employers"
         ]
       }
     },
@@ -645,6 +645,22 @@
         "isDeleted": {
           "type": "boolean"
         },
+        "createdFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdTo": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedTo": {
+          "type": "string",
+          "format": "date-time"
+        },
         "page": {
           "type": "integer",
           "format": "int32"
@@ -711,6 +727,22 @@
         },
         "isDeleted": {
           "type": "boolean"
+        },
+        "createdFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdTo": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedTo": {
+          "type": "string",
+          "format": "date-time"
         },
         "page": {
           "type": "integer",

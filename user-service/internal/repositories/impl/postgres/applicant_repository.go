@@ -94,7 +94,7 @@ func (r *ApplicantRepository) Create(ctx context.Context, applicant *applicant.A
 		); err != nil {
 			return fmt.Errorf("scan applicant: %w", err)
 		}
-		applicant = res.ToDomain()
+		*applicant = *res.ToDomain()
 		return nil
 	}
 
@@ -161,7 +161,7 @@ func (r *ApplicantRepository) Update(ctx context.Context, applicant *applicant.A
 		); err != nil {
 			return fmt.Errorf("scan applicant: %w", err)
 		}
-		applicant = res.ToDomain()
+		*applicant = *res.ToDomain()
 		return nil
 	}
 
