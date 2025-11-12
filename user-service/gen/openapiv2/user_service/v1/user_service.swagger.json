@@ -1,0 +1,802 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "User Service API",
+    "description": "API for user management",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "UserService"
+    }
+  ],
+  "host": "localhost:8081",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/applicant": {
+      "post": {
+        "summary": "Create applicant",
+        "description": "Creates applicant. Required for registration in the authorization microservice.",
+        "operationId": "UserService_CreateApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateApplicantRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      },
+      "put": {
+        "summary": "Update applicant",
+        "description": "Updates applicant. Can only be called by an authorized user to update their profile.",
+        "operationId": "UserService_UpdateApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateApplicantRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      }
+    },
+    "/api/v1/applicant/by-email/{email}": {
+      "get": {
+        "summary": "Get applicant by email",
+        "description": "Returns not deleted applicant by email. Required in the authorization microservice.",
+        "operationId": "UserService_GetApplicantByEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetApplicantByEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      }
+    },
+    "/api/v1/applicant/query": {
+      "post": {
+        "summary": "Query applicants",
+        "description": "Returns applicants. Needed to retrieve data in other microservices.",
+        "operationId": "UserService_QueryApplicants",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1QueryApplicantsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1QueryApplicantsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      }
+    },
+    "/api/v1/applicant/{id}": {
+      "get": {
+        "summary": "Get applicant",
+        "description": "Returns applicant by id including deeleted applicants. Needed to retrieve data in other microservices.",
+        "operationId": "UserService_GetApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      },
+      "delete": {
+        "summary": "Delete applicant",
+        "description": "Deletes applicant. Only an authorized user can call this to delete their profile.",
+        "operationId": "UserService_DeleteApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      }
+    },
+    "/api/v1/employer": {
+      "post": {
+        "summary": "Create employer",
+        "description": "Creates employer. Required for registration in the authorization microservice.",
+        "operationId": "UserService_CreateEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateEmployerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employers"
+        ]
+      },
+      "put": {
+        "summary": "Update employer",
+        "description": "Updates employer. Can only be called by an authorized user to update their profile.",
+        "operationId": "UserService_UpdateEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateEmployerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employers"
+        ]
+      }
+    },
+    "/api/v1/employer/by-email/{email}": {
+      "get": {
+        "summary": "Get employer by email",
+        "description": "Returns not deleted employer by email. Required in the authorization microservice.",
+        "operationId": "UserService_GetEmployerByEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEmployerByEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "employers"
+        ]
+      }
+    },
+    "/api/v1/employer/query": {
+      "post": {
+        "summary": "Query employers",
+        "description": "Returns employers. Needed to retrieve data in other microservices.",
+        "operationId": "UserService_QueryEmployers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1QueryEmployersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1QueryEmployersRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employers"
+        ]
+      }
+    },
+    "/api/v1/employer/{id}": {
+      "get": {
+        "summary": "Get employer",
+        "description": "Returns employer by id including deeleted employers. Needed to retrieve data in other microservices.",
+        "operationId": "UserService_GetEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "employers"
+        ]
+      },
+      "delete": {
+        "summary": "Delete employer",
+        "description": "Deletes employer. Only an authorized user can call this to delete their profile.",
+        "operationId": "UserService_DeleteEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "employers"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1Applicant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "patronymic": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "contacts": {
+          "$ref": "#/definitions/v1Contacts"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1Contacts": {
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "type": "string"
+        },
+        "telegram": {
+          "type": "string"
+        }
+      }
+    },
+    "v1CreateApplicantRequest": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1CreateApplicantResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1CreateEmployerRequest": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    },
+    "v1CreateEmployerResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    },
+    "v1DeleteApplicantResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1DeleteEmployerResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    },
+    "v1Employer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "contacts": {
+          "$ref": "#/definitions/v1Contacts"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1GetApplicantByEmailResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1GetApplicantResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1GetEmployerByEmailResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    },
+    "v1GetEmployerResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    },
+    "v1QueryApplicantsRequest": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "integer",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "description": "List of applicant IDs"
+        },
+        "fullEmails": {
+          "type": "string",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of applicant emails"
+        },
+        "substrEmails": {
+          "type": "string",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of applicant email substrings"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "createdFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdTo": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedTo": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1QueryApplicantsResponse": {
+      "type": "object",
+      "properties": {
+        "applicants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Applicant"
+          }
+        }
+      }
+    },
+    "v1QueryEmployersRequest": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "integer",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          },
+          "description": "List of employer IDs"
+        },
+        "fullEmails": {
+          "type": "string",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of employer emails"
+        },
+        "fullCompanyNames": {
+          "type": "string",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of company names"
+        },
+        "substrEmails": {
+          "type": "string",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of employer email substrings"
+        },
+        "substrCompanyNames": {
+          "type": "string",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of company name substrings"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "createdFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdTo": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedTo": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "v1QueryEmployersResponse": {
+      "type": "object",
+      "properties": {
+        "employers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Employer"
+          }
+        }
+      }
+    },
+    "v1UpdateApplicantRequest": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1UpdateApplicantResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1UpdateEmployerRequest": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    },
+    "v1UpdateEmployerResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    }
+  }
+}

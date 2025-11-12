@@ -1,0 +1,8 @@
+grpc_server:
+  port: ":50051"
+http_gateway_server:
+  port: ":8081"
+migrate:
+  need_to_migrate: true
+shutdown:
+  shutdown_timeout: 5

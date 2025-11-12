@@ -1,0 +1,391 @@
+syntax = "proto3";
+
+package user_service.v1;
+
+option go_package = "github.com/ZaiiiRan/job_search_service/user-service/gen/go/user-service/v1;userv1";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+        title: "User Service API";
+        version: "1.0";
+        description: "API for user management";
+    };
+    host: "localhost:8081";
+    schemes: HTTP;
+    schemes: HTTPS;
+    consumes: "application/json";
+    produces: "application/json";
+};
+
+service UserService {
+    rpc CreateApplicant(CreateApplicantRequest) returns (CreateApplicantResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/applicant"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Create applicant"
+            description: "Creates applicant. Required for registration in the authorization microservice."
+            tags: "applicants"
+        };
+    }
+
+    rpc UpdateApplicant(UpdateApplicantRequest) returns (UpdateApplicantResponse) {
+        option (google.api.http) = {
+            put: "/api/v1/applicant"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Update applicant"
+            description: "Updates applicant. Can only be called by an authorized user to update their profile."
+            tags: "applicants"
+        };
+    }
+
+    rpc DeleteApplicant(DeleteApplicantRequest) returns (DeleteApplicantResponse) {
+        option (google.api.http) = {
+            delete: "/api/v1/applicant/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Delete applicant"
+            description: "Deletes applicant. Only an authorized user can call this to delete their profile."
+            tags: "applicants"
+        };
+    }
+
+    rpc QueryApplicants(QueryApplicantsRequest) returns (QueryApplicantsResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/applicant/query"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Query applicants"
+            description: "Returns applicants. Needed to retrieve data in other microservices."
+            tags: "applicants"
+        };
+    }
+
+    rpc GetApplicant(GetApplicantRequest) returns (GetApplicantResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/applicant/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get applicant"
+            description: "Returns applicant by id including deeleted applicants. Needed to retrieve data in other microservices."
+            tags: "applicants"
+        };
+    }
+
+    rpc GetApplicantByEmail(GetApplicantByEmailRequest) returns (GetApplicantByEmailResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/applicant/by-email/{email}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get applicant by email"
+            description: "Returns not deleted applicant by email. Required in the authorization microservice."
+            tags: "applicants"
+        };
+    }
+
+    rpc CreateEmployer(CreateEmployerRequest) returns (CreateEmployerResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/employer"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Create employer"
+            description: "Creates employer. Required for registration in the authorization microservice."
+            tags: "employers"
+        };
+    }
+
+    rpc UpdateEmployer(UpdateEmployerRequest) returns (UpdateEmployerResponse) {
+        option (google.api.http) = {
+            put: "/api/v1/employer"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Update employer"
+            description: "Updates employer. Can only be called by an authorized user to update their profile."
+            tags: "employers"
+        };
+    }
+
+    rpc DeleteEmployer(DeleteEmployerRequest) returns (DeleteEmployerResponse) {
+        option (google.api.http) = {
+            delete: "/api/v1/employer/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Delete employer"
+            description: "Deletes employer. Only an authorized user can call this to delete their profile."
+            tags: "employers"
+        };
+    }
+
+    rpc QueryEmployers(QueryEmployersRequest) returns (QueryEmployersResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/employer/query"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Query employers"
+            description: "Returns employers. Needed to retrieve data in other microservices."
+            tags: "employers"
+        };
+    }
+
+    rpc GetEmployer(GetEmployerRequest) returns (GetEmployerResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/employer/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get employer"
+            description: "Returns employer by id including deeleted employers. Needed to retrieve data in other microservices."
+            tags: "employers"
+        };
+    }
+
+    rpc GetEmployerByEmail(GetEmployerByEmailRequest) returns (GetEmployerByEmailResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/employer/by-email/{email}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get employer by email"
+            description: "Returns not deleted employer by email. Required in the authorization microservice."
+            tags: "employers"
+        };
+    }
+}
+
+message Contacts {
+    optional string phone_number = 1;
+    optional string telegram = 2;
+}
+
+message Applicant {
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+
+    string first_name = 2;
+    string last_name = 3;
+    optional string patronymic = 4;
+    string birth_date = 5;
+    string city = 6;
+    string email = 7;
+    Contacts contacts = 8;
+
+    bool is_active = 9;
+    bool is_deleted = 10;
+
+    google.protobuf.Timestamp created_at = 11;
+    google.protobuf.Timestamp updated_at = 12;
+}
+
+message CreateApplicantRequest {
+    Applicant applicant = 1;
+}
+
+message CreateApplicantResponse {
+    Applicant applicant = 1;
+}
+
+message UpdateApplicantRequest {
+    Applicant applicant = 1;
+}
+
+message UpdateApplicantResponse {
+    Applicant applicant = 1;
+}
+
+message DeleteApplicantRequest {
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+}
+
+message DeleteApplicantResponse {
+    Applicant applicant = 1;
+}
+
+message QueryApplicantsRequest {
+    repeated int64 ids = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of applicant IDs";
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+    repeated string full_emails = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of applicant emails";
+            type: STRING;
+        }
+    ];
+    repeated string substr_emails = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of applicant email substrings";
+            type: STRING;
+        }
+    ];
+    optional bool is_active = 4;
+    optional bool is_deleted = 5;
+    optional google.protobuf.Timestamp created_from = 6;
+    optional google.protobuf.Timestamp created_to = 7;
+    optional google.protobuf.Timestamp updated_from = 8;
+    optional google.protobuf.Timestamp updated_to = 9;
+    int32 page = 10;
+    int32 page_size = 11;
+}
+
+message QueryApplicantsResponse {
+    repeated Applicant applicants = 1;
+}
+
+message GetApplicantRequest {
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+}
+
+message GetApplicantResponse {
+    Applicant applicant = 1;
+}
+
+message GetApplicantByEmailRequest {
+    string email = 1;
+}
+
+message GetApplicantByEmailResponse {
+    Applicant applicant = 1;
+}
+
+
+message Employer {
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+
+    string company_name = 2;
+    string city = 3;
+    string email = 4;
+    Contacts contacts = 5;
+
+    bool is_active = 6;
+    bool is_deleted = 7;
+
+    google.protobuf.Timestamp created_at = 8;
+    google.protobuf.Timestamp updated_at = 9;
+}
+
+message CreateEmployerRequest {
+    Employer employer = 1;
+}
+
+message CreateEmployerResponse {
+    Employer employer = 1;
+}
+
+message UpdateEmployerRequest {
+    Employer employer = 1;
+}
+
+message UpdateEmployerResponse {
+    Employer employer = 1;
+}
+
+message DeleteEmployerRequest {
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+}
+
+message DeleteEmployerResponse {
+    Employer employer = 1;
+}
+
+message QueryEmployersRequest {
+    repeated int64 ids = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of employer IDs";
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+    repeated string full_emails = 2 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of employer emails";
+            type: STRING;
+        }
+    ];
+    repeated string full_company_names = 3 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of company names";
+            type: STRING;
+        }
+    ];
+    repeated string substr_emails = 4 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of employer email substrings";
+            type: STRING;
+        }
+    ];
+    repeated string substr_company_names = 5 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            description: "List of company name substrings";
+            type: STRING;
+        }
+    ];
+    optional bool is_active = 6;
+    optional bool is_deleted = 7;
+    optional google.protobuf.Timestamp created_from = 8;
+    optional google.protobuf.Timestamp created_to = 9;
+    optional google.protobuf.Timestamp updated_from = 10;
+    optional google.protobuf.Timestamp updated_to = 11;
+    int32 page = 12;
+    int32 page_size = 13;
+}
+
+message QueryEmployersResponse {
+    repeated Employer employers = 1;
+}
+
+message GetEmployerRequest {
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+}
+
+message GetEmployerResponse {
+    Employer employer = 1;
+}
+
+message GetEmployerByEmailRequest {
+    string email = 1;
+}
+
+message GetEmployerByEmailResponse {
+    Employer employer = 1;
+}

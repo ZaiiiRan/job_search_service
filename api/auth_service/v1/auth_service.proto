@@ -1,0 +1,282 @@
+syntax = "proto3";
+
+package auth_service.v1;
+
+option go_package = "github.com/ZaiiiRan/job_search_service/auth-service/gen/go/auth-service/v1;auth1";
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "user_service/v1/user_service.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+        title: "Auth Service API";
+        version: "1.0";
+        description: "API for registration, authorization, changing and resetting passwords, and updating user tokens";
+    };
+    host: "localhost:8082";
+    schemes: HTTP;
+    schemes: HTTPS;
+    consumes: "application/json";
+    produces: "application/json";
+};
+
+service AuthService {
+    rpc RegisterApplicant(RegisterApplicantRequest) returns (RegisterApplicantResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/applicant/register",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Register applicant user"
+            description: "Registers applicant"
+            tags: "applicant"
+        };
+    }
+
+    rpc GetNewApplicantActivationCode(GetNewApplicantActivationCodeRequest) returns (GetNewApplicantActivationCodeResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/applicant/new-activation-code"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get new applicant activation code"
+            description: "Sending a new account activation code"
+            tags: "applicant"
+        };
+    }
+
+    rpc LoginApplicant(LoginApplicantRequest) returns (LoginApplicantResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/applicant/login",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Login applicant"
+            description: "Applicant authorization"
+            tags: "applicant"
+        };
+    }
+
+    rpc RefreshApplicant(RefreshApplicantRequest) returns (RefreshApplicantResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/applicant/refresh",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Refresh applicant"
+            description: "Returns a new pair of tokens"
+            tags: "applicant"
+        };
+    }
+
+    rpc GetResetApplicantPasswordCode(GetResetApplicantPasswordCodeRequest) returns (GetResetApplicantPasswordCodeResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/applicant/reset-password/code",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get reset applicant's password code"
+            description: "Sends a password recovery code"
+            tags: "applicant"
+        };
+    }
+
+    rpc ResetApplicantPassword(ResetApplicantPasswordRequest) returns (ResetApplicantPasswordResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/applicant/reset-password",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Reset applicant password"
+            description: "Resets applicant password"
+            tags: "applicant"
+        };
+    }
+
+    rpc ChangeApplicantPassword(ChangeApplicantPasswordRequest) returns (ChangeApplicantPasswordResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/applicant/change-password",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Change applicant password"
+            description: "Changes applicant password"
+            tags: "applicant"
+        };
+    }
+
+    rpc RegisterEmployer(RegisterEmployerRequest) returns (RegisterEmployerResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/employer/register",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Register employer user"
+            description: "Registers employer"
+            tags: "employer"
+        };
+    }
+
+    rpc GetNewEmployerActivationCode(GetNewEmployerActivationCodeRequest) returns (GetNewEmployerActivationCodeResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/employer/new-activation-code",
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get new employer activation code"
+            description: "Sending a new account activation code"
+            tags: "employer"
+        };
+    }
+
+    rpc LoginEmployer(LoginEmployerRequest) returns (LoginEmployerResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/employer/login",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Login employer"
+            description: "Employer authorization"
+            tags: "employer"
+        };
+    }
+
+    rpc RefreshEmployer(RefreshEmployerRequest) returns (RefreshEmployerResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/employer/refresh",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Refresh employer"
+            description: "Returns a new pair of tokens"
+            tags: "employer"
+        };
+    }
+
+    rpc GetResetEmployerPasswordCode(GetResetEmployerPasswordCodeRequest) returns (GetResetEmployerPasswordCodeResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/employer/reset-password/code",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Get reset employer's password code"
+            description: "Sends a password recovery code"
+            tags: "employer"
+        };
+    }
+
+    rpc ResetEmployerPassword(ResetEmployerPasswordRequest) returns (ResetEmployerPasswordResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/employer/reset-password",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Reset employer password"
+            description: "Resets employer password"
+            tags: "employer"
+        };
+    }
+
+    rpc ChangeEmployerPassword(ChangeEmployerPasswordRequest) returns (ChangeEmployerPasswordResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/employer/change-password",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Change employer password"
+            description: "Changes employer password"
+            tags: "employer"
+        };
+    }
+}
+
+message RegisterApplicantRequest {
+    user_service.v1.Applicant applicant = 1;
+    string password = 2;
+}
+
+message RegisterApplicantResponse {
+    user_service.v1.Applicant applicant = 1;
+}
+
+message GetNewApplicantActivationCodeRequest {}
+message GetNewApplicantActivationCodeResponse {}
+
+message LoginApplicantRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginApplicantResponse {
+    user_service.v1.Applicant applicant = 1;
+}
+
+message RefreshApplicantRequest {}
+message RefreshApplicantResponse {}
+
+message GetResetApplicantPasswordCodeRequest {
+    string email = 1;
+}
+
+message GetResetApplicantPasswordCodeResponse {}
+
+message ResetApplicantPasswordRequest {
+    string code = 1;
+    string new_password = 2;
+}
+
+message ResetApplicantPasswordResponse {
+    user_service.v1.Applicant applicant = 1;
+}
+
+message ChangeApplicantPasswordRequest {
+    string old_password = 1;
+    string new_password = 2;
+}
+
+message ChangeApplicantPasswordResponse {}
+
+message RegisterEmployerRequest {
+    user_service.v1.Employer employer = 1;
+    string password = 2;
+}
+
+message RegisterEmployerResponse {
+    user_service.v1.Employer employer = 1;
+}
+
+message GetNewEmployerActivationCodeRequest {}
+message GetNewEmployerActivationCodeResponse {}
+
+message LoginEmployerRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginEmployerResponse {
+    user_service.v1.Employer employer = 1;
+}
+
+message RefreshEmployerRequest {}
+message RefreshEmployerResponse {}
+
+message GetResetEmployerPasswordCodeRequest {
+    string email = 1;
+}
+
+message GetResetEmployerPasswordCodeResponse {}
+
+message ResetEmployerPasswordRequest {
+    string code = 1;
+    string new_password = 2;
+}
+
+message ResetEmployerPasswordResponse {
+    user_service.v1.Employer employer = 1;
+}
+
+message ChangeEmployerPasswordRequest {
+    string old_password = 1;
+    string new_password = 2;
+}
+
+message ChangeEmployerPasswordResponse {}
