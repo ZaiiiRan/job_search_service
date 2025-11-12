@@ -1,7 +1,7 @@
 github.com/KyleBanks/depth v1.2.1 h1:5h8fQADFrWtarTdtDudMmGsC7GPbOAu6RVB3ffsVFHc=
 github.com/KyleBanks/depth v1.2.1/go.mod h1:jzSb9d0L43HxTQfT+oSA1EEp2q+ne2uh6XgeJcm8brE=
-github.com/ZaiiiRan/job_search_service/common v0.0.0-20251108092631-f555f31afb66 h1:hYMtL3R069kPq5lJHnxiQd/KMWx0EZJvM3glXg9IyHA=
-github.com/ZaiiiRan/job_search_service/common v0.0.0-20251108092631-f555f31afb66/go.mod h1:9TJW6gGqsQfxJkb17hASvG31qPtI19RVfJ+44Y8WUD0=
+github.com/ZaiiiRan/job_search_service/common v0.0.0-20251112201106-f9093b34ef37 h1:2LNlAplFtO+ozriR6kVrsyXg+vpUsku5b+aDXG2kWgM=
+github.com/ZaiiiRan/job_search_service/common v0.0.0-20251112201106-f9093b34ef37/go.mod h1:9TJW6gGqsQfxJkb17hASvG31qPtI19RVfJ+44Y8WUD0=
 github.com/agiledragon/gomonkey/v2 v2.3.1 h1:k+UnUY0EMNYUFUAQVETGY9uUTxjMdnUkP0ARyJS1zzs=
 github.com/agiledragon/gomonkey/v2 v2.3.1/go.mod h1:ap1AmDzcVOAz1YpeJ3TCzIgstoaWLA6jbbgxfB4w2iY=
 github.com/bsm/ginkgo/v2 v2.12.0 h1:Ny8MWAHyOepLGlLKYmXG4IEkioBysk6GpaRTLC8zwWs=

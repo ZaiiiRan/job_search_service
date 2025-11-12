@@ -3,7 +3,7 @@ module github.com/ZaiiiRan/job_search_service/user-service
 go 1.25.2
 
 require (
-	github.com/ZaiiiRan/job_search_service/common v0.0.0-20251108092631-f555f31afb66
+	github.com/ZaiiiRan/job_search_service/common v0.0.0-20251112201106-f9093b34ef37
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.3
 	github.com/jackc/pgx/v5 v5.7.6
 	github.com/joho/godotenv v1.5.1
@@ -13,7 +13,6 @@ require (
 	github.com/swaggo/http-swagger v1.3.4
 	go.uber.org/zap v1.27.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20251103181224-f26f9409b101
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20251029180050-ab9386a59fda
 	google.golang.org/grpc v1.76.0
 	google.golang.org/protobuf v1.36.10
 )
@@ -53,5 +52,6 @@ require (
 	golang.org/x/sys v0.35.0 // indirect
 	golang.org/x/text v0.29.0 // indirect
 	golang.org/x/tools v0.36.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20251029180050-ab9386a59fda // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
