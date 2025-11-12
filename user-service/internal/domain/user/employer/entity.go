@@ -5,7 +5,7 @@ import (
 
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/domain/user"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/domain/user/contacts"
-	"github.com/ZaiiiRan/job_search_service/user-service/internal/errors/validationerror"
+	"github.com/ZaiiiRan/job_search_service/common/pkg/errors/validationerror"
 )
 
 type Employer struct {

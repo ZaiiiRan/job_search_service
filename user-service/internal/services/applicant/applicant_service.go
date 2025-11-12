@@ -8,7 +8,7 @@ import (
 	"github.com/ZaiiiRan/job_search_service/common/pkg/ctxmetadata"
 	pb "github.com/ZaiiiRan/job_search_service/user-service/gen/go/user_service/v1"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/domain/user/applicant"
-	"github.com/ZaiiiRan/job_search_service/user-service/internal/errors/validationerror"
+	"github.com/ZaiiiRan/job_search_service/common/pkg/errors/validationerror"
 	dal "github.com/ZaiiiRan/job_search_service/user-service/internal/repositories/models"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/postgres"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/redis"
