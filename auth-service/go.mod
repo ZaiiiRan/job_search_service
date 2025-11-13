@@ -3,11 +3,13 @@ module github.com/ZaiiiRan/job_search_service/auth-service
 go 1.25.2
 
 require (
+	github.com/ZaiiiRan/job_search_service/common v0.0.0-20251112201106-f9093b34ef37
 	github.com/jackc/pgx/v5 v5.7.6
 	github.com/joho/godotenv v1.5.1
 	github.com/pressly/goose/v3 v3.26.0
 	github.com/redis/go-redis/v9 v9.16.0
 	github.com/spf13/viper v1.21.0
+	go.uber.org/zap v1.27.0
 )
 
 require (
