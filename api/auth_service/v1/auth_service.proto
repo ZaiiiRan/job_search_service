@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package auth_service.v1;
 
-option go_package = "github.com/ZaiiiRan/job_search_service/auth-service/gen/go/auth-service/v1;auth1";
+option go_package = "github.com/ZaiiiRan/job_search_service/auth-service/gen/go/auth-service/v1;authv1";
 
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";

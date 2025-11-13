@@ -1,0 +1,784 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Auth Service API",
+    "description": "API for registration, authorization, changing and resetting passwords, and updating user tokens",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "AuthService"
+    }
+  ],
+  "host": "localhost:8082",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/applicant/change-password": {
+      "post": {
+        "summary": "Change applicant password",
+        "description": "Changes applicant password",
+        "operationId": "AuthService_ChangeApplicantPassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ChangeApplicantPasswordResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ChangeApplicantPasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/v1/applicant/login": {
+      "post": {
+        "summary": "Login applicant",
+        "description": "Applicant authorization",
+        "operationId": "AuthService_LoginApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LoginApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1LoginApplicantRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/v1/applicant/new-activation-code": {
+      "get": {
+        "summary": "Get new applicant activation code",
+        "description": "Sending a new account activation code",
+        "operationId": "AuthService_GetNewApplicantActivationCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetNewApplicantActivationCodeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/v1/applicant/refresh": {
+      "post": {
+        "summary": "Refresh applicant",
+        "description": "Returns a new pair of tokens",
+        "operationId": "AuthService_RefreshApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RefreshApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RefreshApplicantRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/v1/applicant/register": {
+      "post": {
+        "summary": "Register applicant user",
+        "description": "Registers applicant",
+        "operationId": "AuthService_RegisterApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisterApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegisterApplicantRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/v1/applicant/reset-password": {
+      "post": {
+        "summary": "Reset applicant password",
+        "description": "Resets applicant password",
+        "operationId": "AuthService_ResetApplicantPassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ResetApplicantPasswordResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ResetApplicantPasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/v1/applicant/reset-password/code": {
+      "post": {
+        "summary": "Get reset applicant's password code",
+        "description": "Sends a password recovery code",
+        "operationId": "AuthService_GetResetApplicantPasswordCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetResetApplicantPasswordCodeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetResetApplicantPasswordCodeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/v1/employer/change-password": {
+      "post": {
+        "summary": "Change employer password",
+        "description": "Changes employer password",
+        "operationId": "AuthService_ChangeEmployerPassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ChangeEmployerPasswordResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ChangeEmployerPasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employer"
+        ]
+      }
+    },
+    "/api/v1/employer/login": {
+      "post": {
+        "summary": "Login employer",
+        "description": "Employer authorization",
+        "operationId": "AuthService_LoginEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LoginEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1LoginEmployerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employer"
+        ]
+      }
+    },
+    "/api/v1/employer/new-activation-code": {
+      "get": {
+        "summary": "Get new employer activation code",
+        "description": "Sending a new account activation code",
+        "operationId": "AuthService_GetNewEmployerActivationCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetNewEmployerActivationCodeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "employer"
+        ]
+      }
+    },
+    "/api/v1/employer/refresh": {
+      "post": {
+        "summary": "Refresh employer",
+        "description": "Returns a new pair of tokens",
+        "operationId": "AuthService_RefreshEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RefreshEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RefreshEmployerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employer"
+        ]
+      }
+    },
+    "/api/v1/employer/register": {
+      "post": {
+        "summary": "Register employer user",
+        "description": "Registers employer",
+        "operationId": "AuthService_RegisterEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RegisterEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1RegisterEmployerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employer"
+        ]
+      }
+    },
+    "/api/v1/employer/reset-password": {
+      "post": {
+        "summary": "Reset employer password",
+        "description": "Resets employer password",
+        "operationId": "AuthService_ResetEmployerPassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ResetEmployerPasswordResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ResetEmployerPasswordRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employer"
+        ]
+      }
+    },
+    "/api/v1/employer/reset-password/code": {
+      "post": {
+        "summary": "Get reset employer's password code",
+        "description": "Sends a password recovery code",
+        "operationId": "AuthService_GetResetEmployerPasswordCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetResetEmployerPasswordCodeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1GetResetEmployerPasswordCodeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employer"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1Applicant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "patronymic": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "contacts": {
+          "$ref": "#/definitions/v1Contacts"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1ChangeApplicantPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "oldPassword": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ChangeApplicantPasswordResponse": {
+      "type": "object"
+    },
+    "v1ChangeEmployerPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "oldPassword": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ChangeEmployerPasswordResponse": {
+      "type": "object"
+    },
+    "v1Contacts": {
+      "type": "object",
+      "properties": {
+        "phoneNumber": {
+          "type": "string"
+        },
+        "telegram": {
+          "type": "string"
+        }
+      }
+    },
+    "v1Employer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "contacts": {
+          "$ref": "#/definitions/v1Contacts"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "isDeleted": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "v1GetNewApplicantActivationCodeResponse": {
+      "type": "object"
+    },
+    "v1GetNewEmployerActivationCodeResponse": {
+      "type": "object"
+    },
+    "v1GetResetApplicantPasswordCodeRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetResetApplicantPasswordCodeResponse": {
+      "type": "object"
+    },
+    "v1GetResetEmployerPasswordCodeRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetResetEmployerPasswordCodeResponse": {
+      "type": "object"
+    },
+    "v1LoginApplicantRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "v1LoginApplicantResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1LoginEmployerRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "v1LoginEmployerResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    },
+    "v1RefreshApplicantRequest": {
+      "type": "object"
+    },
+    "v1RefreshApplicantResponse": {
+      "type": "object"
+    },
+    "v1RefreshEmployerRequest": {
+      "type": "object"
+    },
+    "v1RefreshEmployerResponse": {
+      "type": "object"
+    },
+    "v1RegisterApplicantRequest": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "v1RegisterApplicantResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1RegisterEmployerRequest": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "v1RegisterEmployerResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    },
+    "v1ResetApplicantPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ResetApplicantPasswordResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1ResetEmployerPasswordRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ResetEmployerPasswordResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    }
+  }
+}
