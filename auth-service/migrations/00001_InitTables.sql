@@ -13,6 +13,7 @@ CREATE TABLE applicant_activation_codes (
     id BIGSERIAL NOT NULL PRIMARY KEY,
     user_id BIGINT NOT NULL UNIQUE,
     code TEXT NOT NULL,
+    generations_left INT NOT NULL,
     expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE NOT NULL
@@ -24,6 +25,7 @@ CREATE TABLE applicant_reset_password_codes (
     id BIGSERIAL NOT NULL PRIMARY KEY,
     user_id BIGINT NOT NULL UNIQUE,
     code TEXT NOT NULL,
+    generations_left INT NOT NULL,
     expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE NOT NULL
@@ -57,6 +59,7 @@ CREATE TABLE employer_activation_codes (
     id BIGSERIAL NOT NULL PRIMARY KEY,
     user_id BIGINT NOT NULL UNIQUE,
     code TEXT NOT NULL,
+    generations_left INT NOT NULL,
     expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE NOT NULL
@@ -68,6 +71,7 @@ CREATE TABLE employer_reset_password_codes (
     id BIGSERIAL NOT NULL PRIMARY KEY,
     user_id BIGINT NOT NULL UNIQUE,
     code TEXT NOT NULL,
+    generations_left INT NOT NULL,
     expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE NOT NULL
@@ -99,6 +103,7 @@ CREATE TYPE v1_code AS (
     id BIGINT,
     user_id BIGINT,
     code TEXT,
+    generations_left INT,
     expires_at TIMESTAMP WITH TIME ZONE,
     created_at TIMESTAMP WITH TIME ZONE,
     updated_at TIMESTAMP WITH TIME ZONE

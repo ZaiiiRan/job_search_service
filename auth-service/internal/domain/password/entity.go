@@ -70,9 +70,6 @@ func (p *Password) SetPassword(password string) error {
 		return err
 	}
 	p.passwordHash = string(hash)
+	p.updatedAt = time.Now()
 	return nil
-}
-
-func (p *Password) SetUpdatedAt(updatedAt time.Time) {
-	p.updatedAt = updatedAt
 }
