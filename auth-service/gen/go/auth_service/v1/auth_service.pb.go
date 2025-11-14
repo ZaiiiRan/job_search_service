@@ -192,6 +192,94 @@ func (*GetNewApplicantActivationCodeResponse) Descriptor() ([]byte, []int) {
 	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{3}
 }
 
+type ActivateApplicantRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          string                 `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ActivateApplicantRequest) Reset() {
+	*x = ActivateApplicantRequest{}
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ActivateApplicantRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ActivateApplicantRequest) ProtoMessage() {}
+
+func (x *ActivateApplicantRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ActivateApplicantRequest.ProtoReflect.Descriptor instead.
+func (*ActivateApplicantRequest) Descriptor() ([]byte, []int) {
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ActivateApplicantRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+type ActivateApplicantResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Applicant     *v1.Applicant          `protobuf:"bytes,1,opt,name=applicant,proto3" json:"applicant,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ActivateApplicantResponse) Reset() {
+	*x = ActivateApplicantResponse{}
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ActivateApplicantResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ActivateApplicantResponse) ProtoMessage() {}
+
+func (x *ActivateApplicantResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ActivateApplicantResponse.ProtoReflect.Descriptor instead.
+func (*ActivateApplicantResponse) Descriptor() ([]byte, []int) {
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ActivateApplicantResponse) GetApplicant() *v1.Applicant {
+	if x != nil {
+		return x.Applicant
+	}
+	return nil
+}
+
 type LoginApplicantRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
@@ -202,7 +290,7 @@ type LoginApplicantRequest struct {
 
 func (x *LoginApplicantRequest) Reset() {
 	*x = LoginApplicantRequest{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[4]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -214,7 +302,7 @@ func (x *LoginApplicantRequest) String() string {
 func (*LoginApplicantRequest) ProtoMessage() {}
 
 func (x *LoginApplicantRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[4]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -227,7 +315,7 @@ func (x *LoginApplicantRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginApplicantRequest.ProtoReflect.Descriptor instead.
 func (*LoginApplicantRequest) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{4}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *LoginApplicantRequest) GetEmail() string {
@@ -253,7 +341,7 @@ type LoginApplicantResponse struct {
 
 func (x *LoginApplicantResponse) Reset() {
 	*x = LoginApplicantResponse{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[5]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -265,7 +353,7 @@ func (x *LoginApplicantResponse) String() string {
 func (*LoginApplicantResponse) ProtoMessage() {}
 
 func (x *LoginApplicantResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[5]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -278,7 +366,7 @@ func (x *LoginApplicantResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginApplicantResponse.ProtoReflect.Descriptor instead.
 func (*LoginApplicantResponse) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{5}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *LoginApplicantResponse) GetApplicant() *v1.Applicant {
@@ -296,7 +384,7 @@ type RefreshApplicantRequest struct {
 
 func (x *RefreshApplicantRequest) Reset() {
 	*x = RefreshApplicantRequest{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[6]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -308,7 +396,7 @@ func (x *RefreshApplicantRequest) String() string {
 func (*RefreshApplicantRequest) ProtoMessage() {}
 
 func (x *RefreshApplicantRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[6]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -321,7 +409,7 @@ func (x *RefreshApplicantRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RefreshApplicantRequest.ProtoReflect.Descriptor instead.
 func (*RefreshApplicantRequest) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{6}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{8}
 }
 
 type RefreshApplicantResponse struct {
@@ -332,7 +420,7 @@ type RefreshApplicantResponse struct {
 
 func (x *RefreshApplicantResponse) Reset() {
 	*x = RefreshApplicantResponse{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[7]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -344,7 +432,7 @@ func (x *RefreshApplicantResponse) String() string {
 func (*RefreshApplicantResponse) ProtoMessage() {}
 
 func (x *RefreshApplicantResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[7]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -357,7 +445,79 @@ func (x *RefreshApplicantResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RefreshApplicantResponse.ProtoReflect.Descriptor instead.
 func (*RefreshApplicantResponse) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{7}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{9}
+}
+
+type LogoutApplicantRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogoutApplicantRequest) Reset() {
+	*x = LogoutApplicantRequest{}
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogoutApplicantRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogoutApplicantRequest) ProtoMessage() {}
+
+func (x *LogoutApplicantRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogoutApplicantRequest.ProtoReflect.Descriptor instead.
+func (*LogoutApplicantRequest) Descriptor() ([]byte, []int) {
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{10}
+}
+
+type LogoutApplicantResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogoutApplicantResponse) Reset() {
+	*x = LogoutApplicantResponse{}
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogoutApplicantResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogoutApplicantResponse) ProtoMessage() {}
+
+func (x *LogoutApplicantResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogoutApplicantResponse.ProtoReflect.Descriptor instead.
+func (*LogoutApplicantResponse) Descriptor() ([]byte, []int) {
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{11}
 }
 
 type GetResetApplicantPasswordCodeRequest struct {
@@ -369,7 +529,7 @@ type GetResetApplicantPasswordCodeRequest struct {
 
 func (x *GetResetApplicantPasswordCodeRequest) Reset() {
 	*x = GetResetApplicantPasswordCodeRequest{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[8]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -381,7 +541,7 @@ func (x *GetResetApplicantPasswordCodeRequest) String() string {
 func (*GetResetApplicantPasswordCodeRequest) ProtoMessage() {}
 
 func (x *GetResetApplicantPasswordCodeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[8]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -394,7 +554,7 @@ func (x *GetResetApplicantPasswordCodeRequest) ProtoReflect() protoreflect.Messa
 
 // Deprecated: Use GetResetApplicantPasswordCodeRequest.ProtoReflect.Descriptor instead.
 func (*GetResetApplicantPasswordCodeRequest) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{8}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *GetResetApplicantPasswordCodeRequest) GetEmail() string {
@@ -412,7 +572,7 @@ type GetResetApplicantPasswordCodeResponse struct {
 
 func (x *GetResetApplicantPasswordCodeResponse) Reset() {
 	*x = GetResetApplicantPasswordCodeResponse{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[9]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -424,7 +584,7 @@ func (x *GetResetApplicantPasswordCodeResponse) String() string {
 func (*GetResetApplicantPasswordCodeResponse) ProtoMessage() {}
 
 func (x *GetResetApplicantPasswordCodeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[9]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -437,7 +597,7 @@ func (x *GetResetApplicantPasswordCodeResponse) ProtoReflect() protoreflect.Mess
 
 // Deprecated: Use GetResetApplicantPasswordCodeResponse.ProtoReflect.Descriptor instead.
 func (*GetResetApplicantPasswordCodeResponse) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{9}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{13}
 }
 
 type ResetApplicantPasswordRequest struct {
@@ -450,7 +610,7 @@ type ResetApplicantPasswordRequest struct {
 
 func (x *ResetApplicantPasswordRequest) Reset() {
 	*x = ResetApplicantPasswordRequest{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[10]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -462,7 +622,7 @@ func (x *ResetApplicantPasswordRequest) String() string {
 func (*ResetApplicantPasswordRequest) ProtoMessage() {}
 
 func (x *ResetApplicantPasswordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[10]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -475,7 +635,7 @@ func (x *ResetApplicantPasswordRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResetApplicantPasswordRequest.ProtoReflect.Descriptor instead.
 func (*ResetApplicantPasswordRequest) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{10}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *ResetApplicantPasswordRequest) GetCode() string {
@@ -501,7 +661,7 @@ type ResetApplicantPasswordResponse struct {
 
 func (x *ResetApplicantPasswordResponse) Reset() {
 	*x = ResetApplicantPasswordResponse{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[11]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -513,7 +673,7 @@ func (x *ResetApplicantPasswordResponse) String() string {
 func (*ResetApplicantPasswordResponse) ProtoMessage() {}
 
 func (x *ResetApplicantPasswordResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[11]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -526,7 +686,7 @@ func (x *ResetApplicantPasswordResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResetApplicantPasswordResponse.ProtoReflect.Descriptor instead.
 func (*ResetApplicantPasswordResponse) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{11}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *ResetApplicantPasswordResponse) GetApplicant() *v1.Applicant {
@@ -546,7 +706,7 @@ type ChangeApplicantPasswordRequest struct {
 
 func (x *ChangeApplicantPasswordRequest) Reset() {
 	*x = ChangeApplicantPasswordRequest{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[12]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -558,7 +718,7 @@ func (x *ChangeApplicantPasswordRequest) String() string {
 func (*ChangeApplicantPasswordRequest) ProtoMessage() {}
 
 func (x *ChangeApplicantPasswordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[12]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -571,7 +731,7 @@ func (x *ChangeApplicantPasswordRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChangeApplicantPasswordRequest.ProtoReflect.Descriptor instead.
 func (*ChangeApplicantPasswordRequest) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{12}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *ChangeApplicantPasswordRequest) GetOldPassword() string {
@@ -596,7 +756,7 @@ type ChangeApplicantPasswordResponse struct {
 
 func (x *ChangeApplicantPasswordResponse) Reset() {
 	*x = ChangeApplicantPasswordResponse{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[13]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -608,7 +768,7 @@ func (x *ChangeApplicantPasswordResponse) String() string {
 func (*ChangeApplicantPasswordResponse) ProtoMessage() {}
 
 func (x *ChangeApplicantPasswordResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[13]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -621,7 +781,7 @@ func (x *ChangeApplicantPasswordResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChangeApplicantPasswordResponse.ProtoReflect.Descriptor instead.
 func (*ChangeApplicantPasswordResponse) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{13}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{17}
 }
 
 type RegisterEmployerRequest struct {
@@ -634,7 +794,7 @@ type RegisterEmployerRequest struct {
 
 func (x *RegisterEmployerRequest) Reset() {
 	*x = RegisterEmployerRequest{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[14]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -646,7 +806,7 @@ func (x *RegisterEmployerRequest) String() string {
 func (*RegisterEmployerRequest) ProtoMessage() {}
 
 func (x *RegisterEmployerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[14]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -659,7 +819,7 @@ func (x *RegisterEmployerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterEmployerRequest.ProtoReflect.Descriptor instead.
 func (*RegisterEmployerRequest) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{14}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *RegisterEmployerRequest) GetEmployer() *v1.Employer {
@@ -685,7 +845,7 @@ type RegisterEmployerResponse struct {
 
 func (x *RegisterEmployerResponse) Reset() {
 	*x = RegisterEmployerResponse{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[15]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -697,7 +857,7 @@ func (x *RegisterEmployerResponse) String() string {
 func (*RegisterEmployerResponse) ProtoMessage() {}
 
 func (x *RegisterEmployerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[15]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -710,7 +870,7 @@ func (x *RegisterEmployerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RegisterEmployerResponse.ProtoReflect.Descriptor instead.
 func (*RegisterEmployerResponse) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{15}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *RegisterEmployerResponse) GetEmployer() *v1.Employer {
@@ -728,7 +888,7 @@ type GetNewEmployerActivationCodeRequest struct {
 
 func (x *GetNewEmployerActivationCodeRequest) Reset() {
 	*x = GetNewEmployerActivationCodeRequest{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[16]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -740,7 +900,7 @@ func (x *GetNewEmployerActivationCodeRequest) String() string {
 func (*GetNewEmployerActivationCodeRequest) ProtoMessage() {}
 
 func (x *GetNewEmployerActivationCodeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[16]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -753,7 +913,7 @@ func (x *GetNewEmployerActivationCodeRequest) ProtoReflect() protoreflect.Messag
 
 // Deprecated: Use GetNewEmployerActivationCodeRequest.ProtoReflect.Descriptor instead.
 func (*GetNewEmployerActivationCodeRequest) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{16}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{20}
 }
 
 type GetNewEmployerActivationCodeResponse struct {
@@ -764,7 +924,7 @@ type GetNewEmployerActivationCodeResponse struct {
 
 func (x *GetNewEmployerActivationCodeResponse) Reset() {
 	*x = GetNewEmployerActivationCodeResponse{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[17]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -776,7 +936,7 @@ func (x *GetNewEmployerActivationCodeResponse) String() string {
 func (*GetNewEmployerActivationCodeResponse) ProtoMessage() {}
 
 func (x *GetNewEmployerActivationCodeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[17]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -789,7 +949,95 @@ func (x *GetNewEmployerActivationCodeResponse) ProtoReflect() protoreflect.Messa
 
 // Deprecated: Use GetNewEmployerActivationCodeResponse.ProtoReflect.Descriptor instead.
 func (*GetNewEmployerActivationCodeResponse) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{17}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{21}
+}
+
+type ActivateEmployerRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Code          string                 `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ActivateEmployerRequest) Reset() {
+	*x = ActivateEmployerRequest{}
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ActivateEmployerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ActivateEmployerRequest) ProtoMessage() {}
+
+func (x *ActivateEmployerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ActivateEmployerRequest.ProtoReflect.Descriptor instead.
+func (*ActivateEmployerRequest) Descriptor() ([]byte, []int) {
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *ActivateEmployerRequest) GetCode() string {
+	if x != nil {
+		return x.Code
+	}
+	return ""
+}
+
+type ActivateEmployerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Employer      *v1.Employer           `protobuf:"bytes,1,opt,name=employer,proto3" json:"employer,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ActivateEmployerResponse) Reset() {
+	*x = ActivateEmployerResponse{}
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ActivateEmployerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ActivateEmployerResponse) ProtoMessage() {}
+
+func (x *ActivateEmployerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ActivateEmployerResponse.ProtoReflect.Descriptor instead.
+func (*ActivateEmployerResponse) Descriptor() ([]byte, []int) {
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *ActivateEmployerResponse) GetEmployer() *v1.Employer {
+	if x != nil {
+		return x.Employer
+	}
+	return nil
 }
 
 type LoginEmployerRequest struct {
@@ -802,7 +1050,7 @@ type LoginEmployerRequest struct {
 
 func (x *LoginEmployerRequest) Reset() {
 	*x = LoginEmployerRequest{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[18]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -814,7 +1062,7 @@ func (x *LoginEmployerRequest) String() string {
 func (*LoginEmployerRequest) ProtoMessage() {}
 
 func (x *LoginEmployerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[18]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -827,7 +1075,7 @@ func (x *LoginEmployerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginEmployerRequest.ProtoReflect.Descriptor instead.
 func (*LoginEmployerRequest) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{18}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *LoginEmployerRequest) GetEmail() string {
@@ -853,7 +1101,7 @@ type LoginEmployerResponse struct {
 
 func (x *LoginEmployerResponse) Reset() {
 	*x = LoginEmployerResponse{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[19]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -865,7 +1113,7 @@ func (x *LoginEmployerResponse) String() string {
 func (*LoginEmployerResponse) ProtoMessage() {}
 
 func (x *LoginEmployerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[19]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -878,7 +1126,7 @@ func (x *LoginEmployerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginEmployerResponse.ProtoReflect.Descriptor instead.
 func (*LoginEmployerResponse) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{19}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *LoginEmployerResponse) GetEmployer() *v1.Employer {
@@ -896,7 +1144,7 @@ type RefreshEmployerRequest struct {
 
 func (x *RefreshEmployerRequest) Reset() {
 	*x = RefreshEmployerRequest{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[20]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -908,7 +1156,7 @@ func (x *RefreshEmployerRequest) String() string {
 func (*RefreshEmployerRequest) ProtoMessage() {}
 
 func (x *RefreshEmployerRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[20]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -921,7 +1169,7 @@ func (x *RefreshEmployerRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RefreshEmployerRequest.ProtoReflect.Descriptor instead.
 func (*RefreshEmployerRequest) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{20}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{26}
 }
 
 type RefreshEmployerResponse struct {
@@ -932,7 +1180,7 @@ type RefreshEmployerResponse struct {
 
 func (x *RefreshEmployerResponse) Reset() {
 	*x = RefreshEmployerResponse{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[21]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[27]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -944,7 +1192,7 @@ func (x *RefreshEmployerResponse) String() string {
 func (*RefreshEmployerResponse) ProtoMessage() {}
 
 func (x *RefreshEmployerResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[21]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[27]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -957,7 +1205,79 @@ func (x *RefreshEmployerResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RefreshEmployerResponse.ProtoReflect.Descriptor instead.
 func (*RefreshEmployerResponse) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{21}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{27}
+}
+
+type LogoutEmployerRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogoutEmployerRequest) Reset() {
+	*x = LogoutEmployerRequest{}
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogoutEmployerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogoutEmployerRequest) ProtoMessage() {}
+
+func (x *LogoutEmployerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogoutEmployerRequest.ProtoReflect.Descriptor instead.
+func (*LogoutEmployerRequest) Descriptor() ([]byte, []int) {
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{28}
+}
+
+type LogoutEmployerResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogoutEmployerResponse) Reset() {
+	*x = LogoutEmployerResponse{}
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogoutEmployerResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogoutEmployerResponse) ProtoMessage() {}
+
+func (x *LogoutEmployerResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogoutEmployerResponse.ProtoReflect.Descriptor instead.
+func (*LogoutEmployerResponse) Descriptor() ([]byte, []int) {
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{29}
 }
 
 type GetResetEmployerPasswordCodeRequest struct {
@@ -969,7 +1289,7 @@ type GetResetEmployerPasswordCodeRequest struct {
 
 func (x *GetResetEmployerPasswordCodeRequest) Reset() {
 	*x = GetResetEmployerPasswordCodeRequest{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[22]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[30]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -981,7 +1301,7 @@ func (x *GetResetEmployerPasswordCodeRequest) String() string {
 func (*GetResetEmployerPasswordCodeRequest) ProtoMessage() {}
 
 func (x *GetResetEmployerPasswordCodeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[22]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[30]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -994,7 +1314,7 @@ func (x *GetResetEmployerPasswordCodeRequest) ProtoReflect() protoreflect.Messag
 
 // Deprecated: Use GetResetEmployerPasswordCodeRequest.ProtoReflect.Descriptor instead.
 func (*GetResetEmployerPasswordCodeRequest) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{22}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *GetResetEmployerPasswordCodeRequest) GetEmail() string {
@@ -1012,7 +1332,7 @@ type GetResetEmployerPasswordCodeResponse struct {
 
 func (x *GetResetEmployerPasswordCodeResponse) Reset() {
 	*x = GetResetEmployerPasswordCodeResponse{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[23]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[31]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1024,7 +1344,7 @@ func (x *GetResetEmployerPasswordCodeResponse) String() string {
 func (*GetResetEmployerPasswordCodeResponse) ProtoMessage() {}
 
 func (x *GetResetEmployerPasswordCodeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[23]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[31]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1037,7 +1357,7 @@ func (x *GetResetEmployerPasswordCodeResponse) ProtoReflect() protoreflect.Messa
 
 // Deprecated: Use GetResetEmployerPasswordCodeResponse.ProtoReflect.Descriptor instead.
 func (*GetResetEmployerPasswordCodeResponse) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{23}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{31}
 }
 
 type ResetEmployerPasswordRequest struct {
@@ -1050,7 +1370,7 @@ type ResetEmployerPasswordRequest struct {
 
 func (x *ResetEmployerPasswordRequest) Reset() {
 	*x = ResetEmployerPasswordRequest{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[24]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[32]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1062,7 +1382,7 @@ func (x *ResetEmployerPasswordRequest) String() string {
 func (*ResetEmployerPasswordRequest) ProtoMessage() {}
 
 func (x *ResetEmployerPasswordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[24]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[32]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1075,7 +1395,7 @@ func (x *ResetEmployerPasswordRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResetEmployerPasswordRequest.ProtoReflect.Descriptor instead.
 func (*ResetEmployerPasswordRequest) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{24}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *ResetEmployerPasswordRequest) GetCode() string {
@@ -1101,7 +1421,7 @@ type ResetEmployerPasswordResponse struct {
 
 func (x *ResetEmployerPasswordResponse) Reset() {
 	*x = ResetEmployerPasswordResponse{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[25]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1113,7 +1433,7 @@ func (x *ResetEmployerPasswordResponse) String() string {
 func (*ResetEmployerPasswordResponse) ProtoMessage() {}
 
 func (x *ResetEmployerPasswordResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[25]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1126,7 +1446,7 @@ func (x *ResetEmployerPasswordResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResetEmployerPasswordResponse.ProtoReflect.Descriptor instead.
 func (*ResetEmployerPasswordResponse) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{25}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *ResetEmployerPasswordResponse) GetEmployer() *v1.Employer {
@@ -1146,7 +1466,7 @@ type ChangeEmployerPasswordRequest struct {
 
 func (x *ChangeEmployerPasswordRequest) Reset() {
 	*x = ChangeEmployerPasswordRequest{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[26]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1158,7 +1478,7 @@ func (x *ChangeEmployerPasswordRequest) String() string {
 func (*ChangeEmployerPasswordRequest) ProtoMessage() {}
 
 func (x *ChangeEmployerPasswordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[26]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1171,7 +1491,7 @@ func (x *ChangeEmployerPasswordRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChangeEmployerPasswordRequest.ProtoReflect.Descriptor instead.
 func (*ChangeEmployerPasswordRequest) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{26}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *ChangeEmployerPasswordRequest) GetOldPassword() string {
@@ -1196,7 +1516,7 @@ type ChangeEmployerPasswordResponse struct {
 
 func (x *ChangeEmployerPasswordResponse) Reset() {
 	*x = ChangeEmployerPasswordResponse{}
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[27]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1208,7 +1528,7 @@ func (x *ChangeEmployerPasswordResponse) String() string {
 func (*ChangeEmployerPasswordResponse) ProtoMessage() {}
 
 func (x *ChangeEmployerPasswordResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_service_v1_auth_service_proto_msgTypes[27]
+	mi := &file_auth_service_v1_auth_service_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1221,7 +1541,7 @@ func (x *ChangeEmployerPasswordResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChangeEmployerPasswordResponse.ProtoReflect.Descriptor instead.
 func (*ChangeEmployerPasswordResponse) Descriptor() ([]byte, []int) {
-	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{27}
+	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{35}
 }
 
 var File_auth_service_v1_auth_service_proto protoreflect.FileDescriptor
@@ -1235,14 +1555,20 @@ const file_auth_service_v1_auth_service_proto_rawDesc = "" +
 	"\x19RegisterApplicantResponse\x128\n" +
 	"\tapplicant\x18\x01 \x01(\v2\x1a.user_service.v1.ApplicantR\tapplicant\"&\n" +
 	"$GetNewApplicantActivationCodeRequest\"'\n" +
-	"%GetNewApplicantActivationCodeResponse\"I\n" +
+	"%GetNewApplicantActivationCodeResponse\".\n" +
+	"\x18ActivateApplicantRequest\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\tR\x04code\"U\n" +
+	"\x19ActivateApplicantResponse\x128\n" +
+	"\tapplicant\x18\x01 \x01(\v2\x1a.user_service.v1.ApplicantR\tapplicant\"I\n" +
 	"\x15LoginApplicantRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"R\n" +
 	"\x16LoginApplicantResponse\x128\n" +
 	"\tapplicant\x18\x01 \x01(\v2\x1a.user_service.v1.ApplicantR\tapplicant\"\x19\n" +
 	"\x17RefreshApplicantRequest\"\x1a\n" +
-	"\x18RefreshApplicantResponse\"<\n" +
+	"\x18RefreshApplicantResponse\"\x18\n" +
+	"\x16LogoutApplicantRequest\"\x19\n" +
+	"\x17LogoutApplicantResponse\"<\n" +
 	"$GetResetApplicantPasswordCodeRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"'\n" +
 	"%GetResetApplicantPasswordCodeResponse\"V\n" +
@@ -1261,14 +1587,20 @@ const file_auth_service_v1_auth_service_proto_rawDesc = "" +
 	"\x18RegisterEmployerResponse\x125\n" +
 	"\bemployer\x18\x01 \x01(\v2\x19.user_service.v1.EmployerR\bemployer\"%\n" +
 	"#GetNewEmployerActivationCodeRequest\"&\n" +
-	"$GetNewEmployerActivationCodeResponse\"H\n" +
+	"$GetNewEmployerActivationCodeResponse\"-\n" +
+	"\x17ActivateEmployerRequest\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\tR\x04code\"Q\n" +
+	"\x18ActivateEmployerResponse\x125\n" +
+	"\bemployer\x18\x01 \x01(\v2\x19.user_service.v1.EmployerR\bemployer\"H\n" +
 	"\x14LoginEmployerRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"N\n" +
 	"\x15LoginEmployerResponse\x125\n" +
 	"\bemployer\x18\x01 \x01(\v2\x19.user_service.v1.EmployerR\bemployer\"\x18\n" +
 	"\x16RefreshEmployerRequest\"\x19\n" +
-	"\x17RefreshEmployerResponse\";\n" +
+	"\x17RefreshEmployerResponse\"\x17\n" +
+	"\x15LogoutEmployerRequest\"\x18\n" +
+	"\x16LogoutEmployerResponse\";\n" +
 	"#GetResetEmployerPasswordCodeRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"&\n" +
 	"$GetResetEmployerPasswordCodeResponse\"U\n" +
@@ -1280,16 +1612,20 @@ const file_auth_service_v1_auth_service_proto_rawDesc = "" +
 	"\x1dChangeEmployerPasswordRequest\x12!\n" +
 	"\fold_password\x18\x01 \x01(\tR\voldPassword\x12!\n" +
 	"\fnew_password\x18\x02 \x01(\tR\vnewPassword\" \n" +
-	"\x1eChangeEmployerPasswordResponse2\xb9\x19\n" +
+	"\x1eChangeEmployerPasswordResponse2\xf2\x1f\n" +
 	"\vAuthService\x12\xcd\x01\n" +
 	"\x11RegisterApplicant\x12).auth_service.v1.RegisterApplicantRequest\x1a*.auth_service.v1.RegisterApplicantResponse\"a\x92A9\n" +
 	"\tapplicant\x12\x17Register applicant user\x1a\x13Registers applicant\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/api/v1/applicant/register\x12\x96\x02\n" +
 	"\x1dGetNewApplicantActivationCode\x125.auth_service.v1.GetNewApplicantActivationCodeRequest\x1a6.auth_service.v1.GetNewApplicantActivationCodeResponse\"\x85\x01\x92AU\n" +
-	"\tapplicant\x12!Get new applicant activation code\x1a%Sending a new account activation code\x82\xd3\xe4\x93\x02'\x12%/api/v1/applicant/new-activation-code\x12\xbd\x01\n" +
+	"\tapplicant\x12!Get new applicant activation code\x1a%Sending a new account activation code\x82\xd3\xe4\x93\x02'\x12%/api/v1/applicant/new-activation-code\x12\xdd\x01\n" +
+	"\x11ActivateApplicant\x12).auth_service.v1.ActivateApplicantRequest\x1a*.auth_service.v1.ActivateApplicantResponse\"q\x92AI\n" +
+	"\tapplicant\x12\x19Activate applicant accout\x1a!Activates a new applicant account\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/api/v1/applicant/activate\x12\xbd\x01\n" +
 	"\x0eLoginApplicant\x12&.auth_service.v1.LoginApplicantRequest\x1a'.auth_service.v1.LoginApplicantResponse\"Z\x92A5\n" +
 	"\tapplicant\x12\x0fLogin applicant\x1a\x17Applicant authorization\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/api/v1/applicant/login\x12\xcc\x01\n" +
 	"\x10RefreshApplicant\x12(.auth_service.v1.RefreshApplicantRequest\x1a).auth_service.v1.RefreshApplicantResponse\"c\x92A<\n" +
-	"\tapplicant\x12\x11Refresh applicant\x1a\x1cReturns a new pair of tokens\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/applicant/refresh\x12\x94\x02\n" +
+	"\tapplicant\x12\x11Refresh applicant\x1a\x1cReturns a new pair of tokens\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/applicant/refresh\x12\xc4\x01\n" +
+	"\x0fLogoutApplicant\x12'.auth_service.v1.LogoutApplicantRequest\x1a(.auth_service.v1.LogoutApplicantResponse\"^\x92A;\n" +
+	"\tapplicant\x12\x10Logout applicant\x1a\x1cDeactivates applicant tokens\x82\xd3\xe4\x93\x02\x1a*\x18/api/v1/applicant/logout\x12\x94\x02\n" +
 	"\x1dGetResetApplicantPasswordCode\x125.auth_service.v1.GetResetApplicantPasswordCodeRequest\x1a6.auth_service.v1.GetResetApplicantPasswordCodeResponse\"\x83\x01\x92AP\n" +
 	"\tapplicant\x12#Get reset applicant's password code\x1a\x1eSends a password recovery code\x82\xd3\xe4\x93\x02*:\x01*\"%/api/v1/applicant/reset-password/code\x12\xe9\x01\n" +
 	"\x16ResetApplicantPassword\x12..auth_service.v1.ResetApplicantPasswordRequest\x1a/.auth_service.v1.ResetApplicantPasswordResponse\"n\x92A@\n" +
@@ -1299,11 +1635,15 @@ const file_auth_service_v1_auth_service_proto_rawDesc = "" +
 	"\x10RegisterEmployer\x12(.auth_service.v1.RegisterEmployerRequest\x1a).auth_service.v1.RegisterEmployerResponse\"]\x92A6\n" +
 	"\bemployer\x12\x16Register employer user\x1a\x12Registers employer\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/employer/register\x12\x90\x02\n" +
 	"\x1cGetNewEmployerActivationCode\x124.auth_service.v1.GetNewEmployerActivationCodeRequest\x1a5.auth_service.v1.GetNewEmployerActivationCodeResponse\"\x82\x01\x92AS\n" +
-	"\bemployer\x12 Get new employer activation code\x1a%Sending a new account activation code\x82\xd3\xe4\x93\x02&\x12$/api/v1/employer/new-activation-code\x12\xb6\x01\n" +
+	"\bemployer\x12 Get new employer activation code\x1a%Sending a new account activation code\x82\xd3\xe4\x93\x02&\x12$/api/v1/employer/new-activation-code\x12\xcf\x01\n" +
+	"\x10ActivateEmployer\x12(.auth_service.v1.ActivateEmployerRequest\x1a).auth_service.v1.ActivateEmployerResponse\"f\x92A?\n" +
+	"\bemployer\x12\x11Activate employer\x1a Activates a new employer account\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/employer/activate\x12\xb6\x01\n" +
 	"\rLoginEmployer\x12%.auth_service.v1.LoginEmployerRequest\x1a&.auth_service.v1.LoginEmployerResponse\"V\x92A2\n" +
 	"\bemployer\x12\x0eLogin employer\x1a\x16Employer authorization\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/api/v1/employer/login\x12\xc6\x01\n" +
 	"\x0fRefreshEmployer\x12'.auth_service.v1.RefreshEmployerRequest\x1a(.auth_service.v1.RefreshEmployerResponse\"`\x92A:\n" +
-	"\bemployer\x12\x10Refresh employer\x1a\x1cReturns a new pair of tokens\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/api/v1/employer/refresh\x12\x8e\x02\n" +
+	"\bemployer\x12\x10Refresh employer\x1a\x1cReturns a new pair of tokens\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/api/v1/employer/refresh\x12\xbd\x01\n" +
+	"\x0eLogoutEmployer\x12&.auth_service.v1.LogoutEmployerRequest\x1a'.auth_service.v1.LogoutEmployerResponse\"Z\x92A8\n" +
+	"\bemployer\x12\x0fLogout employer\x1a\x1bDeactivates employer tokens\x82\xd3\xe4\x93\x02\x19*\x17/api/v1/employer/logout\x12\x8e\x02\n" +
 	"\x1cGetResetEmployerPasswordCode\x124.auth_service.v1.GetResetEmployerPasswordCodeRequest\x1a5.auth_service.v1.GetResetEmployerPasswordCodeResponse\"\x80\x01\x92AN\n" +
 	"\bemployer\x12\"Get reset employer's password code\x1a\x1eSends a password recovery code\x82\xd3\xe4\x93\x02):\x01*\"$/api/v1/employer/reset-password/code\x12\xe2\x01\n" +
 	"\x15ResetEmployerPassword\x12-.auth_service.v1.ResetEmployerPasswordRequest\x1a..auth_service.v1.ResetEmployerPasswordResponse\"j\x92A=\n" +
@@ -1324,81 +1664,99 @@ func file_auth_service_v1_auth_service_proto_rawDescGZIP() []byte {
 	return file_auth_service_v1_auth_service_proto_rawDescData
 }
 
-var file_auth_service_v1_auth_service_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
+var file_auth_service_v1_auth_service_proto_msgTypes = make([]protoimpl.MessageInfo, 36)
 var file_auth_service_v1_auth_service_proto_goTypes = []any{
 	(*RegisterApplicantRequest)(nil),              // 0: auth_service.v1.RegisterApplicantRequest
 	(*RegisterApplicantResponse)(nil),             // 1: auth_service.v1.RegisterApplicantResponse
 	(*GetNewApplicantActivationCodeRequest)(nil),  // 2: auth_service.v1.GetNewApplicantActivationCodeRequest
 	(*GetNewApplicantActivationCodeResponse)(nil), // 3: auth_service.v1.GetNewApplicantActivationCodeResponse
-	(*LoginApplicantRequest)(nil),                 // 4: auth_service.v1.LoginApplicantRequest
-	(*LoginApplicantResponse)(nil),                // 5: auth_service.v1.LoginApplicantResponse
-	(*RefreshApplicantRequest)(nil),               // 6: auth_service.v1.RefreshApplicantRequest
-	(*RefreshApplicantResponse)(nil),              // 7: auth_service.v1.RefreshApplicantResponse
-	(*GetResetApplicantPasswordCodeRequest)(nil),  // 8: auth_service.v1.GetResetApplicantPasswordCodeRequest
-	(*GetResetApplicantPasswordCodeResponse)(nil), // 9: auth_service.v1.GetResetApplicantPasswordCodeResponse
-	(*ResetApplicantPasswordRequest)(nil),         // 10: auth_service.v1.ResetApplicantPasswordRequest
-	(*ResetApplicantPasswordResponse)(nil),        // 11: auth_service.v1.ResetApplicantPasswordResponse
-	(*ChangeApplicantPasswordRequest)(nil),        // 12: auth_service.v1.ChangeApplicantPasswordRequest
-	(*ChangeApplicantPasswordResponse)(nil),       // 13: auth_service.v1.ChangeApplicantPasswordResponse
-	(*RegisterEmployerRequest)(nil),               // 14: auth_service.v1.RegisterEmployerRequest
-	(*RegisterEmployerResponse)(nil),              // 15: auth_service.v1.RegisterEmployerResponse
-	(*GetNewEmployerActivationCodeRequest)(nil),   // 16: auth_service.v1.GetNewEmployerActivationCodeRequest
-	(*GetNewEmployerActivationCodeResponse)(nil),  // 17: auth_service.v1.GetNewEmployerActivationCodeResponse
-	(*LoginEmployerRequest)(nil),                  // 18: auth_service.v1.LoginEmployerRequest
-	(*LoginEmployerResponse)(nil),                 // 19: auth_service.v1.LoginEmployerResponse
-	(*RefreshEmployerRequest)(nil),                // 20: auth_service.v1.RefreshEmployerRequest
-	(*RefreshEmployerResponse)(nil),               // 21: auth_service.v1.RefreshEmployerResponse
-	(*GetResetEmployerPasswordCodeRequest)(nil),   // 22: auth_service.v1.GetResetEmployerPasswordCodeRequest
-	(*GetResetEmployerPasswordCodeResponse)(nil),  // 23: auth_service.v1.GetResetEmployerPasswordCodeResponse
-	(*ResetEmployerPasswordRequest)(nil),          // 24: auth_service.v1.ResetEmployerPasswordRequest
-	(*ResetEmployerPasswordResponse)(nil),         // 25: auth_service.v1.ResetEmployerPasswordResponse
-	(*ChangeEmployerPasswordRequest)(nil),         // 26: auth_service.v1.ChangeEmployerPasswordRequest
-	(*ChangeEmployerPasswordResponse)(nil),        // 27: auth_service.v1.ChangeEmployerPasswordResponse
-	(*v1.Applicant)(nil),                          // 28: user_service.v1.Applicant
-	(*v1.Employer)(nil),                           // 29: user_service.v1.Employer
+	(*ActivateApplicantRequest)(nil),              // 4: auth_service.v1.ActivateApplicantRequest
+	(*ActivateApplicantResponse)(nil),             // 5: auth_service.v1.ActivateApplicantResponse
+	(*LoginApplicantRequest)(nil),                 // 6: auth_service.v1.LoginApplicantRequest
+	(*LoginApplicantResponse)(nil),                // 7: auth_service.v1.LoginApplicantResponse
+	(*RefreshApplicantRequest)(nil),               // 8: auth_service.v1.RefreshApplicantRequest
+	(*RefreshApplicantResponse)(nil),              // 9: auth_service.v1.RefreshApplicantResponse
+	(*LogoutApplicantRequest)(nil),                // 10: auth_service.v1.LogoutApplicantRequest
+	(*LogoutApplicantResponse)(nil),               // 11: auth_service.v1.LogoutApplicantResponse
+	(*GetResetApplicantPasswordCodeRequest)(nil),  // 12: auth_service.v1.GetResetApplicantPasswordCodeRequest
+	(*GetResetApplicantPasswordCodeResponse)(nil), // 13: auth_service.v1.GetResetApplicantPasswordCodeResponse
+	(*ResetApplicantPasswordRequest)(nil),         // 14: auth_service.v1.ResetApplicantPasswordRequest
+	(*ResetApplicantPasswordResponse)(nil),        // 15: auth_service.v1.ResetApplicantPasswordResponse
+	(*ChangeApplicantPasswordRequest)(nil),        // 16: auth_service.v1.ChangeApplicantPasswordRequest
+	(*ChangeApplicantPasswordResponse)(nil),       // 17: auth_service.v1.ChangeApplicantPasswordResponse
+	(*RegisterEmployerRequest)(nil),               // 18: auth_service.v1.RegisterEmployerRequest
+	(*RegisterEmployerResponse)(nil),              // 19: auth_service.v1.RegisterEmployerResponse
+	(*GetNewEmployerActivationCodeRequest)(nil),   // 20: auth_service.v1.GetNewEmployerActivationCodeRequest
+	(*GetNewEmployerActivationCodeResponse)(nil),  // 21: auth_service.v1.GetNewEmployerActivationCodeResponse
+	(*ActivateEmployerRequest)(nil),               // 22: auth_service.v1.ActivateEmployerRequest
+	(*ActivateEmployerResponse)(nil),              // 23: auth_service.v1.ActivateEmployerResponse
+	(*LoginEmployerRequest)(nil),                  // 24: auth_service.v1.LoginEmployerRequest
+	(*LoginEmployerResponse)(nil),                 // 25: auth_service.v1.LoginEmployerResponse
+	(*RefreshEmployerRequest)(nil),                // 26: auth_service.v1.RefreshEmployerRequest
+	(*RefreshEmployerResponse)(nil),               // 27: auth_service.v1.RefreshEmployerResponse
+	(*LogoutEmployerRequest)(nil),                 // 28: auth_service.v1.LogoutEmployerRequest
+	(*LogoutEmployerResponse)(nil),                // 29: auth_service.v1.LogoutEmployerResponse
+	(*GetResetEmployerPasswordCodeRequest)(nil),   // 30: auth_service.v1.GetResetEmployerPasswordCodeRequest
+	(*GetResetEmployerPasswordCodeResponse)(nil),  // 31: auth_service.v1.GetResetEmployerPasswordCodeResponse
+	(*ResetEmployerPasswordRequest)(nil),          // 32: auth_service.v1.ResetEmployerPasswordRequest
+	(*ResetEmployerPasswordResponse)(nil),         // 33: auth_service.v1.ResetEmployerPasswordResponse
+	(*ChangeEmployerPasswordRequest)(nil),         // 34: auth_service.v1.ChangeEmployerPasswordRequest
+	(*ChangeEmployerPasswordResponse)(nil),        // 35: auth_service.v1.ChangeEmployerPasswordResponse
+	(*v1.Applicant)(nil),                          // 36: user_service.v1.Applicant
+	(*v1.Employer)(nil),                           // 37: user_service.v1.Employer
 }
 var file_auth_service_v1_auth_service_proto_depIdxs = []int32{
-	28, // 0: auth_service.v1.RegisterApplicantRequest.applicant:type_name -> user_service.v1.Applicant
-	28, // 1: auth_service.v1.RegisterApplicantResponse.applicant:type_name -> user_service.v1.Applicant
-	28, // 2: auth_service.v1.LoginApplicantResponse.applicant:type_name -> user_service.v1.Applicant
-	28, // 3: auth_service.v1.ResetApplicantPasswordResponse.applicant:type_name -> user_service.v1.Applicant
-	29, // 4: auth_service.v1.RegisterEmployerRequest.employer:type_name -> user_service.v1.Employer
-	29, // 5: auth_service.v1.RegisterEmployerResponse.employer:type_name -> user_service.v1.Employer
-	29, // 6: auth_service.v1.LoginEmployerResponse.employer:type_name -> user_service.v1.Employer
-	29, // 7: auth_service.v1.ResetEmployerPasswordResponse.employer:type_name -> user_service.v1.Employer
-	0,  // 8: auth_service.v1.AuthService.RegisterApplicant:input_type -> auth_service.v1.RegisterApplicantRequest
-	2,  // 9: auth_service.v1.AuthService.GetNewApplicantActivationCode:input_type -> auth_service.v1.GetNewApplicantActivationCodeRequest
-	4,  // 10: auth_service.v1.AuthService.LoginApplicant:input_type -> auth_service.v1.LoginApplicantRequest
-	6,  // 11: auth_service.v1.AuthService.RefreshApplicant:input_type -> auth_service.v1.RefreshApplicantRequest
-	8,  // 12: auth_service.v1.AuthService.GetResetApplicantPasswordCode:input_type -> auth_service.v1.GetResetApplicantPasswordCodeRequest
-	10, // 13: auth_service.v1.AuthService.ResetApplicantPassword:input_type -> auth_service.v1.ResetApplicantPasswordRequest
-	12, // 14: auth_service.v1.AuthService.ChangeApplicantPassword:input_type -> auth_service.v1.ChangeApplicantPasswordRequest
-	14, // 15: auth_service.v1.AuthService.RegisterEmployer:input_type -> auth_service.v1.RegisterEmployerRequest
-	16, // 16: auth_service.v1.AuthService.GetNewEmployerActivationCode:input_type -> auth_service.v1.GetNewEmployerActivationCodeRequest
-	18, // 17: auth_service.v1.AuthService.LoginEmployer:input_type -> auth_service.v1.LoginEmployerRequest
-	20, // 18: auth_service.v1.AuthService.RefreshEmployer:input_type -> auth_service.v1.RefreshEmployerRequest
-	22, // 19: auth_service.v1.AuthService.GetResetEmployerPasswordCode:input_type -> auth_service.v1.GetResetEmployerPasswordCodeRequest
-	24, // 20: auth_service.v1.AuthService.ResetEmployerPassword:input_type -> auth_service.v1.ResetEmployerPasswordRequest
-	26, // 21: auth_service.v1.AuthService.ChangeEmployerPassword:input_type -> auth_service.v1.ChangeEmployerPasswordRequest
-	1,  // 22: auth_service.v1.AuthService.RegisterApplicant:output_type -> auth_service.v1.RegisterApplicantResponse
-	3,  // 23: auth_service.v1.AuthService.GetNewApplicantActivationCode:output_type -> auth_service.v1.GetNewApplicantActivationCodeResponse
-	5,  // 24: auth_service.v1.AuthService.LoginApplicant:output_type -> auth_service.v1.LoginApplicantResponse
-	7,  // 25: auth_service.v1.AuthService.RefreshApplicant:output_type -> auth_service.v1.RefreshApplicantResponse
-	9,  // 26: auth_service.v1.AuthService.GetResetApplicantPasswordCode:output_type -> auth_service.v1.GetResetApplicantPasswordCodeResponse
-	11, // 27: auth_service.v1.AuthService.ResetApplicantPassword:output_type -> auth_service.v1.ResetApplicantPasswordResponse
-	13, // 28: auth_service.v1.AuthService.ChangeApplicantPassword:output_type -> auth_service.v1.ChangeApplicantPasswordResponse
-	15, // 29: auth_service.v1.AuthService.RegisterEmployer:output_type -> auth_service.v1.RegisterEmployerResponse
-	17, // 30: auth_service.v1.AuthService.GetNewEmployerActivationCode:output_type -> auth_service.v1.GetNewEmployerActivationCodeResponse
-	19, // 31: auth_service.v1.AuthService.LoginEmployer:output_type -> auth_service.v1.LoginEmployerResponse
-	21, // 32: auth_service.v1.AuthService.RefreshEmployer:output_type -> auth_service.v1.RefreshEmployerResponse
-	23, // 33: auth_service.v1.AuthService.GetResetEmployerPasswordCode:output_type -> auth_service.v1.GetResetEmployerPasswordCodeResponse
-	25, // 34: auth_service.v1.AuthService.ResetEmployerPassword:output_type -> auth_service.v1.ResetEmployerPasswordResponse
-	27, // 35: auth_service.v1.AuthService.ChangeEmployerPassword:output_type -> auth_service.v1.ChangeEmployerPasswordResponse
-	22, // [22:36] is the sub-list for method output_type
-	8,  // [8:22] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	36, // 0: auth_service.v1.RegisterApplicantRequest.applicant:type_name -> user_service.v1.Applicant
+	36, // 1: auth_service.v1.RegisterApplicantResponse.applicant:type_name -> user_service.v1.Applicant
+	36, // 2: auth_service.v1.ActivateApplicantResponse.applicant:type_name -> user_service.v1.Applicant
+	36, // 3: auth_service.v1.LoginApplicantResponse.applicant:type_name -> user_service.v1.Applicant
+	36, // 4: auth_service.v1.ResetApplicantPasswordResponse.applicant:type_name -> user_service.v1.Applicant
+	37, // 5: auth_service.v1.RegisterEmployerRequest.employer:type_name -> user_service.v1.Employer
+	37, // 6: auth_service.v1.RegisterEmployerResponse.employer:type_name -> user_service.v1.Employer
+	37, // 7: auth_service.v1.ActivateEmployerResponse.employer:type_name -> user_service.v1.Employer
+	37, // 8: auth_service.v1.LoginEmployerResponse.employer:type_name -> user_service.v1.Employer
+	37, // 9: auth_service.v1.ResetEmployerPasswordResponse.employer:type_name -> user_service.v1.Employer
+	0,  // 10: auth_service.v1.AuthService.RegisterApplicant:input_type -> auth_service.v1.RegisterApplicantRequest
+	2,  // 11: auth_service.v1.AuthService.GetNewApplicantActivationCode:input_type -> auth_service.v1.GetNewApplicantActivationCodeRequest
+	4,  // 12: auth_service.v1.AuthService.ActivateApplicant:input_type -> auth_service.v1.ActivateApplicantRequest
+	6,  // 13: auth_service.v1.AuthService.LoginApplicant:input_type -> auth_service.v1.LoginApplicantRequest
+	8,  // 14: auth_service.v1.AuthService.RefreshApplicant:input_type -> auth_service.v1.RefreshApplicantRequest
+	10, // 15: auth_service.v1.AuthService.LogoutApplicant:input_type -> auth_service.v1.LogoutApplicantRequest
+	12, // 16: auth_service.v1.AuthService.GetResetApplicantPasswordCode:input_type -> auth_service.v1.GetResetApplicantPasswordCodeRequest
+	14, // 17: auth_service.v1.AuthService.ResetApplicantPassword:input_type -> auth_service.v1.ResetApplicantPasswordRequest
+	16, // 18: auth_service.v1.AuthService.ChangeApplicantPassword:input_type -> auth_service.v1.ChangeApplicantPasswordRequest
+	18, // 19: auth_service.v1.AuthService.RegisterEmployer:input_type -> auth_service.v1.RegisterEmployerRequest
+	20, // 20: auth_service.v1.AuthService.GetNewEmployerActivationCode:input_type -> auth_service.v1.GetNewEmployerActivationCodeRequest
+	22, // 21: auth_service.v1.AuthService.ActivateEmployer:input_type -> auth_service.v1.ActivateEmployerRequest
+	24, // 22: auth_service.v1.AuthService.LoginEmployer:input_type -> auth_service.v1.LoginEmployerRequest
+	26, // 23: auth_service.v1.AuthService.RefreshEmployer:input_type -> auth_service.v1.RefreshEmployerRequest
+	28, // 24: auth_service.v1.AuthService.LogoutEmployer:input_type -> auth_service.v1.LogoutEmployerRequest
+	30, // 25: auth_service.v1.AuthService.GetResetEmployerPasswordCode:input_type -> auth_service.v1.GetResetEmployerPasswordCodeRequest
+	32, // 26: auth_service.v1.AuthService.ResetEmployerPassword:input_type -> auth_service.v1.ResetEmployerPasswordRequest
+	34, // 27: auth_service.v1.AuthService.ChangeEmployerPassword:input_type -> auth_service.v1.ChangeEmployerPasswordRequest
+	1,  // 28: auth_service.v1.AuthService.RegisterApplicant:output_type -> auth_service.v1.RegisterApplicantResponse
+	3,  // 29: auth_service.v1.AuthService.GetNewApplicantActivationCode:output_type -> auth_service.v1.GetNewApplicantActivationCodeResponse
+	5,  // 30: auth_service.v1.AuthService.ActivateApplicant:output_type -> auth_service.v1.ActivateApplicantResponse
+	7,  // 31: auth_service.v1.AuthService.LoginApplicant:output_type -> auth_service.v1.LoginApplicantResponse
+	9,  // 32: auth_service.v1.AuthService.RefreshApplicant:output_type -> auth_service.v1.RefreshApplicantResponse
+	11, // 33: auth_service.v1.AuthService.LogoutApplicant:output_type -> auth_service.v1.LogoutApplicantResponse
+	13, // 34: auth_service.v1.AuthService.GetResetApplicantPasswordCode:output_type -> auth_service.v1.GetResetApplicantPasswordCodeResponse
+	15, // 35: auth_service.v1.AuthService.ResetApplicantPassword:output_type -> auth_service.v1.ResetApplicantPasswordResponse
+	17, // 36: auth_service.v1.AuthService.ChangeApplicantPassword:output_type -> auth_service.v1.ChangeApplicantPasswordResponse
+	19, // 37: auth_service.v1.AuthService.RegisterEmployer:output_type -> auth_service.v1.RegisterEmployerResponse
+	21, // 38: auth_service.v1.AuthService.GetNewEmployerActivationCode:output_type -> auth_service.v1.GetNewEmployerActivationCodeResponse
+	23, // 39: auth_service.v1.AuthService.ActivateEmployer:output_type -> auth_service.v1.ActivateEmployerResponse
+	25, // 40: auth_service.v1.AuthService.LoginEmployer:output_type -> auth_service.v1.LoginEmployerResponse
+	27, // 41: auth_service.v1.AuthService.RefreshEmployer:output_type -> auth_service.v1.RefreshEmployerResponse
+	29, // 42: auth_service.v1.AuthService.LogoutEmployer:output_type -> auth_service.v1.LogoutEmployerResponse
+	31, // 43: auth_service.v1.AuthService.GetResetEmployerPasswordCode:output_type -> auth_service.v1.GetResetEmployerPasswordCodeResponse
+	33, // 44: auth_service.v1.AuthService.ResetEmployerPassword:output_type -> auth_service.v1.ResetEmployerPasswordResponse
+	35, // 45: auth_service.v1.AuthService.ChangeEmployerPassword:output_type -> auth_service.v1.ChangeEmployerPasswordResponse
+	28, // [28:46] is the sub-list for method output_type
+	10, // [10:28] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
 func init() { file_auth_service_v1_auth_service_proto_init() }
@@ -1412,7 +1770,7 @@ func file_auth_service_v1_auth_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_auth_service_v1_auth_service_proto_rawDesc), len(file_auth_service_v1_auth_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   28,
+			NumMessages:   36,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

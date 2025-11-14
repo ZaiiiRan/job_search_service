@@ -16,6 +16,6 @@ WORKDIR /root
 COPY --from=builder /app/server .
 
 COPY --from=builder /app/migrations ./migrations
-COPY --from=builder /app/gen/openapiv2/user_service/v1/ ./gen/openapiv2/user_service/v1/
+COPY --from=builder /app/gen/openapiv2/auth_service/v1/ ./gen/openapiv2/auth_service/v1/
 
 ENTRYPOINT ["./server"]

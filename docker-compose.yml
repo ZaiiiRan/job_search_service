@@ -52,7 +52,7 @@ services:
     environment:
       REDIS_PASSWORD: ${REDIS_PASSWORD}
     ports:
-      - "6380:6379"
+      - "6381:6379"
     healthcheck:
       test: ["CMD-SHELL", "redis-cli -a ${REDIS_PASSWORD} ping | grep PONG"]
       interval: 5s
@@ -83,9 +83,98 @@ services:
       - "50051:50051"
     networks:
     - job-search-service-network
+  
+  auth-db:
+    image: postgres:17.6
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: postgres
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    volumes:
+      - ./configs/postgresql/postgresql.conf:/etc/postgresql/postgresql.conf
+      - auth-db-data:/var/lib/postgresql/data/
+    networks:
+      - job-search-service-network
+  
+  auth-pgbouncer:
+    image: public.ecr.aws/bitnami/pgbouncer:1.24.1
+    depends_on:
+      auth-db:
+        condition: service_healthy
+    environment:
+      POSTGRESQL_HOST: auth-db
+      POSTGRESQL_PORT: 5432
+      POSTGRESQL_USERNAME: ${POSTGRES_USER}
+      POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
+      PGBOUNCER_IDLE_TRANSACTION_TIMEOUT: 60
+      PGBOUNCER_POOL_MODE: transaction
+      PGBOUNCER_SERVER_RESET_QUERY_ALWAYS: 0
+      PGBOUNCER_SERVER_LIFETIME: 3600
+      PGBOUNCER_SERVER_IDLE_TIMEOUT: 60
+      PGBOUNCER_MAX_DB_CONNECTIONS: 50
+      PGBOUNCER_MAX_CLIENT_CONN: 10000
+      PGBOUNCER_RESERVE_POOL_SIZE: 5
+      PGBOUNCER_MIN_POOL_SIZE: 2
+      PGBOUNCER_DEFAULT_POOL_SIZE: 16
+      PGBOUNCER_IGNORE_STARTUP_PARAMETERS: extra_float_digits
+    ports:
+      - "5434:6432"
+    networks:
+      - job-search-service-network
+
+  auth-redis:
+    image: redis:8
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    ports:
+      - "6382:6379"
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a ${REDIS_PASSWORD} ping | grep PONG"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    networks:
+      - job-search-service-network
+  
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    depends_on:
+      auth-pgbouncer:
+        condition: service_started
+      auth-redis:
+        condition: service_healthy
+      user-service:
+        condition: service_started
+    environment:
+      DB_CONNECTION_STRING: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@auth-pgbouncer:6432/postgres?sslmode=disable
+      DB_MIGRATION_CONNECTION_STRING: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@auth-pgbouncer:6432/postgres?sslmode=disable
+      REDIS_ADDRESS: auth-redis:6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      USER_SERVICE_GRPC_CLIENT_ADDRESS: user-service:50051
+    volumes:
+      - ./configs/auth-service:/etc/auth-service
+    ports:
+      - "8082:8082"
+      - "50052:50052"
+    networks:
+    - job-search-service-network
 
 volumes:
   user-db-data:
+  auth-db-data:
 
 networks:
   job-search-service-network:

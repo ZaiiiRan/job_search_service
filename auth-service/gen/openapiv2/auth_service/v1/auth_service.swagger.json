@@ -22,6 +22,40 @@
     "application/json"
   ],
   "paths": {
+    "/api/v1/applicant/activate": {
+      "post": {
+        "summary": "Activate applicant accout",
+        "description": "Activates a new applicant account",
+        "operationId": "AuthService_ActivateApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ActivateApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ActivateApplicantRequest"
+            }
+          }
+        ],
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
     "/api/v1/applicant/change-password": {
       "post": {
         "summary": "Change applicant password",
@@ -85,6 +119,30 @@
             }
           }
         ],
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/v1/applicant/logout": {
+      "delete": {
+        "summary": "Logout applicant",
+        "description": "Deactivates applicant tokens",
+        "operationId": "AuthService_LogoutApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LogoutApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
         "tags": [
           "applicant"
         ]
@@ -250,6 +308,40 @@
         ]
       }
     },
+    "/api/v1/employer/activate": {
+      "post": {
+        "summary": "Activate employer",
+        "description": "Activates a new employer account",
+        "operationId": "AuthService_ActivateEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ActivateEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1ActivateEmployerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "employer"
+        ]
+      }
+    },
     "/api/v1/employer/change-password": {
       "post": {
         "summary": "Change employer password",
@@ -313,6 +405,30 @@
             }
           }
         ],
+        "tags": [
+          "employer"
+        ]
+      }
+    },
+    "/api/v1/employer/logout": {
+      "delete": {
+        "summary": "Logout employer",
+        "description": "Deactivates employer tokens",
+        "operationId": "AuthService_LogoutEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LogoutEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
         "tags": [
           "employer"
         ]
@@ -508,6 +624,38 @@
         }
       }
     },
+    "v1ActivateApplicantRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ActivateApplicantResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1ActivateEmployerRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ActivateEmployerResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    },
     "v1Applicant": {
       "type": "object",
       "properties": {
@@ -691,6 +839,12 @@
           "$ref": "#/definitions/v1Employer"
         }
       }
+    },
+    "v1LogoutApplicantResponse": {
+      "type": "object"
+    },
+    "v1LogoutEmployerResponse": {
+      "type": "object"
     },
     "v1RefreshApplicantRequest": {
       "type": "object"

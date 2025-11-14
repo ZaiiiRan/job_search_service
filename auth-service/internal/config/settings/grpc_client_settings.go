@@ -4,6 +4,7 @@ import "github.com/spf13/viper"
 
 type GRPCClientSettings struct {
 	Address              string `mapstructure:"address"`
+	AutoConnect          bool   `mapstructure:"auto_connect"`
 	RetriesCount         uint   `mapstructure:"retries_count"`
 	PerCallTimeout       uint   `mapstructure:"per_call_timeout"`
 	WaitGRPCReadyTimeout uint   `mapstructure:"wait_grpc_ready_timeout"`
@@ -20,7 +21,8 @@ type GRPCClientSettings struct {
 }
 
 func SetGRPCClientDefaults(v *viper.Viper, prefix string, defaultAdress string) {
-	v.SetDefault(prefix+".adress", defaultAdress)
+	v.SetDefault(prefix+".address", defaultAdress)
+	v.SetDefault(prefix+".auto_connect", true)
 	v.SetDefault(prefix+".retries_count", 3)
 	v.SetDefault(prefix+".per_call_timeout", 2)
 	v.SetDefault(prefix+".wait_grpc_ready_timeout", 5)

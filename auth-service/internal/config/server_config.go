@@ -9,9 +9,9 @@ import (
 )
 
 type ServerConfig struct {
-	GRPCSetver            settings.GRPCServerSettings `mapstructure:"grpc_server"`
+	GRPCServer            settings.GRPCServerSettings `mapstructure:"grpc_server"`
 	HTTPGatewayServer     settings.HTTPServerSettings `mapstructure:"http_gateway_server"`
-	UserSetviceGRPCClient settings.GRPCClientSettings `mapstructure:"user_service_grpc_client"`
+	UserServiceGRPCClient settings.GRPCClientSettings `mapstructure:"user_service_grpc_client"`
 	DB                    settings.PostgresSettings   `mapstructure:"db"`
 	Migrate               settings.MigrateSettings    `mapstructure:"migrate"`
 	Redis                 settings.RedisSettings      `mapstructure:"redis"`

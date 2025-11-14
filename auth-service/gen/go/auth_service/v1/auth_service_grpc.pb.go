@@ -21,15 +21,19 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	AuthService_RegisterApplicant_FullMethodName             = "/auth_service.v1.AuthService/RegisterApplicant"
 	AuthService_GetNewApplicantActivationCode_FullMethodName = "/auth_service.v1.AuthService/GetNewApplicantActivationCode"
+	AuthService_ActivateApplicant_FullMethodName             = "/auth_service.v1.AuthService/ActivateApplicant"
 	AuthService_LoginApplicant_FullMethodName                = "/auth_service.v1.AuthService/LoginApplicant"
 	AuthService_RefreshApplicant_FullMethodName              = "/auth_service.v1.AuthService/RefreshApplicant"
+	AuthService_LogoutApplicant_FullMethodName               = "/auth_service.v1.AuthService/LogoutApplicant"
 	AuthService_GetResetApplicantPasswordCode_FullMethodName = "/auth_service.v1.AuthService/GetResetApplicantPasswordCode"
 	AuthService_ResetApplicantPassword_FullMethodName        = "/auth_service.v1.AuthService/ResetApplicantPassword"
 	AuthService_ChangeApplicantPassword_FullMethodName       = "/auth_service.v1.AuthService/ChangeApplicantPassword"
 	AuthService_RegisterEmployer_FullMethodName              = "/auth_service.v1.AuthService/RegisterEmployer"
 	AuthService_GetNewEmployerActivationCode_FullMethodName  = "/auth_service.v1.AuthService/GetNewEmployerActivationCode"
+	AuthService_ActivateEmployer_FullMethodName              = "/auth_service.v1.AuthService/ActivateEmployer"
 	AuthService_LoginEmployer_FullMethodName                 = "/auth_service.v1.AuthService/LoginEmployer"
 	AuthService_RefreshEmployer_FullMethodName               = "/auth_service.v1.AuthService/RefreshEmployer"
+	AuthService_LogoutEmployer_FullMethodName                = "/auth_service.v1.AuthService/LogoutEmployer"
 	AuthService_GetResetEmployerPasswordCode_FullMethodName  = "/auth_service.v1.AuthService/GetResetEmployerPasswordCode"
 	AuthService_ResetEmployerPassword_FullMethodName         = "/auth_service.v1.AuthService/ResetEmployerPassword"
 	AuthService_ChangeEmployerPassword_FullMethodName        = "/auth_service.v1.AuthService/ChangeEmployerPassword"
@@ -41,15 +45,19 @@ const (
 type AuthServiceClient interface {
 	RegisterApplicant(ctx context.Context, in *RegisterApplicantRequest, opts ...grpc.CallOption) (*RegisterApplicantResponse, error)
 	GetNewApplicantActivationCode(ctx context.Context, in *GetNewApplicantActivationCodeRequest, opts ...grpc.CallOption) (*GetNewApplicantActivationCodeResponse, error)
+	ActivateApplicant(ctx context.Context, in *ActivateApplicantRequest, opts ...grpc.CallOption) (*ActivateApplicantResponse, error)
 	LoginApplicant(ctx context.Context, in *LoginApplicantRequest, opts ...grpc.CallOption) (*LoginApplicantResponse, error)
 	RefreshApplicant(ctx context.Context, in *RefreshApplicantRequest, opts ...grpc.CallOption) (*RefreshApplicantResponse, error)
+	LogoutApplicant(ctx context.Context, in *LogoutApplicantRequest, opts ...grpc.CallOption) (*LogoutApplicantResponse, error)
 	GetResetApplicantPasswordCode(ctx context.Context, in *GetResetApplicantPasswordCodeRequest, opts ...grpc.CallOption) (*GetResetApplicantPasswordCodeResponse, error)
 	ResetApplicantPassword(ctx context.Context, in *ResetApplicantPasswordRequest, opts ...grpc.CallOption) (*ResetApplicantPasswordResponse, error)
 	ChangeApplicantPassword(ctx context.Context, in *ChangeApplicantPasswordRequest, opts ...grpc.CallOption) (*ChangeApplicantPasswordResponse, error)
 	RegisterEmployer(ctx context.Context, in *RegisterEmployerRequest, opts ...grpc.CallOption) (*RegisterEmployerResponse, error)
 	GetNewEmployerActivationCode(ctx context.Context, in *GetNewEmployerActivationCodeRequest, opts ...grpc.CallOption) (*GetNewEmployerActivationCodeResponse, error)
+	ActivateEmployer(ctx context.Context, in *ActivateEmployerRequest, opts ...grpc.CallOption) (*ActivateEmployerResponse, error)
 	LoginEmployer(ctx context.Context, in *LoginEmployerRequest, opts ...grpc.CallOption) (*LoginEmployerResponse, error)
 	RefreshEmployer(ctx context.Context, in *RefreshEmployerRequest, opts ...grpc.CallOption) (*RefreshEmployerResponse, error)
+	LogoutEmployer(ctx context.Context, in *LogoutEmployerRequest, opts ...grpc.CallOption) (*LogoutEmployerResponse, error)
 	GetResetEmployerPasswordCode(ctx context.Context, in *GetResetEmployerPasswordCodeRequest, opts ...grpc.CallOption) (*GetResetEmployerPasswordCodeResponse, error)
 	ResetEmployerPassword(ctx context.Context, in *ResetEmployerPasswordRequest, opts ...grpc.CallOption) (*ResetEmployerPasswordResponse, error)
 	ChangeEmployerPassword(ctx context.Context, in *ChangeEmployerPasswordRequest, opts ...grpc.CallOption) (*ChangeEmployerPasswordResponse, error)
@@ -83,6 +91,16 @@ func (c *authServiceClient) GetNewApplicantActivationCode(ctx context.Context, i
 	return out, nil
 }
 
+func (c *authServiceClient) ActivateApplicant(ctx context.Context, in *ActivateApplicantRequest, opts ...grpc.CallOption) (*ActivateApplicantResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActivateApplicantResponse)
+	err := c.cc.Invoke(ctx, AuthService_ActivateApplicant_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *authServiceClient) LoginApplicant(ctx context.Context, in *LoginApplicantRequest, opts ...grpc.CallOption) (*LoginApplicantResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(LoginApplicantResponse)
@@ -97,6 +115,16 @@ func (c *authServiceClient) RefreshApplicant(ctx context.Context, in *RefreshApp
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(RefreshApplicantResponse)
 	err := c.cc.Invoke(ctx, AuthService_RefreshApplicant_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) LogoutApplicant(ctx context.Context, in *LogoutApplicantRequest, opts ...grpc.CallOption) (*LogoutApplicantResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LogoutApplicantResponse)
+	err := c.cc.Invoke(ctx, AuthService_LogoutApplicant_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -153,6 +181,16 @@ func (c *authServiceClient) GetNewEmployerActivationCode(ctx context.Context, in
 	return out, nil
 }
 
+func (c *authServiceClient) ActivateEmployer(ctx context.Context, in *ActivateEmployerRequest, opts ...grpc.CallOption) (*ActivateEmployerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActivateEmployerResponse)
+	err := c.cc.Invoke(ctx, AuthService_ActivateEmployer_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *authServiceClient) LoginEmployer(ctx context.Context, in *LoginEmployerRequest, opts ...grpc.CallOption) (*LoginEmployerResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(LoginEmployerResponse)
@@ -167,6 +205,16 @@ func (c *authServiceClient) RefreshEmployer(ctx context.Context, in *RefreshEmpl
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(RefreshEmployerResponse)
 	err := c.cc.Invoke(ctx, AuthService_RefreshEmployer_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) LogoutEmployer(ctx context.Context, in *LogoutEmployerRequest, opts ...grpc.CallOption) (*LogoutEmployerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LogoutEmployerResponse)
+	err := c.cc.Invoke(ctx, AuthService_LogoutEmployer_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -209,15 +257,19 @@ func (c *authServiceClient) ChangeEmployerPassword(ctx context.Context, in *Chan
 type AuthServiceServer interface {
 	RegisterApplicant(context.Context, *RegisterApplicantRequest) (*RegisterApplicantResponse, error)
 	GetNewApplicantActivationCode(context.Context, *GetNewApplicantActivationCodeRequest) (*GetNewApplicantActivationCodeResponse, error)
+	ActivateApplicant(context.Context, *ActivateApplicantRequest) (*ActivateApplicantResponse, error)
 	LoginApplicant(context.Context, *LoginApplicantRequest) (*LoginApplicantResponse, error)
 	RefreshApplicant(context.Context, *RefreshApplicantRequest) (*RefreshApplicantResponse, error)
+	LogoutApplicant(context.Context, *LogoutApplicantRequest) (*LogoutApplicantResponse, error)
 	GetResetApplicantPasswordCode(context.Context, *GetResetApplicantPasswordCodeRequest) (*GetResetApplicantPasswordCodeResponse, error)
 	ResetApplicantPassword(context.Context, *ResetApplicantPasswordRequest) (*ResetApplicantPasswordResponse, error)
 	ChangeApplicantPassword(context.Context, *ChangeApplicantPasswordRequest) (*ChangeApplicantPasswordResponse, error)
 	RegisterEmployer(context.Context, *RegisterEmployerRequest) (*RegisterEmployerResponse, error)
 	GetNewEmployerActivationCode(context.Context, *GetNewEmployerActivationCodeRequest) (*GetNewEmployerActivationCodeResponse, error)
+	ActivateEmployer(context.Context, *ActivateEmployerRequest) (*ActivateEmployerResponse, error)
 	LoginEmployer(context.Context, *LoginEmployerRequest) (*LoginEmployerResponse, error)
 	RefreshEmployer(context.Context, *RefreshEmployerRequest) (*RefreshEmployerResponse, error)
+	LogoutEmployer(context.Context, *LogoutEmployerRequest) (*LogoutEmployerResponse, error)
 	GetResetEmployerPasswordCode(context.Context, *GetResetEmployerPasswordCodeRequest) (*GetResetEmployerPasswordCodeResponse, error)
 	ResetEmployerPassword(context.Context, *ResetEmployerPasswordRequest) (*ResetEmployerPasswordResponse, error)
 	ChangeEmployerPassword(context.Context, *ChangeEmployerPasswordRequest) (*ChangeEmployerPasswordResponse, error)
@@ -237,11 +289,17 @@ func (UnimplementedAuthServiceServer) RegisterApplicant(context.Context, *Regist
 func (UnimplementedAuthServiceServer) GetNewApplicantActivationCode(context.Context, *GetNewApplicantActivationCodeRequest) (*GetNewApplicantActivationCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNewApplicantActivationCode not implemented")
 }
+func (UnimplementedAuthServiceServer) ActivateApplicant(context.Context, *ActivateApplicantRequest) (*ActivateApplicantResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ActivateApplicant not implemented")
+}
 func (UnimplementedAuthServiceServer) LoginApplicant(context.Context, *LoginApplicantRequest) (*LoginApplicantResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LoginApplicant not implemented")
 }
 func (UnimplementedAuthServiceServer) RefreshApplicant(context.Context, *RefreshApplicantRequest) (*RefreshApplicantResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RefreshApplicant not implemented")
+}
+func (UnimplementedAuthServiceServer) LogoutApplicant(context.Context, *LogoutApplicantRequest) (*LogoutApplicantResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LogoutApplicant not implemented")
 }
 func (UnimplementedAuthServiceServer) GetResetApplicantPasswordCode(context.Context, *GetResetApplicantPasswordCodeRequest) (*GetResetApplicantPasswordCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetResetApplicantPasswordCode not implemented")
@@ -258,11 +316,17 @@ func (UnimplementedAuthServiceServer) RegisterEmployer(context.Context, *Registe
 func (UnimplementedAuthServiceServer) GetNewEmployerActivationCode(context.Context, *GetNewEmployerActivationCodeRequest) (*GetNewEmployerActivationCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetNewEmployerActivationCode not implemented")
 }
+func (UnimplementedAuthServiceServer) ActivateEmployer(context.Context, *ActivateEmployerRequest) (*ActivateEmployerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ActivateEmployer not implemented")
+}
 func (UnimplementedAuthServiceServer) LoginEmployer(context.Context, *LoginEmployerRequest) (*LoginEmployerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LoginEmployer not implemented")
 }
 func (UnimplementedAuthServiceServer) RefreshEmployer(context.Context, *RefreshEmployerRequest) (*RefreshEmployerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RefreshEmployer not implemented")
+}
+func (UnimplementedAuthServiceServer) LogoutEmployer(context.Context, *LogoutEmployerRequest) (*LogoutEmployerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LogoutEmployer not implemented")
 }
 func (UnimplementedAuthServiceServer) GetResetEmployerPasswordCode(context.Context, *GetResetEmployerPasswordCodeRequest) (*GetResetEmployerPasswordCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetResetEmployerPasswordCode not implemented")
@@ -330,6 +394,24 @@ func _AuthService_GetNewApplicantActivationCode_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_ActivateApplicant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ActivateApplicantRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).ActivateApplicant(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_ActivateApplicant_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).ActivateApplicant(ctx, req.(*ActivateApplicantRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AuthService_LoginApplicant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LoginApplicantRequest)
 	if err := dec(in); err != nil {
@@ -362,6 +444,24 @@ func _AuthService_RefreshApplicant_Handler(srv interface{}, ctx context.Context,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServiceServer).RefreshApplicant(ctx, req.(*RefreshApplicantRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_LogoutApplicant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LogoutApplicantRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).LogoutApplicant(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_LogoutApplicant_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).LogoutApplicant(ctx, req.(*LogoutApplicantRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -456,6 +556,24 @@ func _AuthService_GetNewEmployerActivationCode_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_ActivateEmployer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ActivateEmployerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).ActivateEmployer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_ActivateEmployer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).ActivateEmployer(ctx, req.(*ActivateEmployerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AuthService_LoginEmployer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LoginEmployerRequest)
 	if err := dec(in); err != nil {
@@ -488,6 +606,24 @@ func _AuthService_RefreshEmployer_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServiceServer).RefreshEmployer(ctx, req.(*RefreshEmployerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_LogoutEmployer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LogoutEmployerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).LogoutEmployer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_LogoutEmployer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).LogoutEmployer(ctx, req.(*LogoutEmployerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -562,12 +698,20 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AuthService_GetNewApplicantActivationCode_Handler,
 		},
 		{
+			MethodName: "ActivateApplicant",
+			Handler:    _AuthService_ActivateApplicant_Handler,
+		},
+		{
 			MethodName: "LoginApplicant",
 			Handler:    _AuthService_LoginApplicant_Handler,
 		},
 		{
 			MethodName: "RefreshApplicant",
 			Handler:    _AuthService_RefreshApplicant_Handler,
+		},
+		{
+			MethodName: "LogoutApplicant",
+			Handler:    _AuthService_LogoutApplicant_Handler,
 		},
 		{
 			MethodName: "GetResetApplicantPasswordCode",
@@ -590,12 +734,20 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AuthService_GetNewEmployerActivationCode_Handler,
 		},
 		{
+			MethodName: "ActivateEmployer",
+			Handler:    _AuthService_ActivateEmployer_Handler,
+		},
+		{
 			MethodName: "LoginEmployer",
 			Handler:    _AuthService_LoginEmployer_Handler,
 		},
 		{
 			MethodName: "RefreshEmployer",
 			Handler:    _AuthService_RefreshEmployer_Handler,
+		},
+		{
+			MethodName: "LogoutEmployer",
+			Handler:    _AuthService_LogoutEmployer_Handler,
 		},
 		{
 			MethodName: "GetResetEmployerPasswordCode",
