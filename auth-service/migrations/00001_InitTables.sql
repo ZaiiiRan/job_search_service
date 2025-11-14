@@ -9,14 +9,6 @@ CREATE TABLE IF NOT EXISTS applicant_passwords (
 
 CREATE UNIQUE INDEX idx_applicant_passwords_user_id ON applicant_passwords (user_id);
 
-CREATE TYPE v1_applicant_password AS (
-    id BIGINT,
-    user_id BIGINT,
-    password_hash TEXT,
-    created_at TIMESTAMP WITH TIME ZONE,
-    updated_at TIMESTAMP WITH TIME ZONE
-);
-
 CREATE TABLE applicant_activation_codes (
     id BIGSERIAL NOT NULL PRIMARY KEY,
     user_id BIGINT NOT NULL UNIQUE,
@@ -28,15 +20,6 @@ CREATE TABLE applicant_activation_codes (
 
 CREATE UNIQUE INDEX idx_applicant_activation_codes_user_id ON applicant_activation_codes (user_id);
 
-CREATE TYPE v1_applicant_activation_code AS (
-    id BIGINT,
-    user_id BIGINT,
-    code TEXT,
-    expires_at TIMESTAMP WITH TIME ZONE,
-    created_at TIMESTAMP WITH TIME ZONE,
-    updated_at TIMESTAMP WITH TIME ZONE
-);
-
 CREATE TABLE applicant_reset_password_codes (
     id BIGSERIAL NOT NULL PRIMARY KEY,
     user_id BIGINT NOT NULL UNIQUE,
@@ -47,15 +30,6 @@ CREATE TABLE applicant_reset_password_codes (
 );
 
 CREATE UNIQUE INDEX idx_applicant_reset_password_codes_user_id ON applicant_reset_password_codes(user_id);
-
-CREATE TYPE v1_applicant_reset_password_code AS (
-    id BIGINT,
-    user_id BIGINT,
-    code TEXT,
-    expires_at TIMESTAMP WITH TIME ZONE,
-    created_at TIMESTAMP WITH TIME ZONE,
-    updated_at TIMESTAMP WITH TIME ZONE
-);
 
 CREATE TABLE applicant_refresh_tokens (
     id BIGSERIAL NOT NULL PRIMARY KEY,
@@ -69,15 +43,6 @@ CREATE TABLE applicant_refresh_tokens (
 CREATE INDEX idx_applicant_refresh_tokens_user_id ON applicant_refresh_tokens(user_id);
 CREATE INDEX idx_applicant_refresh_tokens_token ON applicant_refresh_tokens(token);
 
-CREATE TYPE v1_applicant_refresh_token AS (
-    id BIGINT,
-    user_id BIGINT,
-    token TEXT,
-    expires_at TIMESTAMP WITH TIME ZONE,
-    created_at TIMESTAMP WITH TIME ZONE,
-    updated_at TIMESTAMP WITH TIME ZONE
-);
-
 CREATE TABLE IF NOT EXISTS employer_passwords (
     id BIGSERIAL NOT NULL PRIMARY KEY,
     user_id BIGINT NOT NULL UNIQUE,
@@ -87,14 +52,6 @@ CREATE TABLE IF NOT EXISTS employer_passwords (
 );
 
 CREATE UNIQUE INDEX idx_employer_passwords_user_id ON employer_passwords (user_id);
-
-CREATE TYPE v1_employer_password AS (
-    id BIGINT,
-    user_id BIGINT,
-    password_hash TEXT,
-    created_at TIMESTAMP WITH TIME ZONE,
-    updated_at TIMESTAMP WITH TIME ZONE
-);
 
 CREATE TABLE employer_activation_codes (
     id BIGSERIAL NOT NULL PRIMARY KEY,
@@ -107,15 +64,6 @@ CREATE TABLE employer_activation_codes (
 
 CREATE UNIQUE INDEX idx_employer_activation_codes_user_id ON employer_activation_codes (user_id);
 
-CREATE TYPE v1_employer_activation_code AS (
-    id BIGINT,
-    user_id BIGINT,
-    code TEXT,
-    expires_at TIMESTAMP WITH TIME ZONE,
-    created_at TIMESTAMP WITH TIME ZONE,
-    updated_at TIMESTAMP WITH TIME ZONE
-);
-
 CREATE TABLE employer_reset_password_codes (
     id BIGSERIAL NOT NULL PRIMARY KEY,
     user_id BIGINT NOT NULL UNIQUE,
@@ -126,15 +74,6 @@ CREATE TABLE employer_reset_password_codes (
 );
 
 CREATE UNIQUE INDEX idx_employer_reset_password_codes_user_id ON employer_reset_password_codes(user_id);
-
-CREATE TYPE v1_employer_reset_password_code AS (
-    id BIGINT,
-    user_id BIGINT,
-    code TEXT,
-    expires_at TIMESTAMP WITH TIME ZONE,
-    created_at TIMESTAMP WITH TIME ZONE,
-    updated_at TIMESTAMP WITH TIME ZONE
-);
 
 CREATE TABLE employer_refresh_tokens (
     id BIGSERIAL NOT NULL PRIMARY KEY,
@@ -148,7 +87,24 @@ CREATE TABLE employer_refresh_tokens (
 CREATE INDEX idx_employer_refresh_tokens_user_id ON employer_refresh_tokens(user_id);
 CREATE INDEX idx_employer_refresh_tokens_token ON employer_refresh_tokens(token);
 
-CREATE TYPE v1_employer_refresh_token AS (
+CREATE TYPE v1_user_password AS (
+    id BIGINT,
+    user_id BIGINT,
+    password_hash TEXT,
+    created_at TIMESTAMP WITH TIME ZONE,
+    updated_at TIMESTAMP WITH TIME ZONE
+);
+
+CREATE TYPE v1_code AS (
+    id BIGINT,
+    user_id BIGINT,
+    code TEXT,
+    expires_at TIMESTAMP WITH TIME ZONE,
+    created_at TIMESTAMP WITH TIME ZONE,
+    updated_at TIMESTAMP WITH TIME ZONE
+);
+
+CREATE TYPE v1_refresh_token AS (
     id BIGINT,
     user_id BIGINT,
     token TEXT,
@@ -184,12 +140,6 @@ DROP INDEX IF EXISTS idx_employer_refresh_tokens_user_id;
 DROP INDEX IF EXISTS idx_employer_refresh_tokens_token;
 DROP TABLE IF EXISTS employer_refresh_tokens;
 
-DROP TYPE IF EXISTS v1_applicant_password;
-DROP TYPE IF EXISTS v1_applicant_activation_code;
-DROP TYPE IF EXISTS v1_applicant_reset_password_code;
-DROP TYPE IF EXISTS v1_applicant_refresh_token;
-
-DROP TYPE IF EXISTS v1_employer_password;
-DROP TYPE IF EXISTS v1_employer_activation_code;
-DROP TYPE IF EXISTS v1_employer_reset_password_code;
-DROP TYPE IF EXISTS v1_employer_refresh_token;
+DROP TYPE IF EXISTS v1_user_password;
+DROP TYPE IF EXISTS v1_code;
+DROP TYPE IF EXISTS v1_refresh_token;
