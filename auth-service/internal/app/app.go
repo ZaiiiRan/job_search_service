@@ -137,7 +137,7 @@ func (a *App) initUserGrpcClient(ctx context.Context) error {
 }
 
 func (a *App) initGrpcServer() error {
-	srv, err := grpcserver.New(a.cfg.GRPCServer, a.log)
+	srv, err := grpcserver.New(a.cfg.GRPCServer, a.cfg.JWT, a.log)
 	if err != nil {
 		a.log.Errorw("app.grpc_server_init_failed", "err", err)
 		return err

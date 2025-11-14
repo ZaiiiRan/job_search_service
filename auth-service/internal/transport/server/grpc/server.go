@@ -25,7 +25,7 @@ func New(
 	log *zap.SugaredLogger,
 ) (*Server, error) {
 	s := grpc.NewServer(
-		newChainUnaryInterceptor(log),
+		newChainUnaryInterceptor(&jwtSettings, log),
 		grpc.KeepaliveParams(getGRPCKeepAliveServerParams(&srvSettings)),
 		grpc.KeepaliveEnforcementPolicy(getGRPCKeepAliveEnforcement(&srvSettings)),
 	)
