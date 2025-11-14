@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package auth_service.v1;
 
-option go_package = "github.com/ZaiiiRan/job_search_service/auth-service/gen/go/auth-service/v1;auth1";
+option go_package = "github.com/ZaiiiRan/job_search_service/auth-service/gen/go/auth-service/v1;authv1";
 
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
@@ -45,6 +45,18 @@ service AuthService {
         };
     }
 
+    rpc ActivateApplicant(ActivateApplicantRequest) returns (ActivateApplicantResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/applicant/activate",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Activate applicant accout"
+            description: "Activates a new applicant account"
+            tags: "applicant"
+        };
+    }
+
     rpc LoginApplicant(LoginApplicantRequest) returns (LoginApplicantResponse) {
         option (google.api.http) = {
             post: "/api/v1/applicant/login",
@@ -65,6 +77,17 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Refresh applicant"
             description: "Returns a new pair of tokens"
+            tags: "applicant"
+        };
+    }
+
+    rpc LogoutApplicant(LogoutApplicantRequest) returns (LogoutApplicantResponse) {
+        option (google.api.http) = {
+            delete: "/api/v1/applicant/logout"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Logout applicant"
+            description: "Deactivates applicant tokens"
             tags: "applicant"
         };
     }
@@ -128,6 +151,18 @@ service AuthService {
         };
     }
 
+    rpc ActivateEmployer(ActivateEmployerRequest) returns (ActivateEmployerResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/employer/activate",
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Activate employer"
+            description: "Activates a new employer account"
+            tags: "employer"
+        };
+    }
+
     rpc LoginEmployer(LoginEmployerRequest) returns (LoginEmployerResponse) {
         option (google.api.http) = {
             post: "/api/v1/employer/login",
@@ -148,6 +183,17 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Refresh employer"
             description: "Returns a new pair of tokens"
+            tags: "employer"
+        };
+    }
+
+    rpc LogoutEmployer(LogoutEmployerRequest) returns (LogoutEmployerResponse) {
+        option (google.api.http) = {
+            delete: "/api/v1/employer/logout"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Logout employer"
+            description: "Deactivates employer tokens"
             tags: "employer"
         };
     }
@@ -201,6 +247,14 @@ message RegisterApplicantResponse {
 message GetNewApplicantActivationCodeRequest {}
 message GetNewApplicantActivationCodeResponse {}
 
+message ActivateApplicantRequest {
+    string code = 1;
+}
+
+message ActivateApplicantResponse {
+    user_service.v1.Applicant applicant = 1;
+} 
+
 message LoginApplicantRequest {
     string email = 1;
     string password = 2;
@@ -212,6 +266,9 @@ message LoginApplicantResponse {
 
 message RefreshApplicantRequest {}
 message RefreshApplicantResponse {}
+
+message LogoutApplicantRequest {}
+message LogoutApplicantResponse {}
 
 message GetResetApplicantPasswordCodeRequest {
     string email = 1;
@@ -247,6 +304,14 @@ message RegisterEmployerResponse {
 message GetNewEmployerActivationCodeRequest {}
 message GetNewEmployerActivationCodeResponse {}
 
+message ActivateEmployerRequest {
+    string code = 1;
+}
+
+message ActivateEmployerResponse {
+    user_service.v1.Employer employer = 1;
+} 
+
 message LoginEmployerRequest {
     string email = 1;
     string password = 2;
@@ -258,6 +323,10 @@ message LoginEmployerResponse {
 
 message RefreshEmployerRequest {}
 message RefreshEmployerResponse {}
+
+message LogoutEmployerRequest {}
+message LogoutEmployerResponse {}
+
 
 message GetResetEmployerPasswordCodeRequest {
     string email = 1;

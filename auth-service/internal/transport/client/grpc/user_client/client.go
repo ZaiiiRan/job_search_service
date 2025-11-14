@@ -1,0 +1,51 @@
+package usergrpcclient
+
+import (
+	"context"
+
+	pb "github.com/ZaiiiRan/job_search_service/auth-service/gen/go/user_service/v1"
+	"github.com/ZaiiiRan/job_search_service/auth-service/internal/config/settings"
+	grpcclient "github.com/ZaiiiRan/job_search_service/auth-service/internal/transport/client/grpc"
+	"google.golang.org/grpc"
+)
+
+type Client struct {
+	client     *grpcclient.GRPCClient
+	userClient pb.UserServiceClient
+}
+
+func New(
+	ctx context.Context,
+	cfg settings.GRPCClientSettings,
+	unaryExtra []grpc.UnaryClientInterceptor,
+	streamExtra []grpc.StreamClientInterceptor,
+	extra ...grpc.DialOption,
+) (*Client, error) {
+	cl, err := grpcclient.New(ctx, cfg, unaryExtra, streamExtra, extra...)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Client{
+		client:     cl,
+		userClient: pb.NewUserServiceClient(cl.Conn()),
+	}, nil
+}
+
+func (c *Client) UserClient() pb.UserServiceClient {
+	return c.userClient
+}
+
+func (c *Client) Connect(ctx context.Context) error {
+	if c.client != nil {
+		return c.client.Connect(ctx)
+	}
+	return nil
+}
+
+func (c *Client) Close() error {
+	if c.client != nil {
+		return c.client.Close()
+	}
+	return nil
+}

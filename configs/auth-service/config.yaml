@@ -1,0 +1,13 @@
+grpc_server:
+  port: ":50052"
+http_gateway_server:
+  port: ":8082"
+jwt:
+  access_token_ttl: 900
+  refresh_token_ttl: 86400
+user_service_grpc_client:
+  auto_connect: true
+migrate:
+  need_to_migrate: true
+shutdown:
+  shutdown_timeout: 5
