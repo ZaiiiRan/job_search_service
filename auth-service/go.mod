@@ -4,6 +4,7 @@ go 1.25.2
 
 require (
 	github.com/ZaiiiRan/job_search_service/common v0.0.0-20251114060645-d34eeda23a75
+	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.3
 	github.com/jackc/pgx/v5 v5.7.6
@@ -29,7 +30,6 @@ require (
 	github.com/go-openapi/spec v0.20.6 // indirect
 	github.com/go-openapi/swag v0.19.15 // indirect
 	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
-	github.com/golang-jwt/jwt/v5 v5.3.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect

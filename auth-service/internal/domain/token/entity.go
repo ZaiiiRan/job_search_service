@@ -2,6 +2,11 @@ package token
 
 import "time"
 
+const (
+	AccessTokenType  = "access"
+	RefreshTokenType = "refresh"
+)
+
 type Token struct {
 	id        int64
 	userId    int64

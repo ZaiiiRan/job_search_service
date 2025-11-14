@@ -53,7 +53,7 @@ func (p V1RefreshTokenDal) Index(i int) any {
 func (p V1RefreshTokenDal) ToDomain() *token.Token {
 	return token.FromStorage(
 		p.Id, p.UserId,
-		p.Token, "refresh",
+		p.Token, token.RefreshTokenType,
 		p.ExpiresAt, p.CreatedAt, p.UpdatedAt,
 	)
 }
