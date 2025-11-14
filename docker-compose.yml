@@ -164,6 +164,8 @@ services:
       REDIS_ADDRESS: auth-redis:6379
       REDIS_PASSWORD: ${REDIS_PASSWORD}
       USER_SERVICE_GRPC_CLIENT_ADDRESS: user-service:50051
+      JWT_ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
+      JWT_REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
     volumes:
       - ./configs/auth-service:/etc/auth-service
     ports:

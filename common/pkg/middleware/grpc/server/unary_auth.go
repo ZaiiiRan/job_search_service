@@ -22,7 +22,7 @@ func ApplicantAuthMiddleware(secretKey []byte, shouldProtect MethodMatcher) grpc
 		req interface{},
 		info *grpc.UnaryServerInfo,
 		handler grpc.UnaryHandler,
-	) (interface{}, error) {
+	) (any, error) {
 
 		if shouldProtect != nil && shouldProtect(info.FullMethod) {
 			return handler(ctx, req)

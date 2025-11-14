@@ -21,6 +21,7 @@ type Server struct {
 
 func New(
 	srvSettings settings.GRPCServerSettings,
+	jwtSettings settings.JWTSettings,
 	log *zap.SugaredLogger,
 ) (*Server, error) {
 	s := grpc.NewServer(
@@ -68,11 +69,30 @@ func (s *Server) Addr() string {
 	return ""
 }
 
-func newChainUnaryInterceptor(log *zap.SugaredLogger) grpc.ServerOption {
+func newChainUnaryInterceptor(jwtSettings *settings.JWTSettings, log *zap.SugaredLogger) grpc.ServerOption {
 	return grpc.ChainUnaryInterceptor(
 		middleware.RequestIdMiddleware(),
 		middleware.LogMiddleware(log),
 		middleware.RecoveryInterceptor(log),
+
+		middleware.ApplicantAuthMiddleware(
+			[]byte(jwtSettings.AccessTokenSecret),
+			middleware.MiddlewareOnly(
+				"/auth_service.v1.AuthService/GetNewApplicantActivationCode",
+				"/auth_service.v1.AuthService/ActivateApplicant",
+				"/auth_service.v1.AuthService/LogoutApplicant",
+				"/auth_service.v1.AuthService/ChangeApplicantPassword",
+			),
+		),
+		middleware.EmployerAuthMiddleware(
+			[]byte(jwtSettings.AccessTokenSecret),
+			middleware.MiddlewareOnly(
+				"/auth_service.v1.AuthService/GetNewEmployerActivationCode",
+				"/auth_service.v1.AuthService/ActivateEmployer",
+				"/auth_service.v1.AuthService/LogoutEmployer",
+				"/auth_service.v1.AuthService/ChangeEmployerPassword",
+			),
+		),
 	)
 }
 
