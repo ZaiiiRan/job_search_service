@@ -7,8 +7,7 @@ import (
 )
 
 type TokenCacheRepository interface {
-	Get(ctx context.Context, userId int64, token string) (*token.Token, error)
+	Get(ctx context.Context, token string) (*token.Token, error)
 	Set(ctx context.Context, token *token.Token) error
-	Del(ctx context.Context, userId int64, token string) error
-	DelByUserId(ctx context.Context, userId int64) error
+	Del(ctx context.Context, token string) error
 }

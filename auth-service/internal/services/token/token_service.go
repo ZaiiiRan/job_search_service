@@ -8,6 +8,8 @@ import (
 	pb "github.com/ZaiiiRan/job_search_service/auth-service/gen/go/user_service/v1"
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/config/settings"
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/domain/token"
+	uow "github.com/ZaiiiRan/job_search_service/auth-service/internal/repositories/unitofwork/postgres"
+	"github.com/ZaiiiRan/job_search_service/auth-service/internal/transport/redis"
 	"github.com/ZaiiiRan/job_search_service/common/pkg/ctxmetadata"
 	claims "github.com/ZaiiiRan/job_search_service/common/pkg/jwt"
 	"github.com/golang-jwt/jwt/v5"
@@ -15,29 +17,31 @@ import (
 )
 
 type TokenService interface {
-	GenerateApplicant(ctx context.Context, applicant *pb.Applicant, existedRefreshToken *token.Token) (access *token.Token, refresh *token.Token, err error)
-	GenerateEmployer(ctx context.Context, employer *pb.Employer, existedRefreshToken *token.Token) (access *token.Token, refresh *token.Token, err error)
-	ValidateApplicantRefreshToken(ctx context.Context, tokenStr string) (*token.Token, error)
-	ValidateEmployerRefreshToken(ctx context.Context, tokenStr string) (*token.Token, error)
+	GenerateApplicant(ctx context.Context, uow *uow.UnitOfWork, applicant *pb.Applicant, existedRefreshToken *token.Token) (access *token.Token, refresh *token.Token, err error)
+	GenerateEmployer(ctx context.Context, uow *uow.UnitOfWork, employer *pb.Employer, existedRefreshToken *token.Token) (access *token.Token, refresh *token.Token, err error)
+	ValidateApplicantRefreshToken(ctx context.Context, uow *uow.UnitOfWork, tokenStr string) (*token.Token, error)
+	ValidateEmployerRefreshToken(ctx context.Context, uow *uow.UnitOfWork, tokenStr string) (*token.Token, error)
 	ValidateApplicantAccessToken(ctx context.Context, tokenStr string) (*claims.ApplicantClaims, error)
 	ValidateEmployerAccessToken(ctx context.Context, tokenStr string) (*claims.EmployerClaims, error)
-	InvalidateApplicant(ctx context.Context, refreshStr string) error
-	InvalidateEmployer(ctx context.Context, refreshStr string) error
+	InvalidateApplicant(ctx context.Context, uow *uow.UnitOfWork, refreshStr string) error
+	InvalidateEmployer(ctx context.Context, uow *uow.UnitOfWork, refreshStr string) error
 }
 
 type service struct {
-	jwtSettings *settings.JWTSettings
-	log         *zap.SugaredLogger
+	dataProvider *tokenDataProvider
+	jwtSettings  *settings.JWTSettings
+	log          *zap.SugaredLogger
 }
 
-func New(jwtSettings settings.JWTSettings, log *zap.SugaredLogger) TokenService {
+func New(jwtSettings settings.JWTSettings, redis *redis.RedisClient, log *zap.SugaredLogger) TokenService {
 	return &service{
-		jwtSettings: &jwtSettings,
-		log:         log,
+		dataProvider: newTokenDataProvider(redis),
+		jwtSettings:  &jwtSettings,
+		log:          log,
 	}
 }
 
-func (s *service) GenerateApplicant(ctx context.Context, applicant *pb.Applicant, existedRefreshToken *token.Token,) (*token.Token, *token.Token, error) {
+func (s *service) GenerateApplicant(ctx context.Context, uow *uow.UnitOfWork, applicant *pb.Applicant, existedRefreshToken *token.Token) (*token.Token, *token.Token, error) {
 	l := s.log.With("op", "generate_tokens_for_applicant", "req_id", ctxmetadata.GetReqIdFromContext(ctx), "applicant_id", applicant.Id)
 
 	c := &claims.ApplicantClaims{
@@ -72,11 +76,16 @@ func (s *service) GenerateApplicant(ctx context.Context, applicant *pb.Applicant
 		refreshToken = token.New(applicant.Id, refresh, token.RefreshTokenType, refreshExp)
 	}
 
+	if err := s.dataProvider.SaveApplicantToken(ctx, uow, refreshToken); err != nil {
+		l.Errorw("token.save_token_failed", "err", err)
+		return nil, nil, err
+	}
+
 	l.Infow("token.generated_tokens_for_applicant")
 	return accessToken, refreshToken, nil
 }
 
-func (s *service) GenerateEmployer(ctx context.Context, employer *pb.Employer, existedRefreshToken *token.Token) (*token.Token, *token.Token, error) {
+func (s *service) GenerateEmployer(ctx context.Context, uow *uow.UnitOfWork, employer *pb.Employer, existedRefreshToken *token.Token) (*token.Token, *token.Token, error) {
 	l := s.log.With("op", "generate_tokens_for_employer", "req_id", ctxmetadata.GetReqIdFromContext(ctx), "employer_id", employer.Id)
 
 	c := &claims.EmployerClaims{
@@ -109,12 +118,16 @@ func (s *service) GenerateEmployer(ctx context.Context, employer *pb.Employer, e
 		refreshToken = token.New(employer.Id, refresh, token.RefreshTokenType, refreshExp)
 	}
 
-	l.Infow("token.generated_tokens_for_employer")
+	if err := s.dataProvider.SaveEmployerToken(ctx, uow, refreshToken); err != nil {
+		l.Errorw("token.save_token_failed", "err", err)
+		return nil, nil, err
+	}
 
+	l.Infow("token.generated_tokens_for_employer")
 	return accessToken, refreshToken, nil
 }
 
-func (s *service) ValidateApplicantRefreshToken(ctx context.Context, tokenStr string) (*token.Token, error) {
+func (s *service) ValidateApplicantRefreshToken(ctx context.Context, uow *uow.UnitOfWork, tokenStr string) (*token.Token, error) {
 	l := s.log.With("op", "validate_applicant_refresh_token", "req_id", ctxmetadata.GetReqIdFromContext(ctx))
 
 	cl, err := claims.ParseApplicantToken(tokenStr, []byte(s.jwtSettings.RefreshTokenSecret))
@@ -123,13 +136,21 @@ func (s *service) ValidateApplicantRefreshToken(ctx context.Context, tokenStr st
 		return nil, claims.ErrInvalidToken
 	}
 
-	// check token in repo
+	t, err := s.dataProvider.GetApplicantToken(ctx, uow, tokenStr)
+	if err != nil {
+		l.Errorw("token.get_token_failed", "err", err)
+		return nil, err
+	}
+	if t == nil || cl.Id != t.UserId() {
+		l.Warnw("token.refresh_token_invalid")
+		return nil, claims.ErrInvalidToken
+	}
 
 	l.Infow("token.refresh_token_valid", "applicant_id", cl.Id)
 	return &token.Token{}, nil
 }
 
-func (s *service) ValidateEmployerRefreshToken(ctx context.Context, tokenStr string) (*token.Token, error) {
+func (s *service) ValidateEmployerRefreshToken(ctx context.Context, uow *uow.UnitOfWork, tokenStr string) (*token.Token, error) {
 	l := s.log.With("op", "validate_employer_refresh_token", "req_id", ctxmetadata.GetReqIdFromContext(ctx))
 
 	cl, err := claims.ParseEmployerToken(tokenStr, []byte(s.jwtSettings.RefreshTokenSecret))
@@ -138,7 +159,15 @@ func (s *service) ValidateEmployerRefreshToken(ctx context.Context, tokenStr str
 		return nil, claims.ErrInvalidToken
 	}
 
-	// check token in repo
+	t, err := s.dataProvider.GetEmployerToken(ctx, uow, tokenStr)
+	if err != nil {
+		l.Errorw("token.get_token_failed", "err", err)
+		return nil, err
+	}
+	if t == nil || cl.Id != t.UserId() {
+		l.Warnw("token.refresh_token_invalid")
+		return nil, claims.ErrInvalidToken
+	}
 
 	l.Infow("token.refresh_token_valid", "employer_id", cl.Id)
 	return &token.Token{}, nil
@@ -170,22 +199,12 @@ func (s *service) ValidateEmployerAccessToken(ctx context.Context, tokenStr stri
 	return cl, nil
 }
 
-func (s *service) InvalidateApplicant(ctx context.Context, refreshStr string) error {
-	l := s.log.With("op", "applicant_token_invalidate", "req_id", ctxmetadata.GetReqIdFromContext(ctx))
-
-	// delete token from repo
-
-	l.Infow("token.applicant_token_invalidate_ok")
-	return nil
+func (s *service) InvalidateApplicant(ctx context.Context, uow *uow.UnitOfWork, refreshStr string) error {
+	return s.dataProvider.DeleteApplicantToken(ctx, uow, refreshStr)
 }
 
-func (s *service) InvalidateEmployer(ctx context.Context, refreshStr string) error {
-	l := s.log.With("op", "employer_token_invalidate", "req_id", ctxmetadata.GetReqIdFromContext(ctx))
-
-	// delete token from repo
-
-	l.Infow("token.employer_token_invalidate_ok")
-	return nil
+func (s *service) InvalidateEmployer(ctx context.Context, uow *uow.UnitOfWork, refreshStr string) error {
+	return s.dataProvider.DeleteEmployerToken(ctx, uow, refreshStr)
 }
 
 func signToken[T jwt.Claims](c T, key []byte, ttl time.Duration) (string, time.Time, error) {

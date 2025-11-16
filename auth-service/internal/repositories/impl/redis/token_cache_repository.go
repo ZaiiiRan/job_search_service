@@ -29,8 +29,8 @@ func NewTokenCacheRepository(redis *redis.RedisClient, repositoryType impl.Repos
 	}
 }
 
-func (r *TokenCacheRepository) Get(ctx context.Context, userId int64, token string) (*token.Token, error) {
-	dal, err := get[models.V1RefreshTokenDal](ctx, r.redis, r.keyToken(userId, token))
+func (r *TokenCacheRepository) Get(ctx context.Context, token string) (*token.Token, error) {
+	dal, err := get[models.V1RefreshTokenDal](ctx, r.redis, r.keyToken(token))
 	if err != nil {
 		return nil, err
 	}
@@ -42,21 +42,13 @@ func (r *TokenCacheRepository) Get(ctx context.Context, userId int64, token stri
 
 func (r *TokenCacheRepository) Set(ctx context.Context, token *token.Token) error {
 	dal := models.V1RefreshTokenDalFromDomain(token)
-	return set(ctx, r.redis, r.keyToken(dal.UserId, dal.Token), dal, time.Until(dal.ExpiresAt))
+	return set(ctx, r.redis, r.keyToken(dal.Token), dal, time.Until(dal.ExpiresAt))
 }
 
-func (r *TokenCacheRepository) Del(ctx context.Context, userId int64, token string) error {
-	return del(ctx, r.redis, r.keyToken(userId, token))
+func (r *TokenCacheRepository) Del(ctx context.Context, token string) error {
+	return del(ctx, r.redis, r.keyToken(token))
 }
 
-func (r *TokenCacheRepository) DelByUserId(ctx context.Context, userId int64) error {
-	return invalidateByPrefix(ctx, r.redis, r.keyUserId(userId))
-}
-
-func (r *TokenCacheRepository) keyToken(userId int64, token string) string {
-	return fmt.Sprintf("%s:%d:%s", r.repositoryType, userId, token)
-}
-
-func (r *TokenCacheRepository) keyUserId(userId int64) string {
-	return fmt.Sprintf("%s:%d", r.repositoryType, userId)
+func (r *TokenCacheRepository) keyToken(token string) string {
+	return fmt.Sprintf("%s:%s", r.repositoryType, token)
 }

@@ -139,9 +139,7 @@ func (r *TokenRepository) UpdateToken(ctx context.Context, token *token.Token) e
 	return fmt.Errorf("no token updated")
 }
 
-func (r *TokenRepository) DeleteToken(ctx context.Context, token *token.Token) error {
-	dal := models.V1RefreshTokenDalFromDomain(token)
-
+func (r *TokenRepository) DeleteToken(ctx context.Context, tokenStr string) error {
 	conn, err := r.uow.GetConn(ctx)
 	if err != nil {
 		return err
@@ -151,43 +149,13 @@ func (r *TokenRepository) DeleteToken(ctx context.Context, token *token.Token) e
 
 	sb.WriteString(`
 		DELETE FROM ` + r.tableName + ` AS t
-		USING (
-			SELECT (i).id AS id
-			FROM UNNEST($1::v1_refresh_token[]) AS i
-		) AS d
-		WHERE t.id = d.id
-		RETURNING
-			t.id,
-			t.user_id,
-			t.token,
-			t.expires_at,
-			t.created_at,
-			t.updated_at
+		WHERE token = $1
 	`)
 
-	rows, err := conn.Query(ctx, sb.String(), []models.V1RefreshTokenDal{dal})
-	if err != nil {
+	if _, err := conn.Exec(ctx, sb.String(), tokenStr); err != nil {
 		return fmt.Errorf("delete token: %w", err)
 	}
-	defer rows.Close()
-
-	if rows.Next() {
-		var res models.V1RefreshTokenDal
-		if err := rows.Scan(
-			&res.Id,
-			&res.UserId,
-			&res.Token,
-			&res.ExpiresAt,
-			&res.CreatedAt,
-			&res.UpdatedAt,
-		); err != nil {
-			return fmt.Errorf("scan token: %w", err)
-		}
-		*token = *res.ToDomain()
-		return nil
-	}
-
-	return fmt.Errorf("no token deleted")
+	return nil
 }
 
 func (r *TokenRepository) DeleteTokensByUserId(ctx context.Context, userId int64) error {
