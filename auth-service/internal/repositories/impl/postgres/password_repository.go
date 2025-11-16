@@ -6,16 +6,15 @@ import (
 	"strings"
 
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/domain/password"
+	"github.com/ZaiiiRan/job_search_service/auth-service/internal/repositories/impl"
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/repositories/interfaces"
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/repositories/models"
 	postgresunitofwork "github.com/ZaiiiRan/job_search_service/auth-service/internal/repositories/unitofwork/postgres"
 )
 
-type RepositoryType string
-
 const (
-	ApplicantPasswordRepository RepositoryType = "applicant_passwords"
-	EmployerPasswordRepository  RepositoryType = "employer_passwords"
+	ApplicantPasswordRepository impl.RepositoryType = "applicant_passwords"
+	EmployerPasswordRepository  impl.RepositoryType = "employer_passwords"
 )
 
 type PasswordRepository struct {
@@ -23,7 +22,7 @@ type PasswordRepository struct {
 	tableName string
 }
 
-func NewPasswordRepository(uow *postgresunitofwork.UnitOfWork, repoType RepositoryType) interfaces.PasswordRepository {
+func NewPasswordRepository(uow *postgresunitofwork.UnitOfWork, repoType impl.RepositoryType) interfaces.PasswordRepository {
 	return &PasswordRepository{uow: uow, tableName: string(repoType)}
 }
 
