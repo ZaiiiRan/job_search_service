@@ -13,12 +13,12 @@ import (
 )
 
 const (
-	ApplicantPasswordCacheRepository impl.RepositoryType = "password:applicant"
-	EmployerPasswordCacheRepository  impl.RepositoryType = "password:employer"
+	ApplicantPasswordCache impl.RepositoryType = "password:applicant"
+	EmployerPasswordCache  impl.RepositoryType = "password:employer"
 )
 
 const (
-	passwordTTL       = 5 * time.Minute
+	passwordTTL = 5 * time.Minute
 )
 
 type PasswordCacheRepository struct {

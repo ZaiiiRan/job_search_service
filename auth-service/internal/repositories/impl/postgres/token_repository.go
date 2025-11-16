@@ -260,5 +260,5 @@ func (r *TokenRepository) QueryToken(ctx context.Context, query *models.QueryTok
 		return token, nil
 	}
 
-	return nil, fmt.Errorf("token not found")
+	return nil, nil
 }

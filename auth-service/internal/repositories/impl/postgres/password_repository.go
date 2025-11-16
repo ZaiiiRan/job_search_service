@@ -230,5 +230,5 @@ func (r *PasswordRepository) QueryPassword(ctx context.Context, query *models.Qu
 		return password, nil
 	}
 
-	return nil, fmt.Errorf("password not found")
+	return nil, nil
 }

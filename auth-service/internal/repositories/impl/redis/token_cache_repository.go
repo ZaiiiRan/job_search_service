@@ -13,8 +13,8 @@ import (
 )
 
 const (
-	ApplicantRefreshTokenCacheRepository impl.RepositoryType = "refresh:applicant"
-	EmployerRefreshTokenCacheRepository  impl.RepositoryType = "refresh:employer"
+	ApplicantRefreshTokenCache impl.RepositoryType = "refresh:applicant"
+	EmployerRefreshTokenCache  impl.RepositoryType = "refresh:employer"
 )
 
 type TokenCacheRepository struct {
