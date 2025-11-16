@@ -98,13 +98,8 @@ func (r *PasswordRepository) UpdatePassword(ctx context.Context, password *passw
 			password_hash = (i).password_hash,
 			created_at = (i).created_at,
 			updated_at = (i).updated_at
-		) 
-		SELECT 
-			(i).user_id,
-			(i).password_hash,
-			(i).created_at,
-			(i).updated_at,
 		FROM UNNEST($1::v1_user_password[]) i
+		WHERE t.id = (i).id
 		RETURNING
 			t.id,
 			t.user_id,
@@ -150,7 +145,7 @@ func (r *PasswordRepository) DeletePassword(ctx context.Context, password *passw
 	sb.WriteString(`
 		DELETE FROM ` + r.tableName + ` AS t
 		USING (
-			SELECT (i).user_id AS user_id
+			SELECT (i).id AS id
 			FROM UNNEST($1::v1_user_password[]) AS i
 		) AS d
 		WHERE t.id = d.id
@@ -216,7 +211,7 @@ func (r *PasswordRepository) QueryPassword(ctx context.Context, query *models.Qu
 
 	rows, err := conn.Query(ctx, sb.String(), args...)
 	if err != nil {
-		return nil, fmt.Errorf("query applicants: %w", err)
+		return nil, fmt.Errorf("query password: %w", err)
 	}
 	defer rows.Close()
 

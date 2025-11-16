@@ -13,12 +13,11 @@ import (
 )
 
 const (
-	ApplicantPasswordCacheRepository impl.RepositoryType = "applicant"
-	EmployerPasswordCacheRepository  impl.RepositoryType = "employer"
+	ApplicantPasswordCacheRepository impl.RepositoryType = "password:applicant"
+	EmployerPasswordCacheRepository  impl.RepositoryType = "password:employer"
 )
 
 const (
-	passwordKeyPrefix = "password"
 	passwordTTL       = 5 * time.Minute
 )
 
@@ -75,9 +74,9 @@ func (r *PasswordCacheRepository) DelByUserId(ctx context.Context, userId int64)
 }
 
 func (r *PasswordCacheRepository) keyById(id int64) string {
-	return fmt.Sprintf("%s:%s:%d", passwordKeyPrefix, r.repositoryType, id)
+	return fmt.Sprintf("%s:%d", r.repositoryType, id)
 }
 
 func (r *PasswordCacheRepository) keyByUserId(userId int64) string {
-	return fmt.Sprintf("%s:%s:user_id:%d", passwordKeyPrefix, r.repositoryType, userId)
+	return fmt.Sprintf("%s:user_id:%d", r.repositoryType, userId)
 }

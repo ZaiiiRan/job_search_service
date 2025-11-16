@@ -37,3 +37,15 @@ func get[T any](ctx context.Context, redisClient *rediscl.RedisClient, key strin
 func del(ctx context.Context, redisClient *rediscl.RedisClient, key string) error {
 	return redisClient.GetClient().Del(ctx, key).Err()
 }
+
+func invalidateByPrefix(ctx context.Context, redisClient *rediscl.RedisClient, prefix string) error {
+	cl := redisClient.GetClient()
+
+	iter := cl.Scan(ctx, 0, prefix+"*", 0).Iterator()
+	for iter.Next(ctx) {
+		if err := cl.Del(ctx, iter.Val()).Err(); err != nil {
+			return err
+		}
+	}
+	return iter.Err()
+}
