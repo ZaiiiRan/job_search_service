@@ -200,11 +200,27 @@ func (s *service) ValidateEmployerAccessToken(ctx context.Context, tokenStr stri
 }
 
 func (s *service) InvalidateApplicant(ctx context.Context, uow *uow.UnitOfWork, refreshStr string) error {
-	return s.dataProvider.DeleteApplicantToken(ctx, uow, refreshStr)
+	l := s.log.With("op", "invalidate_applicant_refresh_token", "req_id", ctxmetadata.GetReqIdFromContext(ctx))
+	err := s.dataProvider.DeleteApplicantToken(ctx, uow, refreshStr)
+	if err != nil {
+		l.Errorw("token.delete_refresh_token_failed", "err", err)
+		return err
+	}
+
+	l.Infow("token.invalidate_refresh_token.success")
+	return nil
 }
 
 func (s *service) InvalidateEmployer(ctx context.Context, uow *uow.UnitOfWork, refreshStr string) error {
-	return s.dataProvider.DeleteEmployerToken(ctx, uow, refreshStr)
+	l := s.log.With("op", "invalidate_employer_refresh_token", "req_id", ctxmetadata.GetReqIdFromContext(ctx))
+	err := s.dataProvider.DeleteEmployerToken(ctx, uow, refreshStr)
+	if err != nil {
+		l.Errorw("token.delete_refresh_token_failed", "err", err)
+		return err
+	}
+
+	l.Infow("token.invalidate_refresh_token.success")
+	return nil
 }
 
 func signToken[T jwt.Claims](c T, key []byte, ttl time.Duration) (string, time.Time, error) {
