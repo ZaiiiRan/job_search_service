@@ -14,10 +14,10 @@ type Password struct {
 	updatedAt    time.Time
 }
 
-func New(userId int64, passwordHash string) (*Password, error) {
+func New(userId int64, password string) (*Password, error) {
 	p := &Password{}
 
-	if err := p.SetPassword(passwordHash); err != nil {
+	if err := p.SetPassword(password); err != nil {
 		return nil, err
 	}
 
@@ -72,4 +72,12 @@ func (p *Password) SetPassword(password string) error {
 	p.passwordHash = string(hash)
 	p.updatedAt = time.Now()
 	return nil
+}
+
+func (p *Password) Check(password string) bool {
+	if err := bcrypt.CompareHashAndPassword([]byte(p.passwordHash), []byte(password)); err != nil {
+		return false
+	} else {
+		return true
+	}
 }
