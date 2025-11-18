@@ -4,20 +4,24 @@ import (
 	"context"
 
 	pb "github.com/ZaiiiRan/job_search_service/auth-service/gen/go/auth_service/v1"
+	authservice "github.com/ZaiiiRan/job_search_service/auth-service/internal/services/auth"
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/utils"
 )
 
 type authHandler struct {
 	pb.UnimplementedAuthServiceServer
+	authService authservice.AuthService
 }
 
-func newAuthHandler() *authHandler {
-	return &authHandler{}
+func newAuthHandler(authService authservice.AuthService) *authHandler {
+	return &authHandler{
+		authService: authService,
+	}
 }
 
 func (h *authHandler) RegisterApplicant(ctx context.Context, req *pb.RegisterApplicantRequest) (*pb.RegisterApplicantResponse, error) {
 	utils.SanitizeRegisterApplicantRequest(req)
-	return nil, nil
+	return h.authService.RegisterApplicant(ctx, req)
 }
 
 func (h *authHandler) GetNewApplicantActivationCode(ctx context.Context, req *pb.GetNewApplicantActivationCodeRequest) (*pb.GetNewApplicantActivationCodeResponse, error) {

@@ -8,6 +8,7 @@ import (
 
 	pb "github.com/ZaiiiRan/job_search_service/auth-service/gen/go/auth_service/v1"
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/config/settings"
+	authservice "github.com/ZaiiiRan/job_search_service/auth-service/internal/services/auth"
 	middleware "github.com/ZaiiiRan/job_search_service/common/pkg/middleware/grpc/server"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
@@ -22,6 +23,7 @@ type Server struct {
 func New(
 	srvSettings settings.GRPCServerSettings,
 	jwtSettings settings.JWTSettings,
+	authService authservice.AuthService,
 	log *zap.SugaredLogger,
 ) (*Server, error) {
 	s := grpc.NewServer(
@@ -30,7 +32,7 @@ func New(
 		grpc.KeepaliveEnforcementPolicy(getGRPCKeepAliveEnforcement(&srvSettings)),
 	)
 
-	pb.RegisterAuthServiceServer(s, newAuthHandler())
+	pb.RegisterAuthServiceServer(s, newAuthHandler(authService))
 
 	lis, err := net.Listen("tcp", srvSettings.Port)
 	if err != nil {
