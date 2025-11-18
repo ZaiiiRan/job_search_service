@@ -8,6 +8,11 @@ import (
 	"time"
 
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/config"
+	authservice "github.com/ZaiiiRan/job_search_service/auth-service/internal/services/auth"
+	codeservice "github.com/ZaiiiRan/job_search_service/auth-service/internal/services/code"
+	passwordservice "github.com/ZaiiiRan/job_search_service/auth-service/internal/services/password"
+	tokenservice "github.com/ZaiiiRan/job_search_service/auth-service/internal/services/token"
+	userservice "github.com/ZaiiiRan/job_search_service/auth-service/internal/services/user_service"
 	usergrpcclient "github.com/ZaiiiRan/job_search_service/auth-service/internal/transport/client/grpc/user_client"
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/transport/postgres"
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/transport/redis"
@@ -26,6 +31,12 @@ type App struct {
 	redisClient    *redis.RedisClient
 
 	userGrpcClient *usergrpcclient.Client
+
+	userService     userservice.UserService
+	tokenService    tokenservice.TokenService
+	passwordService passwordservice.PasswordService
+	codeService     codeservice.CodeService
+	authService     authservice.AuthService
 
 	grpcServer  *grpcserver.Server
 	httpGateway *httpgateway.Server
@@ -63,6 +74,12 @@ func (a *App) Run(ctx context.Context) error {
 	if err := a.initUserGrpcClient(ctx); err != nil {
 		return err
 	}
+
+	a.initCodeService()
+	a.initPasswordService()
+	a.initTokenService()
+	a.initUserService()
+	a.initAuthService()
 
 	a.startGrpcServer()
 	a.startHttpGateway()
@@ -136,8 +153,28 @@ func (a *App) initUserGrpcClient(ctx context.Context) error {
 	return nil
 }
 
+func (a *App) initUserService() {
+	a.userService = userservice.New(a.userGrpcClient, a.log)
+}
+
+func (a *App) initPasswordService() {
+	a.passwordService = passwordservice.New(a.redisClient, a.log)
+}
+
+func (a *App) initTokenService() {
+	a.tokenService = tokenservice.New(a.cfg.JWT, a.redisClient, a.log)
+}
+
+func (a *App) initCodeService() {
+	a.codeService = codeservice.New(a.redisClient, a.log)
+}
+
+func (a *App) initAuthService() {
+	a.authService = authservice.New(a.postgresClient, a.codeService, a.passwordService, a.tokenService, a.userService, a.log)
+}
+
 func (a *App) initGrpcServer() error {
-	srv, err := grpcserver.New(a.cfg.GRPCServer, a.log)
+	srv, err := grpcserver.New(a.cfg.GRPCServer, a.cfg.JWT, a.authService, a.log)
 	if err != nil {
 		a.log.Errorw("app.grpc_server_init_failed", "err", err)
 		return err

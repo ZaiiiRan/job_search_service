@@ -21,9 +21,8 @@ func New(ctx context.Context, postgresCfg settings.PostgresSettings) (*PostgresC
 
 	cfg.AfterConnect = func(ctx context.Context, conn *pgx.Conn) error {
 		names := []string{
-			"v1_user_password", "_v1_user_password",
-			"v1_activation_code", "_v1_activation_code",
-			"v1_reset_password_code", "_v1_reset_password_code",
+			"v1_user_password ", "_v1_user_password",
+			"v1_code", "_v1_code",
 			"v1_refresh_token", "_v1_refresh_token",
 		}
 		types, err := conn.LoadTypes(ctx, names)

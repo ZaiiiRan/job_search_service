@@ -24,6 +24,7 @@ func SanitizeGetResetApplicantPasswordCodeRequest(req *pb.GetResetApplicantPassw
 }
 
 func SanitizeResetApplicantPasswordRequest(req *pb.ResetApplicantPasswordRequest) {
+	req.Email = strings.TrimSpace(req.Email)
 	req.Code = strings.TrimSpace(req.Code)
 	req.NewPassword = strings.TrimSpace(req.NewPassword)
 }
@@ -51,6 +52,7 @@ func SanitizeGetResetEmployerPasswordCodeRequest(req *pb.GetResetEmployerPasswor
 }
 
 func SanitizeResetEmployerPasswordRequest(req *pb.ResetEmployerPasswordRequest) {
+	req.Email = strings.TrimSpace(req.Email)
 	req.Code = strings.TrimSpace(req.Code)
 	req.NewPassword = strings.TrimSpace(req.NewPassword)
 }
