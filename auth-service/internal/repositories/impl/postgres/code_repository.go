@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	ApplicantActivationCodes    impl.RepositoryType = "applicant_activation_codse"
+	ApplicantActivationCodes    impl.RepositoryType = "applicant_activation_codes"
 	EmployerActivationCodes     impl.RepositoryType = "employer_activation_codes"
 	ApplicantResetPasswordCodes impl.RepositoryType = "applicant_reset_password_codes"
 	EmployerResetPasswordCodes  impl.RepositoryType = "employer_reset_password_codes"
@@ -46,14 +46,14 @@ func (r *CodeRepository) CreateCode(ctx context.Context, code *code.Code) error 
 			expires_at,
 			created_at,
 			updated_at
+		)
 		SELECT
 			(i).user_id,
 			(i).code,
 			(i).generations_left,
 			(i).expires_at,
 			(i).created_at,
-			(i).updated_at,
-		)
+			(i).updated_at
 		FROM UNNEST($1::v1_code[]) i
 		RETURNING
 			id,

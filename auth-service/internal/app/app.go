@@ -64,13 +64,6 @@ func (a *App) Run(ctx context.Context) error {
 		return err
 	}
 
-	if err := a.initGrpcServer(); err != nil {
-		return err
-	}
-	if err := a.initHttpGateway(ctx); err != nil {
-		return err
-	}
-
 	if err := a.initUserGrpcClient(ctx); err != nil {
 		return err
 	}
@@ -80,6 +73,13 @@ func (a *App) Run(ctx context.Context) error {
 	a.initTokenService()
 	a.initUserService()
 	a.initAuthService()
+
+	if err := a.initGrpcServer(); err != nil {
+		return err
+	}
+	if err := a.initHttpGateway(ctx); err != nil {
+		return err
+	}
 
 	a.startGrpcServer()
 	a.startHttpGateway()

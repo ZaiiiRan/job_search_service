@@ -44,6 +44,7 @@ func New(
 		passwordService: passwordSvc,
 		tokenService:    tokenSvc,
 		userService:     userSvc,
+		postgresClient:  postgresClient,
 		log:             log,
 	}
 }
@@ -81,6 +82,11 @@ func (s *service) RegisterApplicant(ctx context.Context, req *pb.RegisterApplica
 
 	access, refresh, err := s.tokenService.GenerateApplicant(ctx, uow, applicant, nil)
 	if err != nil {
+		return nil, status.Errorf(codes.Internal, "internal server error")
+	}
+
+	if err := uow.Commit(ctx); err != nil {
+		l.Errorw("auth.register_applicant_failed", "err", err)
 		return nil, status.Errorf(codes.Internal, "internal server error")
 	}
 
