@@ -3,7 +3,7 @@ module github.com/ZaiiiRan/job_search_service/auth-service
 go 1.25.2
 
 require (
-	github.com/ZaiiiRan/job_search_service/common v0.0.0-20251114060645-d34eeda23a75
+	github.com/ZaiiiRan/job_search_service/common v0.0.0-20251118195730-653db0fab97e
 	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.3

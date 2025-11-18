@@ -4,6 +4,10 @@ github.com/KyleBanks/depth v1.2.1 h1:5h8fQADFrWtarTdtDudMmGsC7GPbOAu6RVB3ffsVFHc
 github.com/KyleBanks/depth v1.2.1/go.mod h1:jzSb9d0L43HxTQfT+oSA1EEp2q+ne2uh6XgeJcm8brE=
 github.com/ZaiiiRan/job_search_service/common v0.0.0-20251114060645-d34eeda23a75 h1:vY6KhM5cQt+mMeM6y3Kaw/VWEXK2Z7tfBhFTUQrKa8I=
 github.com/ZaiiiRan/job_search_service/common v0.0.0-20251114060645-d34eeda23a75/go.mod h1:9UKPKTn1Ws0XoFQRCpRas/4VUNsR5qHZLl2dNF0cBrs=
+github.com/ZaiiiRan/job_search_service/common v0.0.0-20251118195352-9230f7af9acb h1:omw/Z+GW3CvptLaSbXWimtXMeKMriFZglYCGQHBZc40=
+github.com/ZaiiiRan/job_search_service/common v0.0.0-20251118195352-9230f7af9acb/go.mod h1:9UKPKTn1Ws0XoFQRCpRas/4VUNsR5qHZLl2dNF0cBrs=
+github.com/ZaiiiRan/job_search_service/common v0.0.0-20251118195730-653db0fab97e h1:Y/hUqDDqw33ke+cOz+M+Z99ociArdw8Pq4FAAHzjraI=
+github.com/ZaiiiRan/job_search_service/common v0.0.0-20251118195730-653db0fab97e/go.mod h1:9UKPKTn1Ws0XoFQRCpRas/4VUNsR5qHZLl2dNF0cBrs=
 github.com/agiledragon/gomonkey/v2 v2.3.1 h1:k+UnUY0EMNYUFUAQVETGY9uUTxjMdnUkP0ARyJS1zzs=
 github.com/agiledragon/gomonkey/v2 v2.3.1/go.mod h1:ap1AmDzcVOAz1YpeJ3TCzIgstoaWLA6jbbgxfB4w2iY=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
