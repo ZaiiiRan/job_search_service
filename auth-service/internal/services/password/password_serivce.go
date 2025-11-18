@@ -110,7 +110,7 @@ func (s *service) CheckApplicantPassword(
 	}
 
 	correct := password.Check(rawPassword)
-	l.Errorw("password.check_password.success")
+	l.Infow("password.check_password.success")
 	return correct, nil
 }
 
@@ -131,7 +131,7 @@ func (s *service) CheckEmployerPassword(
 	}
 
 	correct := password.Check(rawPassword)
-	l.Errorw("password.check_password.success")
+	l.Infow("password.check_password.success")
 	return correct, nil
 }
 

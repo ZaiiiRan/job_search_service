@@ -82,3 +82,13 @@ func (c *Code) GenerateCode() error {
 	c.updatedAt = time.Now()
 	return nil
 }
+
+func (c *Code) CheckCode(rawCode string) (bool, error) {
+	if time.Now().After(c.expiresAt) {
+		return false, NewCodeValidationError("code has been expired")
+	}
+	if c.code == rawCode {
+		return true, nil
+	}
+	return false, nil
+}
