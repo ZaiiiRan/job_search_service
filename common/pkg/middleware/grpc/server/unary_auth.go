@@ -24,7 +24,7 @@ func ApplicantAuthMiddleware(secretKey []byte, shouldProtect MethodMatcher) grpc
 		handler grpc.UnaryHandler,
 	) (any, error) {
 
-		if shouldProtect != nil && !shouldProtect(info.FullMethod) {
+		if shouldProtect == nil || !shouldProtect(info.FullMethod) {
 			return handler(ctx, req)
 		}
 
@@ -52,7 +52,7 @@ func EmployerAuthMiddleware(secretKey []byte, shouldProtect MethodMatcher) grpc.
 		handler grpc.UnaryHandler,
 	) (interface{}, error) {
 
-		if shouldProtect != nil && shouldProtect(info.FullMethod) {
+		if shouldProtect == nil || !shouldProtect(info.FullMethod) {
 			return handler(ctx, req)
 		}
 
