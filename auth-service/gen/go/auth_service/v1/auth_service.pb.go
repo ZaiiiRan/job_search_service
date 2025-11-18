@@ -602,8 +602,9 @@ func (*GetResetApplicantPasswordCodeResponse) Descriptor() ([]byte, []int) {
 
 type ResetApplicantPasswordRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Code          string                 `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
-	NewPassword   string                 `protobuf:"bytes,2,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
+	NewPassword   string                 `protobuf:"bytes,3,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -636,6 +637,13 @@ func (x *ResetApplicantPasswordRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use ResetApplicantPasswordRequest.ProtoReflect.Descriptor instead.
 func (*ResetApplicantPasswordRequest) Descriptor() ([]byte, []int) {
 	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *ResetApplicantPasswordRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
 }
 
 func (x *ResetApplicantPasswordRequest) GetCode() string {
@@ -1362,8 +1370,9 @@ func (*GetResetEmployerPasswordCodeResponse) Descriptor() ([]byte, []int) {
 
 type ResetEmployerPasswordRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Code          string                 `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
-	NewPassword   string                 `protobuf:"bytes,2,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
+	NewPassword   string                 `protobuf:"bytes,3,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1396,6 +1405,13 @@ func (x *ResetEmployerPasswordRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use ResetEmployerPasswordRequest.ProtoReflect.Descriptor instead.
 func (*ResetEmployerPasswordRequest) Descriptor() ([]byte, []int) {
 	return file_auth_service_v1_auth_service_proto_rawDescGZIP(), []int{32}
+}
+
+func (x *ResetEmployerPasswordRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
 }
 
 func (x *ResetEmployerPasswordRequest) GetCode() string {
@@ -1571,10 +1587,11 @@ const file_auth_service_v1_auth_service_proto_rawDesc = "" +
 	"\x17LogoutApplicantResponse\"<\n" +
 	"$GetResetApplicantPasswordCodeRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"'\n" +
-	"%GetResetApplicantPasswordCodeResponse\"V\n" +
-	"\x1dResetApplicantPasswordRequest\x12\x12\n" +
-	"\x04code\x18\x01 \x01(\tR\x04code\x12!\n" +
-	"\fnew_password\x18\x02 \x01(\tR\vnewPassword\"Z\n" +
+	"%GetResetApplicantPasswordCodeResponse\"l\n" +
+	"\x1dResetApplicantPasswordRequest\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\x12\x12\n" +
+	"\x04code\x18\x02 \x01(\tR\x04code\x12!\n" +
+	"\fnew_password\x18\x03 \x01(\tR\vnewPassword\"Z\n" +
 	"\x1eResetApplicantPasswordResponse\x128\n" +
 	"\tapplicant\x18\x01 \x01(\v2\x1a.user_service.v1.ApplicantR\tapplicant\"f\n" +
 	"\x1eChangeApplicantPasswordRequest\x12!\n" +
@@ -1603,10 +1620,11 @@ const file_auth_service_v1_auth_service_proto_rawDesc = "" +
 	"\x16LogoutEmployerResponse\";\n" +
 	"#GetResetEmployerPasswordCodeRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"&\n" +
-	"$GetResetEmployerPasswordCodeResponse\"U\n" +
-	"\x1cResetEmployerPasswordRequest\x12\x12\n" +
-	"\x04code\x18\x01 \x01(\tR\x04code\x12!\n" +
-	"\fnew_password\x18\x02 \x01(\tR\vnewPassword\"V\n" +
+	"$GetResetEmployerPasswordCodeResponse\"k\n" +
+	"\x1cResetEmployerPasswordRequest\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\x12\x12\n" +
+	"\x04code\x18\x02 \x01(\tR\x04code\x12!\n" +
+	"\fnew_password\x18\x03 \x01(\tR\vnewPassword\"V\n" +
 	"\x1dResetEmployerPasswordResponse\x125\n" +
 	"\bemployer\x18\x01 \x01(\v2\x19.user_service.v1.EmployerR\bemployer\"e\n" +
 	"\x1dChangeEmployerPasswordRequest\x12!\n" +

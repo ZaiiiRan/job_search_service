@@ -899,6 +899,9 @@
     "v1ResetApplicantPasswordRequest": {
       "type": "object",
       "properties": {
+        "email": {
+          "type": "string"
+        },
         "code": {
           "type": "string"
         },
@@ -918,6 +921,9 @@
     "v1ResetEmployerPasswordRequest": {
       "type": "object",
       "properties": {
+        "email": {
+          "type": "string"
+        },
         "code": {
           "type": "string"
         },

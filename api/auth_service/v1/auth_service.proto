@@ -277,8 +277,9 @@ message GetResetApplicantPasswordCodeRequest {
 message GetResetApplicantPasswordCodeResponse {}
 
 message ResetApplicantPasswordRequest {
-    string code = 1;
-    string new_password = 2;
+    string email = 1;
+    string code = 2;
+    string new_password = 3;
 }
 
 message ResetApplicantPasswordResponse {
@@ -335,8 +336,9 @@ message GetResetEmployerPasswordCodeRequest {
 message GetResetEmployerPasswordCodeResponse {}
 
 message ResetEmployerPasswordRequest {
-    string code = 1;
-    string new_password = 2;
+    string email = 1;
+    string code = 2;
+    string new_password = 3;
 }
 
 message ResetEmployerPasswordResponse {
