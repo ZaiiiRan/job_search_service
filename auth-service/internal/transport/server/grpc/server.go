@@ -82,7 +82,6 @@ func newChainUnaryInterceptor(jwtSettings *settings.JWTSettings, log *zap.Sugare
 			middleware.MiddlewareOnly(
 				"/auth_service.v1.AuthService/GetNewApplicantActivationCode",
 				"/auth_service.v1.AuthService/ActivateApplicant",
-				"/auth_service.v1.AuthService/LogoutApplicant",
 				"/auth_service.v1.AuthService/ChangeApplicantPassword",
 			),
 		),
@@ -91,7 +90,6 @@ func newChainUnaryInterceptor(jwtSettings *settings.JWTSettings, log *zap.Sugare
 			middleware.MiddlewareOnly(
 				"/auth_service.v1.AuthService/GetNewEmployerActivationCode",
 				"/auth_service.v1.AuthService/ActivateEmployer",
-				"/auth_service.v1.AuthService/LogoutEmployer",
 				"/auth_service.v1.AuthService/ChangeEmployerPassword",
 			),
 		),

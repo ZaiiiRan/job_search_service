@@ -163,7 +163,7 @@ func (r *CodeRepository) DeleteCode(ctx context.Context, code *code.Code) error 
 		USING (
 			SELECT (i).id AS id
 			FROM UNNEST($1::v1_code[]) AS i
-		)
+		) AS d
 		WHERE t.id = d.id
 		RETURNING
 			t.id,

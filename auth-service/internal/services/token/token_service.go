@@ -54,13 +54,13 @@ func (s *service) GenerateApplicant(ctx context.Context, uow *uow.UnitOfWork, ap
 		IsDeleted:  applicant.IsDeleted,
 	}
 
-	access, accessExp, err := signToken(c, []byte(s.jwtSettings.AccessTokenSecret), time.Duration(s.jwtSettings.AccessTokenTTL))
+	access, accessExp, err := signToken(c, []byte(s.jwtSettings.AccessTokenSecret), time.Duration(s.jwtSettings.AccessTokenTTL)*time.Second)
 	if err != nil {
 		l.Errorw("token.sign_access_failed", "err", err)
 		return nil, nil, err
 	}
 
-	refresh, refreshExp, err := signToken(c, []byte(s.jwtSettings.RefreshTokenSecret), time.Duration(s.jwtSettings.RefreshTokenTTL))
+	refresh, refreshExp, err := signToken(c, []byte(s.jwtSettings.RefreshTokenSecret), time.Duration(s.jwtSettings.RefreshTokenTTL)*time.Second)
 	if err != nil {
 		l.Errorw("token.sign_refresh_failed", "err", err)
 		return nil, nil, err
@@ -96,13 +96,13 @@ func (s *service) GenerateEmployer(ctx context.Context, uow *uow.UnitOfWork, emp
 		IsDeleted:   employer.IsDeleted,
 	}
 
-	access, accessExp, err := signToken(c, []byte(s.jwtSettings.AccessTokenSecret), time.Duration(s.jwtSettings.AccessTokenTTL))
+	access, accessExp, err := signToken(c, []byte(s.jwtSettings.AccessTokenSecret), time.Duration(s.jwtSettings.AccessTokenTTL)*time.Second)
 	if err != nil {
 		l.Errorw("token.sign_access_failed", "err", err)
 		return nil, nil, err
 	}
 
-	refresh, refreshExp, err := signToken(c, []byte(s.jwtSettings.RefreshTokenSecret), time.Duration(s.jwtSettings.RefreshTokenTTL))
+	refresh, refreshExp, err := signToken(c, []byte(s.jwtSettings.RefreshTokenSecret), time.Duration(s.jwtSettings.RefreshTokenTTL)*time.Second)
 	if err != nil {
 		l.Errorw("token.sign_refresh_failed", "err", err)
 		return nil, nil, err
@@ -147,7 +147,7 @@ func (s *service) ValidateApplicantRefreshToken(ctx context.Context, uow *uow.Un
 	}
 
 	l.Infow("token.refresh_token_valid", "applicant_id", cl.Id)
-	return &token.Token{}, nil
+	return t, nil
 }
 
 func (s *service) ValidateEmployerRefreshToken(ctx context.Context, uow *uow.UnitOfWork, tokenStr string) (*token.Token, error) {
@@ -170,7 +170,7 @@ func (s *service) ValidateEmployerRefreshToken(ctx context.Context, uow *uow.Uni
 	}
 
 	l.Infow("token.refresh_token_valid", "employer_id", cl.Id)
-	return &token.Token{}, nil
+	return t, nil
 }
 
 func (s *service) ValidateApplicantAccessToken(ctx context.Context, tokenStr string) (*claims.ApplicantClaims, error) {
@@ -226,18 +226,19 @@ func (s *service) InvalidateEmployer(ctx context.Context, uow *uow.UnitOfWork, r
 func signToken[T jwt.Claims](c T, key []byte, ttl time.Duration) (string, time.Time, error) {
 	now := time.Now()
 	expiresAt := now.Add(ttl)
+	safeNbf := now.Add(-10 * time.Second)
 	switch v := any(c).(type) {
 	case *claims.ApplicantClaims:
 		v.RegisteredClaims = jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(expiresAt),
 			IssuedAt:  jwt.NewNumericDate(now),
-			NotBefore: jwt.NewNumericDate(now),
+			NotBefore: jwt.NewNumericDate(safeNbf),
 		}
 	case *claims.EmployerClaims:
 		v.RegisteredClaims = jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(expiresAt),
 			IssuedAt:  jwt.NewNumericDate(now),
-			NotBefore: jwt.NewNumericDate(now),
+			NotBefore: jwt.NewNumericDate(safeNbf),
 		}
 	default:
 		return "", expiresAt, fmt.Errorf("unknown claims type")

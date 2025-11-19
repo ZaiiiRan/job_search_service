@@ -40,12 +40,13 @@ func FromStorage(
 	expiresAt, createdAt, updatedAt time.Time,
 ) *Code {
 	return &Code{
-		id:        id,
-		userId:    userId,
-		code:      code,
-		expiresAt: expiresAt,
-		createdAt: createdAt,
-		updatedAt: updatedAt,
+		id:              id,
+		userId:          userId,
+		code:            code,
+		generationsLeft: generationsLeft,
+		expiresAt:       expiresAt,
+		createdAt:       createdAt,
+		updatedAt:       updatedAt,
 	}
 }
 
