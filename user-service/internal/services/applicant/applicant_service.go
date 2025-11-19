@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/ZaiiiRan/job_search_service/common/pkg/ctxmetadata"
+	"github.com/ZaiiiRan/job_search_service/common/pkg/errors/validationerror"
 	pb "github.com/ZaiiiRan/job_search_service/user-service/gen/go/user_service/v1"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/domain/user/applicant"
-	"github.com/ZaiiiRan/job_search_service/common/pkg/errors/validationerror"
 	dal "github.com/ZaiiiRan/job_search_service/user-service/internal/repositories/models"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/postgres"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/redis"
@@ -24,6 +24,7 @@ type ApplicantService interface {
 	GetApplicant(ctx context.Context, req *pb.GetApplicantRequest) (*pb.GetApplicantResponse, error)
 	GetApplicantByEmail(ctx context.Context, req *pb.GetApplicantByEmailRequest) (*pb.GetApplicantByEmailResponse, error)
 	QueryApplicants(ctx context.Context, req *pb.QueryApplicantsRequest) (*pb.QueryApplicantsResponse, error)
+	ActivateApplicant(ctx context.Context, req *pb.ActivateApplicantRequest) (*pb.ActivateApplicantResponse, error)
 }
 
 type service struct {
@@ -71,6 +72,39 @@ func (s *service) CreateApplicant(ctx context.Context, req *pb.CreateApplicantRe
 	return &pb.CreateApplicantResponse{Applicant: toPbApplicant(a)}, nil
 }
 
+func (s *service) ActivateApplicant(ctx context.Context, req *pb.ActivateApplicantRequest) (*pb.ActivateApplicantResponse, error) {
+	l := s.log.With("op", "activate_applicant", "req_id", ctxmetadata.GetReqIdFromContext(ctx))
+
+	if req.Id < 1 {
+		l.Errorw("applicant.activate_applicant_failed", "err", "id must be positive")
+		return nil, status.Errorf(codes.InvalidArgument, "id must be positive")
+	}
+
+	a, err := s.dataProvider.GetById(ctx, req.Id)
+	if err != nil {
+		l.Errorw("applicant.activate_applicant_failed", "err", err)
+		return nil, status.Errorf(codes.Internal, "internal server error")
+	}
+	if a == nil {
+		return nil, status.Errorf(codes.NotFound, "applicant not found")
+	}
+	if a.IsActive() {
+		return nil, status.Errorf(codes.AlreadyExists, "applicant already activated")
+	}
+	if a.IsDeleted() {
+		return nil, status.Errorf(codes.FailedPrecondition, "applicant is deleted")
+	}
+
+	a.SetIsActive(true)
+	if err := s.dataProvider.Save(ctx, a); err != nil {
+		l.Errorw("applicant.activate_applicant_failed", "err", err)
+		return nil, status.Errorf(codes.Internal, "internal server error")
+	}
+
+	l.Infow("applicant.activate_applicant.success")
+	return &pb.ActivateApplicantResponse{Applicant: toPbApplicant(a)}, nil
+}
+
 func (s *service) GetApplicant(ctx context.Context, req *pb.GetApplicantRequest) (*pb.GetApplicantResponse, error) {
 	l := s.log.With("op", "get_applicant", "req_id", ctxmetadata.GetReqIdFromContext(ctx), "id", req.Id)
 
@@ -91,6 +125,7 @@ func (s *service) GetApplicant(ctx context.Context, req *pb.GetApplicantRequest)
 	l.Infow("applicant.get_applicant.success")
 	return &pb.GetApplicantResponse{Applicant: toPbApplicant(a)}, nil
 }
+
 func (s *service) GetApplicantByEmail(ctx context.Context, req *pb.GetApplicantByEmailRequest) (*pb.GetApplicantByEmailResponse, error) {
 	l := s.log.With("op", "get_applicant_by_email", "req_id", ctxmetadata.GetReqIdFromContext(ctx), "email", req.Email)
 

@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/ZaiiiRan/job_search_service/common/pkg/ctxmetadata"
+	"github.com/ZaiiiRan/job_search_service/common/pkg/errors/validationerror"
 	pb "github.com/ZaiiiRan/job_search_service/user-service/gen/go/user_service/v1"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/domain/user/employer"
-	"github.com/ZaiiiRan/job_search_service/common/pkg/errors/validationerror"
 	dal "github.com/ZaiiiRan/job_search_service/user-service/internal/repositories/models"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/postgres"
 	"github.com/ZaiiiRan/job_search_service/user-service/internal/transport/redis"
@@ -24,6 +24,7 @@ type EmployerService interface {
 	GetEmployer(ctx context.Context, req *pb.GetEmployerRequest) (*pb.GetEmployerResponse, error)
 	GetEmployerByEmail(ctx context.Context, req *pb.GetEmployerByEmailRequest) (*pb.GetEmployerByEmailResponse, error)
 	QueryEmployers(ctx context.Context, req *pb.QueryEmployersRequest) (*pb.QueryEmployersResponse, error)
+	ActivateEmployer(ctx context.Context, req *pb.ActivateEmployerRequest) (*pb.ActivateEmployerResponse, error)
 }
 
 type service struct {
@@ -66,6 +67,39 @@ func (s *service) CreateEmployer(ctx context.Context, req *pb.CreateEmployerRequ
 
 	l.Infow("employer.create_employer.created")
 	return &pb.CreateEmployerResponse{Employer: toPbEmployer(e)}, nil
+}
+
+func (s *service) ActivateEmployer(ctx context.Context, req *pb.ActivateEmployerRequest) (*pb.ActivateEmployerResponse, error) {
+	l := s.log.With("op", "activate_employer", "req_id", ctxmetadata.GetReqIdFromContext(ctx))
+
+	if req.Id < 1 {
+		l.Errorw("applicant.activate_employer_failed", "err", "id must be positive")
+		return nil, status.Errorf(codes.InvalidArgument, "id must be positive")
+	}
+
+	e, err := s.dataProvider.GetById(ctx, req.Id)
+	if err != nil {
+		l.Errorw("applicant.activate_employer_failed", "err", err)
+		return nil, status.Errorf(codes.Internal, "internal server error")
+	}
+	if e == nil {
+		return nil, status.Errorf(codes.NotFound, "employer not found")
+	}
+	if e.IsActive() {
+		return nil, status.Errorf(codes.AlreadyExists, "employer already activated")
+	}
+	if e.IsDeleted() {
+		return nil, status.Errorf(codes.FailedPrecondition, "employer is deleted")
+	}
+
+	e.SetIsActive(true)
+	if err := s.dataProvider.Save(ctx, e); err != nil {
+		l.Errorw("applicant.activate_employer_failed", "err", err)
+		return nil, status.Errorf(codes.Internal, "internal server error")
+	}
+
+	l.Infow("applicant.activate_employer.success")
+	return &pb.ActivateEmployerResponse{Employer: toPbEmployer(e)}, nil
 }
 
 func (s *service) GetEmployer(ctx context.Context, req *pb.GetEmployerRequest) (*pb.GetEmployerResponse, error) {
