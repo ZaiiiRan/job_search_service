@@ -1630,44 +1630,53 @@ const file_auth_service_v1_auth_service_proto_rawDesc = "" +
 	"\x1dChangeEmployerPasswordRequest\x12!\n" +
 	"\fold_password\x18\x01 \x01(\tR\voldPassword\x12!\n" +
 	"\fnew_password\x18\x02 \x01(\tR\vnewPassword\" \n" +
-	"\x1eChangeEmployerPasswordResponse2\xf2\x1f\n" +
-	"\vAuthService\x12\xcd\x01\n" +
-	"\x11RegisterApplicant\x12).auth_service.v1.RegisterApplicantRequest\x1a*.auth_service.v1.RegisterApplicantResponse\"a\x92A9\n" +
-	"\tapplicant\x12\x17Register applicant user\x1a\x13Registers applicant\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/api/v1/applicant/register\x12\x96\x02\n" +
-	"\x1dGetNewApplicantActivationCode\x125.auth_service.v1.GetNewApplicantActivationCodeRequest\x1a6.auth_service.v1.GetNewApplicantActivationCodeResponse\"\x85\x01\x92AU\n" +
-	"\tapplicant\x12!Get new applicant activation code\x1a%Sending a new account activation code\x82\xd3\xe4\x93\x02'\x12%/api/v1/applicant/new-activation-code\x12\xdd\x01\n" +
-	"\x11ActivateApplicant\x12).auth_service.v1.ActivateApplicantRequest\x1a*.auth_service.v1.ActivateApplicantResponse\"q\x92AI\n" +
-	"\tapplicant\x12\x19Activate applicant accout\x1a!Activates a new applicant account\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/api/v1/applicant/activate\x12\xbd\x01\n" +
-	"\x0eLoginApplicant\x12&.auth_service.v1.LoginApplicantRequest\x1a'.auth_service.v1.LoginApplicantResponse\"Z\x92A5\n" +
-	"\tapplicant\x12\x0fLogin applicant\x1a\x17Applicant authorization\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/api/v1/applicant/login\x12\xcc\x01\n" +
-	"\x10RefreshApplicant\x12(.auth_service.v1.RefreshApplicantRequest\x1a).auth_service.v1.RefreshApplicantResponse\"c\x92A<\n" +
-	"\tapplicant\x12\x11Refresh applicant\x1a\x1cReturns a new pair of tokens\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/applicant/refresh\x12\xc4\x01\n" +
-	"\x0fLogoutApplicant\x12'.auth_service.v1.LogoutApplicantRequest\x1a(.auth_service.v1.LogoutApplicantResponse\"^\x92A;\n" +
-	"\tapplicant\x12\x10Logout applicant\x1a\x1cDeactivates applicant tokens\x82\xd3\xe4\x93\x02\x1a*\x18/api/v1/applicant/logout\x12\x94\x02\n" +
-	"\x1dGetResetApplicantPasswordCode\x125.auth_service.v1.GetResetApplicantPasswordCodeRequest\x1a6.auth_service.v1.GetResetApplicantPasswordCodeResponse\"\x83\x01\x92AP\n" +
-	"\tapplicant\x12#Get reset applicant's password code\x1a\x1eSends a password recovery code\x82\xd3\xe4\x93\x02*:\x01*\"%/api/v1/applicant/reset-password/code\x12\xe9\x01\n" +
-	"\x16ResetApplicantPassword\x12..auth_service.v1.ResetApplicantPasswordRequest\x1a/.auth_service.v1.ResetApplicantPasswordResponse\"n\x92A@\n" +
-	"\tapplicant\x12\x18Reset applicant password\x1a\x19Resets applicant password\x82\xd3\xe4\x93\x02%:\x01*\" /api/v1/applicant/reset-password\x12\xef\x01\n" +
-	"\x17ChangeApplicantPassword\x12/.auth_service.v1.ChangeApplicantPasswordRequest\x1a0.auth_service.v1.ChangeApplicantPasswordResponse\"q\x92AB\n" +
-	"\tapplicant\x12\x19Change applicant password\x1a\x1aChanges applicant password\x82\xd3\xe4\x93\x02&:\x01*\"!/api/v1/applicant/change-password\x12\xc6\x01\n" +
-	"\x10RegisterEmployer\x12(.auth_service.v1.RegisterEmployerRequest\x1a).auth_service.v1.RegisterEmployerResponse\"]\x92A6\n" +
-	"\bemployer\x12\x16Register employer user\x1a\x12Registers employer\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/employer/register\x12\x90\x02\n" +
-	"\x1cGetNewEmployerActivationCode\x124.auth_service.v1.GetNewEmployerActivationCodeRequest\x1a5.auth_service.v1.GetNewEmployerActivationCodeResponse\"\x82\x01\x92AS\n" +
-	"\bemployer\x12 Get new employer activation code\x1a%Sending a new account activation code\x82\xd3\xe4\x93\x02&\x12$/api/v1/employer/new-activation-code\x12\xcf\x01\n" +
-	"\x10ActivateEmployer\x12(.auth_service.v1.ActivateEmployerRequest\x1a).auth_service.v1.ActivateEmployerResponse\"f\x92A?\n" +
-	"\bemployer\x12\x11Activate employer\x1a Activates a new employer account\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/employer/activate\x12\xb6\x01\n" +
-	"\rLoginEmployer\x12%.auth_service.v1.LoginEmployerRequest\x1a&.auth_service.v1.LoginEmployerResponse\"V\x92A2\n" +
-	"\bemployer\x12\x0eLogin employer\x1a\x16Employer authorization\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/api/v1/employer/login\x12\xc6\x01\n" +
-	"\x0fRefreshEmployer\x12'.auth_service.v1.RefreshEmployerRequest\x1a(.auth_service.v1.RefreshEmployerResponse\"`\x92A:\n" +
-	"\bemployer\x12\x10Refresh employer\x1a\x1cReturns a new pair of tokens\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/api/v1/employer/refresh\x12\xbd\x01\n" +
-	"\x0eLogoutEmployer\x12&.auth_service.v1.LogoutEmployerRequest\x1a'.auth_service.v1.LogoutEmployerResponse\"Z\x92A8\n" +
-	"\bemployer\x12\x0fLogout employer\x1a\x1bDeactivates employer tokens\x82\xd3\xe4\x93\x02\x19*\x17/api/v1/employer/logout\x12\x8e\x02\n" +
-	"\x1cGetResetEmployerPasswordCode\x124.auth_service.v1.GetResetEmployerPasswordCodeRequest\x1a5.auth_service.v1.GetResetEmployerPasswordCodeResponse\"\x80\x01\x92AN\n" +
-	"\bemployer\x12\"Get reset employer's password code\x1a\x1eSends a password recovery code\x82\xd3\xe4\x93\x02):\x01*\"$/api/v1/employer/reset-password/code\x12\xe2\x01\n" +
-	"\x15ResetEmployerPassword\x12-.auth_service.v1.ResetEmployerPasswordRequest\x1a..auth_service.v1.ResetEmployerPasswordResponse\"j\x92A=\n" +
-	"\bemployer\x12\x17Reset employer password\x1a\x18Resets employer password\x82\xd3\xe4\x93\x02$:\x01*\"\x1f/api/v1/employer/reset-password\x12\xe8\x01\n" +
-	"\x16ChangeEmployerPassword\x12..auth_service.v1.ChangeEmployerPasswordRequest\x1a/.auth_service.v1.ChangeEmployerPasswordResponse\"m\x92A?\n" +
-	"\bemployer\x12\x18Change employer password\x1a\x19Changes employer password\x82\xd3\xe4\x93\x02%:\x01*\" /api/v1/employer/change-passwordB\x89\x02\x92A\xb2\x01\x12x\n" +
+	"\x1eChangeEmployerPasswordResponse2\x84 \n" +
+	"\vAuthService\x12\xce\x01\n" +
+	"\x11RegisterApplicant\x12).auth_service.v1.RegisterApplicantRequest\x1a*.auth_service.v1.RegisterApplicantResponse\"b\x92A:\n" +
+	"\n" +
+	"applicants\x12\x17Register applicant user\x1a\x13Registers applicant\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/api/v1/applicant/register\x12\x97\x02\n" +
+	"\x1dGetNewApplicantActivationCode\x125.auth_service.v1.GetNewApplicantActivationCodeRequest\x1a6.auth_service.v1.GetNewApplicantActivationCodeResponse\"\x86\x01\x92AV\n" +
+	"\n" +
+	"applicants\x12!Get new applicant activation code\x1a%Sending a new account activation code\x82\xd3\xe4\x93\x02'\x12%/api/v1/applicant/new-activation-code\x12\xde\x01\n" +
+	"\x11ActivateApplicant\x12).auth_service.v1.ActivateApplicantRequest\x1a*.auth_service.v1.ActivateApplicantResponse\"r\x92AJ\n" +
+	"\n" +
+	"applicants\x12\x19Activate applicant accout\x1a!Activates a new applicant account\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/api/v1/applicant/activate\x12\xbe\x01\n" +
+	"\x0eLoginApplicant\x12&.auth_service.v1.LoginApplicantRequest\x1a'.auth_service.v1.LoginApplicantResponse\"[\x92A6\n" +
+	"\n" +
+	"applicants\x12\x0fLogin applicant\x1a\x17Applicant authorization\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/api/v1/applicant/login\x12\xcd\x01\n" +
+	"\x10RefreshApplicant\x12(.auth_service.v1.RefreshApplicantRequest\x1a).auth_service.v1.RefreshApplicantResponse\"d\x92A=\n" +
+	"\n" +
+	"applicants\x12\x11Refresh applicant\x1a\x1cReturns a new pair of tokens\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/applicant/refresh\x12\xc5\x01\n" +
+	"\x0fLogoutApplicant\x12'.auth_service.v1.LogoutApplicantRequest\x1a(.auth_service.v1.LogoutApplicantResponse\"_\x92A<\n" +
+	"\n" +
+	"applicants\x12\x10Logout applicant\x1a\x1cDeactivates applicant tokens\x82\xd3\xe4\x93\x02\x1a*\x18/api/v1/applicant/logout\x12\x95\x02\n" +
+	"\x1dGetResetApplicantPasswordCode\x125.auth_service.v1.GetResetApplicantPasswordCodeRequest\x1a6.auth_service.v1.GetResetApplicantPasswordCodeResponse\"\x84\x01\x92AQ\n" +
+	"\n" +
+	"applicants\x12#Get reset applicant's password code\x1a\x1eSends a password recovery code\x82\xd3\xe4\x93\x02*:\x01*\"%/api/v1/applicant/reset-password/code\x12\xea\x01\n" +
+	"\x16ResetApplicantPassword\x12..auth_service.v1.ResetApplicantPasswordRequest\x1a/.auth_service.v1.ResetApplicantPasswordResponse\"o\x92AA\n" +
+	"\n" +
+	"applicants\x12\x18Reset applicant password\x1a\x19Resets applicant password\x82\xd3\xe4\x93\x02%:\x01*\" /api/v1/applicant/reset-password\x12\xf0\x01\n" +
+	"\x17ChangeApplicantPassword\x12/.auth_service.v1.ChangeApplicantPasswordRequest\x1a0.auth_service.v1.ChangeApplicantPasswordResponse\"r\x92AC\n" +
+	"\n" +
+	"applicants\x12\x19Change applicant password\x1a\x1aChanges applicant password\x82\xd3\xe4\x93\x02&:\x01*\"!/api/v1/applicant/change-password\x12\xc7\x01\n" +
+	"\x10RegisterEmployer\x12(.auth_service.v1.RegisterEmployerRequest\x1a).auth_service.v1.RegisterEmployerResponse\"^\x92A7\n" +
+	"\temployers\x12\x16Register employer user\x1a\x12Registers employer\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/employer/register\x12\x91\x02\n" +
+	"\x1cGetNewEmployerActivationCode\x124.auth_service.v1.GetNewEmployerActivationCodeRequest\x1a5.auth_service.v1.GetNewEmployerActivationCodeResponse\"\x83\x01\x92AT\n" +
+	"\temployers\x12 Get new employer activation code\x1a%Sending a new account activation code\x82\xd3\xe4\x93\x02&\x12$/api/v1/employer/new-activation-code\x12\xd0\x01\n" +
+	"\x10ActivateEmployer\x12(.auth_service.v1.ActivateEmployerRequest\x1a).auth_service.v1.ActivateEmployerResponse\"g\x92A@\n" +
+	"\temployers\x12\x11Activate employer\x1a Activates a new employer account\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/employer/activate\x12\xb7\x01\n" +
+	"\rLoginEmployer\x12%.auth_service.v1.LoginEmployerRequest\x1a&.auth_service.v1.LoginEmployerResponse\"W\x92A3\n" +
+	"\temployers\x12\x0eLogin employer\x1a\x16Employer authorization\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/api/v1/employer/login\x12\xc7\x01\n" +
+	"\x0fRefreshEmployer\x12'.auth_service.v1.RefreshEmployerRequest\x1a(.auth_service.v1.RefreshEmployerResponse\"a\x92A;\n" +
+	"\temployers\x12\x10Refresh employer\x1a\x1cReturns a new pair of tokens\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/api/v1/employer/refresh\x12\xbe\x01\n" +
+	"\x0eLogoutEmployer\x12&.auth_service.v1.LogoutEmployerRequest\x1a'.auth_service.v1.LogoutEmployerResponse\"[\x92A9\n" +
+	"\temployers\x12\x0fLogout employer\x1a\x1bDeactivates employer tokens\x82\xd3\xe4\x93\x02\x19*\x17/api/v1/employer/logout\x12\x8f\x02\n" +
+	"\x1cGetResetEmployerPasswordCode\x124.auth_service.v1.GetResetEmployerPasswordCodeRequest\x1a5.auth_service.v1.GetResetEmployerPasswordCodeResponse\"\x81\x01\x92AO\n" +
+	"\temployers\x12\"Get reset employer's password code\x1a\x1eSends a password recovery code\x82\xd3\xe4\x93\x02):\x01*\"$/api/v1/employer/reset-password/code\x12\xe3\x01\n" +
+	"\x15ResetEmployerPassword\x12-.auth_service.v1.ResetEmployerPasswordRequest\x1a..auth_service.v1.ResetEmployerPasswordResponse\"k\x92A>\n" +
+	"\temployers\x12\x17Reset employer password\x1a\x18Resets employer password\x82\xd3\xe4\x93\x02$:\x01*\"\x1f/api/v1/employer/reset-password\x12\xe9\x01\n" +
+	"\x16ChangeEmployerPassword\x12..auth_service.v1.ChangeEmployerPasswordRequest\x1a/.auth_service.v1.ChangeEmployerPasswordResponse\"n\x92A@\n" +
+	"\temployers\x12\x18Change employer password\x1a\x19Changes employer password\x82\xd3\xe4\x93\x02%:\x01*\" /api/v1/employer/change-passwordB\x89\x02\x92A\xb2\x01\x12x\n" +
 	"\x10Auth Service API\x12_API for registration, authorization, changing and resetting passwords, and updating user tokens2\x031.0\x1a\x0elocalhost:8082*\x02\x01\x022\x10application/json:\x10application/jsonZQgithub.com/ZaiiiRan/job_search_service/auth-service/gen/go/auth-service/v1;authv1b\x06proto3"
 
 var (
