@@ -5,8 +5,10 @@ import (
 	"errors"
 
 	pb "github.com/ZaiiiRan/job_search_service/auth-service/gen/go/auth_service/v1"
+	userv1 "github.com/ZaiiiRan/job_search_service/auth-service/gen/go/user_service/v1"
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/domain/code"
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/domain/password"
+	"github.com/ZaiiiRan/job_search_service/auth-service/internal/domain/token"
 	uow "github.com/ZaiiiRan/job_search_service/auth-service/internal/repositories/unitofwork/postgres"
 	codeservice "github.com/ZaiiiRan/job_search_service/auth-service/internal/services/code"
 	passwordservice "github.com/ZaiiiRan/job_search_service/auth-service/internal/services/password"
@@ -89,9 +91,8 @@ func (s *service) RegisterApplicant(ctx context.Context, req *pb.RegisterApplica
 		return nil, status.Errorf(codes.Internal, "internal server error")
 	}
 
-	access, refresh, err := s.tokenService.GenerateApplicant(ctx, uow, applicant, nil)
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "internal server error")
+	if err := s.generateApplicantTokens(ctx, uow, applicant, nil); err != nil {
+		return nil, err
 	}
 
 	if err := uow.Commit(ctx); err != nil {
@@ -99,43 +100,15 @@ func (s *service) RegisterApplicant(ctx context.Context, req *pb.RegisterApplica
 		return nil, status.Errorf(codes.Internal, "internal server error")
 	}
 
-	l.Infow("auth.register_applicant.success")
-
-	trailer := metadata.Pairs(
-		"x-access-token", access.Token(),
-		"x-refresh-token", refresh.Token(),
-	)
-
-	grpc.SetTrailer(ctx, trailer)
 	return &pb.RegisterApplicantResponse{Applicant: applicant}, nil
 }
 
 func (s *service) GetNewApplicantActivationCode(ctx context.Context, req *pb.GetNewApplicantActivationCodeRequest) (*pb.GetNewApplicantActivationCodeResponse, error) {
 	l := s.log.With("op", "get_new_applicant_activation_code", "req_id", ctxmetadata.GetReqIdFromContext(ctx))
 
-	claims, _ := ctxmetadata.GetApplicantClaimsFromContext(ctx)
-	if claims == nil {
-		return nil, status.Errorf(codes.Unauthenticated, "unauthorized")
-	}
-	if claims.IsActive {
-		return nil, status.Errorf(codes.AlreadyExists, "applicant is already activated")
-	}
-	if claims.IsDeleted {
-		return nil, status.Errorf(codes.PermissionDenied, "applicant is deleted")
-	}
-
-	applicant, err := s.userService.GetApplicantById(ctx, claims.Id)
+	applicant, err := s.getAndCheckApplicantForActivation(ctx)
 	if err != nil {
 		return nil, err
-	}
-	if applicant == nil {
-		return nil, status.Errorf(codes.Unauthenticated, "unauthorized")
-	}
-	if applicant.IsActive {
-		return nil, status.Errorf(codes.AlreadyExists, "applicant is already activated")
-	}
-	if applicant.IsDeleted {
-		return nil, status.Errorf(codes.PermissionDenied, "applicant is deleted")
 	}
 
 	uow := uow.New(s.postgresClient)
@@ -158,29 +131,9 @@ func (s *service) GetNewApplicantActivationCode(ctx context.Context, req *pb.Get
 func (s *service) ActivateApplicant(ctx context.Context, req *pb.ActivateApplicantRequest) (*pb.ActivateApplicantResponse, error) {
 	l := s.log.With("op", "activate_applicant", "req_id", ctxmetadata.GetReqIdFromContext(ctx))
 
-	claims, _ := ctxmetadata.GetApplicantClaimsFromContext(ctx)
-	if claims == nil {
-		return nil, status.Errorf(codes.Unauthenticated, "unauthorized")
-	}
-	if claims.IsActive {
-		return nil, status.Errorf(codes.AlreadyExists, "applicant is already activated")
-	}
-	if claims.IsDeleted {
-		return nil, status.Errorf(codes.PermissionDenied, "applicant is deleted")
-	}
-
-	applicant, err := s.userService.GetApplicantById(ctx, claims.Id)
+	applicant, err := s.getAndCheckApplicantForActivation(ctx)
 	if err != nil {
 		return nil, err
-	}
-	if applicant == nil {
-		return nil, status.Errorf(codes.Unauthenticated, "unauthorized")
-	}
-	if applicant.IsActive {
-		return nil, status.Errorf(codes.AlreadyExists, "applicant is already activated")
-	}
-	if applicant.IsDeleted {
-		return nil, status.Errorf(codes.PermissionDenied, "applicant is deleted")
 	}
 
 	uow := uow.New(s.postgresClient)
@@ -206,9 +159,8 @@ func (s *service) ActivateApplicant(ctx context.Context, req *pb.ActivateApplica
 	// activate applicant
 	// invalidate all refresh tokens
 
-	access, refresh, err := s.tokenService.GenerateApplicant(ctx, uow, applicant, nil)
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "internal server error")
+	if err := s.generateApplicantTokens(ctx, uow, applicant, nil); err != nil {
+		return nil, err
 	}
 
 	if err := uow.Commit(ctx); err != nil {
@@ -217,13 +169,6 @@ func (s *service) ActivateApplicant(ctx context.Context, req *pb.ActivateApplica
 	}
 
 	l.Infow("auth.activate_applicant.success")
-
-	trailer := metadata.Pairs(
-		"x-access-token", access.Token(),
-		"x-refresh-token", refresh.Token(),
-	)
-
-	grpc.SetTrailer(ctx, trailer)
 	return &pb.ActivateApplicantResponse{Applicant: applicant}, nil
 }
 
@@ -249,19 +194,11 @@ func (s *service) LoginApplicant(ctx context.Context, req *pb.LoginApplicantRequ
 		return nil, status.Errorf(codes.Unauthenticated, "invalid email or password")
 	}
 
-	access, refresh, err := s.tokenService.GenerateApplicant(ctx, uow, applicant, nil)
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "internal server error")
+	if err := s.generateApplicantTokens(ctx, uow, applicant, nil); err != nil {
+		return nil, err
 	}
 
 	l.Infow("auth.login_applicant.success")
-
-	trailer := metadata.Pairs(
-		"x-access-token", access.Token(),
-		"x-refresh-token", refresh.Token(),
-	)
-
-	grpc.SetTrailer(ctx, trailer)
 	return &pb.LoginApplicantResponse{Applicant: applicant}, nil
 }
 
@@ -297,19 +234,11 @@ func (s *service) RefreshApplicant(ctx context.Context, req *pb.RefreshApplicant
 		return nil, status.Errorf(codes.Unauthenticated, "unauthorized")
 	}
 
-	newAccess, newRefresh, err := s.tokenService.GenerateApplicant(ctx, uow, applicant, refreshToken)
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "internal server error")
+	if err := s.generateApplicantTokens(ctx, uow, applicant, refreshToken); err != nil {
+		return nil, err
 	}
 
 	l.Infow("auth.refresh_applicant.success")
-
-	trailer := metadata.Pairs(
-		"x-access-token", newAccess.Token(),
-		"x-refresh-token", newRefresh.Token(),
-	)
-
-	grpc.SetTrailer(ctx, trailer)
 	return &pb.RefreshApplicantResponse{}, nil
 }
 
@@ -330,13 +259,9 @@ func (s *service) LogoutApplicant(ctx context.Context, req *pb.LogoutApplicantRe
 	defer uow.Close()
 
 	s.tokenService.InvalidateApplicant(ctx, uow, refreshTokenStr[0])
-	l.Infow("auth.logout_applicant.success")
 
-	trailer := metadata.Pairs(
-		"x-access-token", "",
-		"x-refresh-token", "",
-	)
-	grpc.SetTrailer(ctx, trailer)
+	s.clearTokens(ctx)
+	l.Infow("auth.logout_applicant.success")
 	return &pb.LogoutApplicantResponse{}, nil
 }
 
@@ -409,9 +334,8 @@ func (s *service) ResetApplicantPassword(ctx context.Context, req *pb.ResetAppli
 
 	// invalidate all active tokens
 
-	access, refresh, err := s.tokenService.GenerateApplicant(ctx, uow, applicant, nil)
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "internal server error")
+	if err := s.generateApplicantTokens(ctx, uow, applicant, nil); err != nil {
+		return nil, err
 	}
 
 	if err := uow.Commit(ctx); err != nil {
@@ -420,13 +344,6 @@ func (s *service) ResetApplicantPassword(ctx context.Context, req *pb.ResetAppli
 	}
 
 	l.Infow("auth.reset_applicant_password_failed.success")
-
-	trailer := metadata.Pairs(
-		"x-access-token", access.Token(),
-		"x-refresh-token", refresh.Token(),
-	)
-
-	grpc.SetTrailer(ctx, trailer)
 	return &pb.ResetApplicantPasswordResponse{Applicant: applicant}, nil
 }
 
@@ -472,9 +389,8 @@ func (s *service) ChangeApplicantPassword(ctx context.Context, req *pb.ChangeApp
 
 	// invalidate all active tokens
 
-	access, refresh, err := s.tokenService.GenerateApplicant(ctx, uow, applicant, nil)
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "internal server error")
+	if err := s.generateApplicantTokens(ctx, uow, applicant, nil); err != nil {
+		return nil, err
 	}
 
 	if err := uow.Commit(ctx); err != nil {
@@ -483,6 +399,14 @@ func (s *service) ChangeApplicantPassword(ctx context.Context, req *pb.ChangeApp
 	}
 
 	l.Infow("auth.change_applicant_password_failed.success")
+	return &pb.ChangeApplicantPasswordResponse{}, nil
+}
+
+func (s *service) generateApplicantTokens(ctx context.Context, uow *uow.UnitOfWork, applicant *userv1.Applicant, existedRefreshToken *token.Token) error {
+	access, refresh, err := s.tokenService.GenerateApplicant(ctx, uow, applicant, existedRefreshToken)
+	if err != nil {
+		return status.Errorf(codes.Internal, "internal server error")
+	}
 
 	trailer := metadata.Pairs(
 		"x-access-token", access.Token(),
@@ -490,5 +414,41 @@ func (s *service) ChangeApplicantPassword(ctx context.Context, req *pb.ChangeApp
 	)
 
 	grpc.SetTrailer(ctx, trailer)
-	return &pb.ChangeApplicantPasswordResponse{}, nil
+	return nil
+}
+
+func (s *service) getAndCheckApplicantForActivation(ctx context.Context) (*userv1.Applicant, error) {
+	claims, _ := ctxmetadata.GetApplicantClaimsFromContext(ctx)
+	if claims == nil {
+		return nil, status.Errorf(codes.Unauthenticated, "unauthorized")
+	}
+	if claims.IsActive {
+		return nil, status.Errorf(codes.AlreadyExists, "applicant is already activated")
+	}
+	if claims.IsDeleted {
+		return nil, status.Errorf(codes.PermissionDenied, "applicant is deleted")
+	}
+
+	applicant, err := s.userService.GetApplicantById(ctx, claims.Id)
+	if err != nil {
+		return nil, err
+	}
+	if applicant == nil {
+		return nil, status.Errorf(codes.Unauthenticated, "unauthorized")
+	}
+	if applicant.IsActive {
+		return nil, status.Errorf(codes.AlreadyExists, "applicant is already activated")
+	}
+	if applicant.IsDeleted {
+		return nil, status.Errorf(codes.PermissionDenied, "applicant is deleted")
+	}
+	return applicant, nil
+}
+
+func (s *service) clearTokens(ctx context.Context) {
+	trailer := metadata.Pairs(
+		"x-access-token", "",
+		"x-refresh-token", "",
+	)
+	grpc.SetTrailer(ctx, trailer)
 }
