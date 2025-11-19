@@ -17,6 +17,7 @@ func PropagateClientMetaUnary() grpc.UnaryClientInterceptor {
 		opts ...grpc.CallOption,
 	) error {
 		ctx = ctxmetadata.ForwardReqIdToOutgoingContext(ctx)
+		ctx = ctxmetadata.ForwardAuthToOutgoingContext(ctx)
 		return invoker(ctx, method, req, reply, cc, opts...)
 	}
 }

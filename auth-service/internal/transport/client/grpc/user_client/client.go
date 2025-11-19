@@ -6,6 +6,7 @@ import (
 	pb "github.com/ZaiiiRan/job_search_service/auth-service/gen/go/user_service/v1"
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/config/settings"
 	grpcclient "github.com/ZaiiiRan/job_search_service/auth-service/internal/transport/client/grpc"
+	middleware "github.com/ZaiiiRan/job_search_service/common/pkg/middleware/grpc/client"
 	"google.golang.org/grpc"
 )
 
@@ -21,6 +22,13 @@ func New(
 	streamExtra []grpc.StreamClientInterceptor,
 	extra ...grpc.DialOption,
 ) (*Client, error) {
+	unaryExtra = append(
+        []grpc.UnaryClientInterceptor{
+            middleware.PropagateClientMetaUnary(),
+        },
+        unaryExtra...,
+    )
+
 	cl, err := grpcclient.New(ctx, cfg, unaryExtra, streamExtra, extra...)
 	if err != nil {
 		return nil, err
