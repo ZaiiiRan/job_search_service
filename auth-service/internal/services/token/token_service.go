@@ -70,6 +70,10 @@ func (s *service) GenerateApplicant(ctx context.Context, uow *uow.UnitOfWork, ap
 
 	var refreshToken *token.Token
 	if existedRefreshToken != nil {
+		if err := s.dataProvider.DeleteApplicantTokenFromCache(ctx, existedRefreshToken.Token()); err != nil {
+			l.Errorw("token.delete_existed_from_cache", "err", err)
+			return nil, nil, err
+		}
 		refreshToken = existedRefreshToken
 		refreshToken.SetToken(refresh, refreshExp)
 	} else {
@@ -112,6 +116,10 @@ func (s *service) GenerateEmployer(ctx context.Context, uow *uow.UnitOfWork, emp
 
 	var refreshToken *token.Token
 	if existedRefreshToken != nil {
+		if err := s.dataProvider.DeleteEmployerTokenFromCache(ctx, existedRefreshToken.Token()); err != nil {
+			l.Errorw("token.delete_existed_from_cache", "err", err)
+			return nil, nil, err
+		}
 		refreshToken = existedRefreshToken
 		refreshToken.SetToken(refresh, refreshExp)
 	} else {
