@@ -103,6 +103,7 @@ func (p *employerDataProvider) Save(ctx context.Context, e *employer.Employer) e
 	cacheRepo := cache.NewEmployerCacheRepository(p.redis)
 	cacheRepo.InvalidateEmployerList(ctx)
 	cacheRepo.SetEmployer(ctx, e)
+	cacheRepo.SetEmployerByEmail(ctx, e)
 
 	return nil
 }

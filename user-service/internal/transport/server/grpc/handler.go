@@ -28,7 +28,7 @@ func (h *userHandler) CreateApplicant(ctx context.Context, req *pb.CreateApplica
 }
 
 func (h *userHandler) ActivateApplicant(ctx context.Context, req *pb.ActivateApplicantRequest) (*pb.ActivateApplicantResponse, error) {
-	return &pb.ActivateApplicantResponse{}, nil
+	return h.applicantService.ActivateApplicant(ctx, req)
 }
 
 func (h *userHandler) UpdateApplicant(ctx context.Context, req *pb.UpdateApplicantRequest) (*pb.UpdateApplicantResponse, error) {
@@ -60,7 +60,7 @@ func (h *userHandler) CreateEmployer(ctx context.Context, req *pb.CreateEmployer
 }
 
 func (h *userHandler) ActivateEmployer(ctx context.Context, req *pb.ActivateEmployerRequest) (*pb.ActivateEmployerResponse, error) {
-	return &pb.ActivateEmployerResponse{}, nil
+	return h.employerService.ActivateEmployer(ctx, req)
 }
 
 func (h *userHandler) UpdateEmployer(ctx context.Context, req *pb.UpdateEmployerRequest) (*pb.UpdateEmployerResponse, error) {

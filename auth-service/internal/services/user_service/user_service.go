@@ -18,6 +18,8 @@ type UserService interface {
 	GetEmployerByEmail(ctx context.Context, email string) (*pb.Employer, error)
 	GetApplicantById(ctx context.Context, id int64) (*pb.Applicant, error)
 	GetEmployerById(ctx context.Context, id int64) (*pb.Employer, error)
+	ActivateApplicant(ctx context.Context, applicant *pb.Applicant) (*pb.Applicant, error)
+	ActivateEmployer(ctx context.Context, employer *pb.Employer) (*pb.Employer, error)
 }
 
 type service struct {
@@ -123,5 +125,31 @@ func (s *service) GetEmployerById(ctx context.Context, id int64) (*pb.Employer, 
 	}
 
 	l.Infow("user.get_employer_by_id.success")
+	return resp.Employer, nil
+}
+
+func (s *service) ActivateApplicant(ctx context.Context, applicant *pb.Applicant) (*pb.Applicant, error) {
+	l := s.log.With("op", "activate_applicant", "req_id", ctxmetadata.GetReqIdFromContext(ctx))
+
+	resp, err := s.userClient.UserClient().ActivateApplicant(ctx, &pb.ActivateApplicantRequest{Id: applicant.Id})
+	if err != nil {
+		l.Errorw("user.activate_applicant_failed", "err", err)
+		return nil, err
+	}
+
+	l.Infow("user.activate_applicant.success")
+	return resp.Applicant, nil
+}
+
+func (s *service) ActivateEmployer(ctx context.Context, employer *pb.Employer) (*pb.Employer, error) {
+	l := s.log.With("op", "activate_employer", "req_id", ctxmetadata.GetReqIdFromContext(ctx))
+
+	resp, err := s.userClient.UserClient().ActivateEmployer(ctx, &pb.ActivateEmployerRequest{Id: employer.Id})
+	if err != nil {
+		l.Errorw("user.activate_employer_failed", "err", err)
+		return nil, err
+	}
+
+	l.Infow("user.activate_employer.success")
 	return resp.Employer, nil
 }

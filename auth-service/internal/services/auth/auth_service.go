@@ -156,7 +156,11 @@ func (s *service) ActivateApplicant(ctx context.Context, req *pb.ActivateApplica
 		return nil, status.Errorf(codes.InvalidArgument, "invalid code")
 	}
 
-	// activate applicant
+	applicant, err = s.userService.ActivateApplicant(ctx, applicant)
+	if err != nil {
+		return nil, err
+	}
+
 	// invalidate all refresh tokens
 
 	if err := s.generateApplicantTokens(ctx, uow, applicant, nil); err != nil {
