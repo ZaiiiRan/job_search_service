@@ -30,7 +30,7 @@ func ApplicantAuthMiddleware(secretKey []byte, shouldProtect MethodMatcher) grpc
 
 		tokenStr, err := extractBearerToken(ctx)
 		if err != nil {
-			return nil, status.Errorf(codes.Unauthenticated, "%s", err.Error())
+			return nil, status.Errorf(codes.Unauthenticated, "%s", errUnathorized.Error())
 		}
 
 		claims, err := jwt.ParseApplicantToken(tokenStr, secretKey)
@@ -58,7 +58,7 @@ func EmployerAuthMiddleware(secretKey []byte, shouldProtect MethodMatcher) grpc.
 
 		tokenStr, err := extractBearerToken(ctx)
 		if err != nil {
-			return nil, status.Errorf(codes.Unauthenticated, "%s", err.Error())
+			return nil, status.Errorf(codes.Unauthenticated, "%s", errUnathorized.Error())
 		}
 
 		claims, err := jwt.ParseEmployerToken(tokenStr, secretKey)
