@@ -8,5 +8,6 @@ type EmployerClaims struct {
 	Email       string
 	IsActive    bool
 	IsDeleted   bool
+	Version     int
 	jwt.RegisteredClaims
 }
