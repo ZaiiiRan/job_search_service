@@ -51,11 +51,21 @@ func (p *tokenDataProvider) DeleteApplicantToken(
 	return p.delete(ctx, uow, token, repo.ApplicantRefreshTokenRepository, cache.ApplicantRefreshTokenCache)
 }
 
+func (p *tokenDataProvider) DeleteApplicantTokenFromCache(ctx context.Context, token string) error {
+	cacheRepo := cache.NewTokenCacheRepository(p.redis, cache.ApplicantRefreshTokenCache)
+	return cacheRepo.Del(ctx, token)
+}
+
 func (p *tokenDataProvider) DeleteEmployerToken(
 	ctx context.Context, uow *postgresunitofwork.UnitOfWork,
 	token string,
 ) error {
 	return p.delete(ctx, uow, token, repo.EmployerRefreshTokenRepository, cache.EmployerRefreshTokenCache)
+}
+
+func (p *tokenDataProvider) DeleteEmployerTokenFromCache(ctx context.Context, token string) error {
+	cacheRepo := cache.NewTokenCacheRepository(p.redis, cache.EmployerRefreshTokenCache)
+	return cacheRepo.Del(ctx, token)
 }
 
 func (p *tokenDataProvider) get(

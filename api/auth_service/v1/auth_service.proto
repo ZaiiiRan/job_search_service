@@ -30,7 +30,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Register applicant user"
             description: "Registers applicant"
-            tags: "applicant"
+            tags: "applicants"
         };
     }
 
@@ -41,7 +41,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Get new applicant activation code"
             description: "Sending a new account activation code"
-            tags: "applicant"
+            tags: "applicants"
         };
     }
 
@@ -53,7 +53,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Activate applicant accout"
             description: "Activates a new applicant account"
-            tags: "applicant"
+            tags: "applicants"
         };
     }
 
@@ -65,7 +65,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Login applicant"
             description: "Applicant authorization"
-            tags: "applicant"
+            tags: "applicants"
         };
     }
 
@@ -77,7 +77,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Refresh applicant"
             description: "Returns a new pair of tokens"
-            tags: "applicant"
+            tags: "applicants"
         };
     }
 
@@ -88,7 +88,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Logout applicant"
             description: "Deactivates applicant tokens"
-            tags: "applicant"
+            tags: "applicants"
         };
     }
 
@@ -100,7 +100,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Get reset applicant's password code"
             description: "Sends a password recovery code"
-            tags: "applicant"
+            tags: "applicants"
         };
     }
 
@@ -112,7 +112,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Reset applicant password"
             description: "Resets applicant password"
-            tags: "applicant"
+            tags: "applicants"
         };
     }
 
@@ -124,7 +124,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Change applicant password"
             description: "Changes applicant password"
-            tags: "applicant"
+            tags: "applicants"
         };
     }
 
@@ -136,7 +136,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Register employer user"
             description: "Registers employer"
-            tags: "employer"
+            tags: "employers"
         };
     }
 
@@ -147,7 +147,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Get new employer activation code"
             description: "Sending a new account activation code"
-            tags: "employer"
+            tags: "employers"
         };
     }
 
@@ -159,7 +159,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Activate employer"
             description: "Activates a new employer account"
-            tags: "employer"
+            tags: "employers"
         };
     }
 
@@ -171,7 +171,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Login employer"
             description: "Employer authorization"
-            tags: "employer"
+            tags: "employers"
         };
     }
 
@@ -183,7 +183,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Refresh employer"
             description: "Returns a new pair of tokens"
-            tags: "employer"
+            tags: "employers"
         };
     }
 
@@ -194,7 +194,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Logout employer"
             description: "Deactivates employer tokens"
-            tags: "employer"
+            tags: "employers"
         };
     }
 
@@ -206,7 +206,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Get reset employer's password code"
             description: "Sends a password recovery code"
-            tags: "employer"
+            tags: "employers"
         };
     }
 
@@ -218,7 +218,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Reset employer password"
             description: "Resets employer password"
-            tags: "employer"
+            tags: "employers"
         };
     }
 
@@ -230,7 +230,7 @@ service AuthService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Change employer password"
             description: "Changes employer password"
-            tags: "employer"
+            tags: "employers"
         };
     }
 }

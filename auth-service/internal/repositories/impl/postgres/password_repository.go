@@ -47,7 +47,7 @@ func (r *PasswordRepository) CreatePassword(ctx context.Context, password *passw
 			(i).user_id,
 			(i).password_hash,
 			(i).created_at,
-			(i).updated_at,
+			(i).updated_at
 		FROM UNNEST($1::v1_user_password[]) i
 		RETURNING
 			id,

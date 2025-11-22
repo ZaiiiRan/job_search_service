@@ -20,12 +20,14 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	UserService_CreateApplicant_FullMethodName     = "/user_service.v1.UserService/CreateApplicant"
+	UserService_ActivateApplicant_FullMethodName   = "/user_service.v1.UserService/ActivateApplicant"
 	UserService_UpdateApplicant_FullMethodName     = "/user_service.v1.UserService/UpdateApplicant"
 	UserService_DeleteApplicant_FullMethodName     = "/user_service.v1.UserService/DeleteApplicant"
 	UserService_QueryApplicants_FullMethodName     = "/user_service.v1.UserService/QueryApplicants"
 	UserService_GetApplicant_FullMethodName        = "/user_service.v1.UserService/GetApplicant"
 	UserService_GetApplicantByEmail_FullMethodName = "/user_service.v1.UserService/GetApplicantByEmail"
 	UserService_CreateEmployer_FullMethodName      = "/user_service.v1.UserService/CreateEmployer"
+	UserService_ActivateEmployer_FullMethodName    = "/user_service.v1.UserService/ActivateEmployer"
 	UserService_UpdateEmployer_FullMethodName      = "/user_service.v1.UserService/UpdateEmployer"
 	UserService_DeleteEmployer_FullMethodName      = "/user_service.v1.UserService/DeleteEmployer"
 	UserService_QueryEmployers_FullMethodName      = "/user_service.v1.UserService/QueryEmployers"
@@ -38,12 +40,14 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
 	CreateApplicant(ctx context.Context, in *CreateApplicantRequest, opts ...grpc.CallOption) (*CreateApplicantResponse, error)
+	ActivateApplicant(ctx context.Context, in *ActivateApplicantRequest, opts ...grpc.CallOption) (*ActivateApplicantResponse, error)
 	UpdateApplicant(ctx context.Context, in *UpdateApplicantRequest, opts ...grpc.CallOption) (*UpdateApplicantResponse, error)
 	DeleteApplicant(ctx context.Context, in *DeleteApplicantRequest, opts ...grpc.CallOption) (*DeleteApplicantResponse, error)
 	QueryApplicants(ctx context.Context, in *QueryApplicantsRequest, opts ...grpc.CallOption) (*QueryApplicantsResponse, error)
 	GetApplicant(ctx context.Context, in *GetApplicantRequest, opts ...grpc.CallOption) (*GetApplicantResponse, error)
 	GetApplicantByEmail(ctx context.Context, in *GetApplicantByEmailRequest, opts ...grpc.CallOption) (*GetApplicantByEmailResponse, error)
 	CreateEmployer(ctx context.Context, in *CreateEmployerRequest, opts ...grpc.CallOption) (*CreateEmployerResponse, error)
+	ActivateEmployer(ctx context.Context, in *ActivateEmployerRequest, opts ...grpc.CallOption) (*ActivateEmployerResponse, error)
 	UpdateEmployer(ctx context.Context, in *UpdateEmployerRequest, opts ...grpc.CallOption) (*UpdateEmployerResponse, error)
 	DeleteEmployer(ctx context.Context, in *DeleteEmployerRequest, opts ...grpc.CallOption) (*DeleteEmployerResponse, error)
 	QueryEmployers(ctx context.Context, in *QueryEmployersRequest, opts ...grpc.CallOption) (*QueryEmployersResponse, error)
@@ -63,6 +67,16 @@ func (c *userServiceClient) CreateApplicant(ctx context.Context, in *CreateAppli
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateApplicantResponse)
 	err := c.cc.Invoke(ctx, UserService_CreateApplicant_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) ActivateApplicant(ctx context.Context, in *ActivateApplicantRequest, opts ...grpc.CallOption) (*ActivateApplicantResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActivateApplicantResponse)
+	err := c.cc.Invoke(ctx, UserService_ActivateApplicant_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -129,6 +143,16 @@ func (c *userServiceClient) CreateEmployer(ctx context.Context, in *CreateEmploy
 	return out, nil
 }
 
+func (c *userServiceClient) ActivateEmployer(ctx context.Context, in *ActivateEmployerRequest, opts ...grpc.CallOption) (*ActivateEmployerResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActivateEmployerResponse)
+	err := c.cc.Invoke(ctx, UserService_ActivateEmployer_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) UpdateEmployer(ctx context.Context, in *UpdateEmployerRequest, opts ...grpc.CallOption) (*UpdateEmployerResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UpdateEmployerResponse)
@@ -184,12 +208,14 @@ func (c *userServiceClient) GetEmployerByEmail(ctx context.Context, in *GetEmplo
 // for forward compatibility.
 type UserServiceServer interface {
 	CreateApplicant(context.Context, *CreateApplicantRequest) (*CreateApplicantResponse, error)
+	ActivateApplicant(context.Context, *ActivateApplicantRequest) (*ActivateApplicantResponse, error)
 	UpdateApplicant(context.Context, *UpdateApplicantRequest) (*UpdateApplicantResponse, error)
 	DeleteApplicant(context.Context, *DeleteApplicantRequest) (*DeleteApplicantResponse, error)
 	QueryApplicants(context.Context, *QueryApplicantsRequest) (*QueryApplicantsResponse, error)
 	GetApplicant(context.Context, *GetApplicantRequest) (*GetApplicantResponse, error)
 	GetApplicantByEmail(context.Context, *GetApplicantByEmailRequest) (*GetApplicantByEmailResponse, error)
 	CreateEmployer(context.Context, *CreateEmployerRequest) (*CreateEmployerResponse, error)
+	ActivateEmployer(context.Context, *ActivateEmployerRequest) (*ActivateEmployerResponse, error)
 	UpdateEmployer(context.Context, *UpdateEmployerRequest) (*UpdateEmployerResponse, error)
 	DeleteEmployer(context.Context, *DeleteEmployerRequest) (*DeleteEmployerResponse, error)
 	QueryEmployers(context.Context, *QueryEmployersRequest) (*QueryEmployersResponse, error)
@@ -208,6 +234,9 @@ type UnimplementedUserServiceServer struct{}
 func (UnimplementedUserServiceServer) CreateApplicant(context.Context, *CreateApplicantRequest) (*CreateApplicantResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateApplicant not implemented")
 }
+func (UnimplementedUserServiceServer) ActivateApplicant(context.Context, *ActivateApplicantRequest) (*ActivateApplicantResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ActivateApplicant not implemented")
+}
 func (UnimplementedUserServiceServer) UpdateApplicant(context.Context, *UpdateApplicantRequest) (*UpdateApplicantResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateApplicant not implemented")
 }
@@ -225,6 +254,9 @@ func (UnimplementedUserServiceServer) GetApplicantByEmail(context.Context, *GetA
 }
 func (UnimplementedUserServiceServer) CreateEmployer(context.Context, *CreateEmployerRequest) (*CreateEmployerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateEmployer not implemented")
+}
+func (UnimplementedUserServiceServer) ActivateEmployer(context.Context, *ActivateEmployerRequest) (*ActivateEmployerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ActivateEmployer not implemented")
 }
 func (UnimplementedUserServiceServer) UpdateEmployer(context.Context, *UpdateEmployerRequest) (*UpdateEmployerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateEmployer not implemented")
@@ -276,6 +308,24 @@ func _UserService_CreateApplicant_Handler(srv interface{}, ctx context.Context, 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).CreateApplicant(ctx, req.(*CreateApplicantRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_ActivateApplicant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ActivateApplicantRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ActivateApplicant(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_ActivateApplicant_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ActivateApplicant(ctx, req.(*ActivateApplicantRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -388,6 +438,24 @@ func _UserService_CreateEmployer_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_ActivateEmployer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ActivateEmployerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ActivateEmployer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_ActivateEmployer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ActivateEmployer(ctx, req.(*ActivateEmployerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_UpdateEmployer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateEmployerRequest)
 	if err := dec(in); err != nil {
@@ -490,6 +558,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_CreateApplicant_Handler,
 		},
 		{
+			MethodName: "ActivateApplicant",
+			Handler:    _UserService_ActivateApplicant_Handler,
+		},
+		{
 			MethodName: "UpdateApplicant",
 			Handler:    _UserService_UpdateApplicant_Handler,
 		},
@@ -512,6 +584,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateEmployer",
 			Handler:    _UserService_CreateEmployer_Handler,
+		},
+		{
+			MethodName: "ActivateEmployer",
+			Handler:    _UserService_ActivateEmployer_Handler,
 		},
 		{
 			MethodName: "UpdateEmployer",

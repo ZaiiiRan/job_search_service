@@ -88,6 +88,39 @@
         ]
       }
     },
+    "/api/v1/applicant/activate/{id}": {
+      "post": {
+        "summary": "Activate applicant",
+        "description": "Activates applicant. Required for activation in the authorization microservice.",
+        "operationId": "UserService_ActivateApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ActivateApplicantResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "applicants"
+        ]
+      }
+    },
     "/api/v1/applicant/by-email/{email}": {
       "get": {
         "summary": "Get applicant by email",
@@ -284,6 +317,39 @@
         ]
       }
     },
+    "/api/v1/employer/activate/{id}": {
+      "post": {
+        "summary": "Activate employer",
+        "description": "Activates employer. Required for activation in the authorization microservice.",
+        "operationId": "UserService_ActivateEmployer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ActivateEmployerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "employers"
+        ]
+      }
+    },
     "/api/v1/employer/by-email/{email}": {
       "get": {
         "summary": "Get employer by email",
@@ -441,6 +507,22 @@
             "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
+        }
+      }
+    },
+    "v1ActivateApplicantResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "v1ActivateEmployerResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
         }
       }
     },

@@ -16,7 +16,7 @@ func parseToken[T jwt.Claims](
 	newClaims func() T,
 ) (T, error) {
 	claims := newClaims()
-	token, err := jwt.ParseWithClaims(tokenStr, claims, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(tokenStr, claims, func(token *jwt.Token) (any, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			var zero T
 			return zero, ErrInvalidToken

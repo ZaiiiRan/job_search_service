@@ -31,7 +31,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1ActivateApplicantResponse"
+              "$ref": "#/definitions/auth_servicev1ActivateApplicantResponse"
             }
           },
           "default": {
@@ -47,12 +47,12 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1ActivateApplicantRequest"
+              "$ref": "#/definitions/auth_servicev1ActivateApplicantRequest"
             }
           }
         ],
         "tags": [
-          "applicant"
+          "applicants"
         ]
       }
     },
@@ -86,7 +86,7 @@
           }
         ],
         "tags": [
-          "applicant"
+          "applicants"
         ]
       }
     },
@@ -120,7 +120,7 @@
           }
         ],
         "tags": [
-          "applicant"
+          "applicants"
         ]
       }
     },
@@ -144,7 +144,7 @@
           }
         },
         "tags": [
-          "applicant"
+          "applicants"
         ]
       }
     },
@@ -168,7 +168,7 @@
           }
         },
         "tags": [
-          "applicant"
+          "applicants"
         ]
       }
     },
@@ -202,7 +202,7 @@
           }
         ],
         "tags": [
-          "applicant"
+          "applicants"
         ]
       }
     },
@@ -236,7 +236,7 @@
           }
         ],
         "tags": [
-          "applicant"
+          "applicants"
         ]
       }
     },
@@ -270,7 +270,7 @@
           }
         ],
         "tags": [
-          "applicant"
+          "applicants"
         ]
       }
     },
@@ -304,7 +304,7 @@
           }
         ],
         "tags": [
-          "applicant"
+          "applicants"
         ]
       }
     },
@@ -317,7 +317,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1ActivateEmployerResponse"
+              "$ref": "#/definitions/auth_servicev1ActivateEmployerResponse"
             }
           },
           "default": {
@@ -333,12 +333,12 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1ActivateEmployerRequest"
+              "$ref": "#/definitions/auth_servicev1ActivateEmployerRequest"
             }
           }
         ],
         "tags": [
-          "employer"
+          "employers"
         ]
       }
     },
@@ -372,7 +372,7 @@
           }
         ],
         "tags": [
-          "employer"
+          "employers"
         ]
       }
     },
@@ -406,7 +406,7 @@
           }
         ],
         "tags": [
-          "employer"
+          "employers"
         ]
       }
     },
@@ -430,7 +430,7 @@
           }
         },
         "tags": [
-          "employer"
+          "employers"
         ]
       }
     },
@@ -454,7 +454,7 @@
           }
         },
         "tags": [
-          "employer"
+          "employers"
         ]
       }
     },
@@ -488,7 +488,7 @@
           }
         ],
         "tags": [
-          "employer"
+          "employers"
         ]
       }
     },
@@ -522,7 +522,7 @@
           }
         ],
         "tags": [
-          "employer"
+          "employers"
         ]
       }
     },
@@ -556,7 +556,7 @@
           }
         ],
         "tags": [
-          "employer"
+          "employers"
         ]
       }
     },
@@ -590,12 +590,44 @@
           }
         ],
         "tags": [
-          "employer"
+          "employers"
         ]
       }
     }
   },
   "definitions": {
+    "auth_servicev1ActivateApplicantRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      }
+    },
+    "auth_servicev1ActivateApplicantResponse": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/v1Applicant"
+        }
+      }
+    },
+    "auth_servicev1ActivateEmployerRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      }
+    },
+    "auth_servicev1ActivateEmployerResponse": {
+      "type": "object",
+      "properties": {
+        "employer": {
+          "$ref": "#/definitions/v1Employer"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -621,38 +653,6 @@
             "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
-        }
-      }
-    },
-    "v1ActivateApplicantRequest": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "string"
-        }
-      }
-    },
-    "v1ActivateApplicantResponse": {
-      "type": "object",
-      "properties": {
-        "applicant": {
-          "$ref": "#/definitions/v1Applicant"
-        }
-      }
-    },
-    "v1ActivateEmployerRequest": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "string"
-        }
-      }
-    },
-    "v1ActivateEmployerResponse": {
-      "type": "object",
-      "properties": {
-        "employer": {
-          "$ref": "#/definitions/v1Employer"
         }
       }
     },

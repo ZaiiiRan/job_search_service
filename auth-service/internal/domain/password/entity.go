@@ -16,6 +16,7 @@ type Password struct {
 
 func New(userId int64, password string) (*Password, error) {
 	p := &Password{}
+	p.userId = userId
 
 	if err := p.SetPassword(password); err != nil {
 		return nil, err

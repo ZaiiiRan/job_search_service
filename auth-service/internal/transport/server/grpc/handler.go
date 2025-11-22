@@ -25,40 +25,40 @@ func (h *authHandler) RegisterApplicant(ctx context.Context, req *pb.RegisterApp
 }
 
 func (h *authHandler) GetNewApplicantActivationCode(ctx context.Context, req *pb.GetNewApplicantActivationCodeRequest) (*pb.GetNewApplicantActivationCodeResponse, error) {
-	return nil, nil
+	return h.authService.GetNewApplicantActivationCode(ctx, req)
 }
 
 func (h *authHandler) ActivateApplicant(ctx context.Context, req *pb.ActivateApplicantRequest) (*pb.ActivateApplicantResponse, error) {
 	utils.SanitizeActivateApplicantRequest(req)
-	return nil, nil
+	return h.authService.ActivateApplicant(ctx, req)
 }
 
 func (h *authHandler) LoginApplicant(ctx context.Context, req *pb.LoginApplicantRequest) (*pb.LoginApplicantResponse, error) {
 	utils.SanitizeLoginApplicantRequest(req)
-	return nil, nil
+	return h.authService.LoginApplicant(ctx, req)
 }
 
 func (h *authHandler) RefreshApplicant(ctx context.Context, req *pb.RefreshApplicantRequest) (*pb.RefreshApplicantResponse, error) {
-	return nil, nil
+	return h.authService.RefreshApplicant(ctx, req)
 }
 
 func (h *authHandler) LogoutApplicant(ctx context.Context, req *pb.LogoutApplicantRequest) (*pb.LogoutApplicantResponse, error) {
-	return nil, nil
+	return h.authService.LogoutApplicant(ctx, req)
 }
 
 func (h *authHandler) GetResetApplicantPasswordCode(ctx context.Context, req *pb.GetResetApplicantPasswordCodeRequest) (*pb.GetResetApplicantPasswordCodeResponse, error) {
 	utils.SanitizeGetResetApplicantPasswordCodeRequest(req)
-	return nil, nil
+	return h.authService.GetResetApplicantPasswordCode(ctx, req)
 }
 
 func (h *authHandler) ResetApplicantPassword(ctx context.Context, req *pb.ResetApplicantPasswordRequest) (*pb.ResetApplicantPasswordResponse, error) {
 	utils.SanitizeResetApplicantPasswordRequest(req)
-	return nil, nil
+	return h.authService.ResetApplicantPassword(ctx, req)
 }
 
 func (h *authHandler) ChangeApplicantPassword(ctx context.Context, req *pb.ChangeApplicantPasswordRequest) (*pb.ChangeApplicantPasswordResponse, error) {
 	utils.SanitizeChangeApplicantPasswordRequest(req)
-	return nil, nil
+	return h.authService.ChangeApplicantPassword(ctx, req)
 }
 
 func (h *authHandler) RegisterEmployer(ctx context.Context, req *pb.RegisterEmployerRequest) (*pb.RegisterEmployerResponse, error) {

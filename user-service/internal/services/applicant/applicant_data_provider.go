@@ -100,6 +100,7 @@ func (p *applicantDataProvider) Save(ctx context.Context, a *applicant.Applicant
 	cacheRepo := cache.NewApplicantCacheRepository(p.redis)
 	cacheRepo.InvalidateApplicantList(ctx)
 	cacheRepo.SetApplicant(ctx, a)
+	cacheRepo.SetApplicantByEmail(ctx, a)
 
 	return nil
 }

@@ -34,6 +34,17 @@ service UserService {
         };
     }
 
+    rpc ActivateApplicant(ActivateApplicantRequest) returns (ActivateApplicantResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/applicant/activate/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Activate applicant"
+            description: "Activates applicant. Required for activation in the authorization microservice."
+            tags: "applicants"
+        };
+    }
+
     rpc UpdateApplicant(UpdateApplicantRequest) returns (UpdateApplicantResponse) {
         option (google.api.http) = {
             put: "/api/v1/applicant"
@@ -99,6 +110,17 @@ service UserService {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             summary: "Create employer"
             description: "Creates employer. Required for registration in the authorization microservice."
+            tags: "employers"
+        };
+    }
+
+    rpc ActivateEmployer(ActivateEmployerRequest) returns (ActivateEmployerResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/employer/activate/{id}"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            summary: "Activate employer"
+            description: "Activates employer. Required for activation in the authorization microservice."
             tags: "employers"
         };
     }
@@ -194,6 +216,19 @@ message CreateApplicantRequest {
 }
 
 message CreateApplicantResponse {
+    Applicant applicant = 1;
+}
+
+message ActivateApplicantRequest {
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+}
+
+message ActivateApplicantResponse {
     Applicant applicant = 1;
 }
 
@@ -299,6 +334,19 @@ message CreateEmployerRequest {
 }
 
 message CreateEmployerResponse {
+    Employer employer = 1;
+}
+
+message ActivateEmployerRequest {
+    int64 id = 1 [
+        (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+            type: INTEGER;
+            format: "int64";
+        }
+    ];
+}
+
+message ActivateEmployerResponse {
     Employer employer = 1;
 }
 
