@@ -80,7 +80,7 @@ func (p *tokenDataProvider) get(
 	}
 
 	dbRepo := repo.NewTokenRepository(uow, repoType)
-	query := dal.NewQueryTokenDal(nil, nil, &token)
+	query := dal.NewQueryTokenDal(nil, nil, &token, nil)
 	t, err = dbRepo.QueryToken(ctx, query)
 	if err != nil {
 		return nil, err

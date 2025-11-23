@@ -6,6 +6,8 @@ github.com/ZaiiiRan/job_search_service/common v0.0.0-20251118195352-9230f7af9acb
 github.com/ZaiiiRan/job_search_service/common v0.0.0-20251118195352-9230f7af9acb/go.mod h1:9UKPKTn1Ws0XoFQRCpRas/4VUNsR5qHZLl2dNF0cBrs=
 github.com/ZaiiiRan/job_search_service/common v0.0.0-20251118200846-45eb676ddd8b h1:JIf8L6s2RI9u68kP/w0mDhlYYK0T1hkLO9Qz6OzHqXs=
 github.com/ZaiiiRan/job_search_service/common v0.0.0-20251118200846-45eb676ddd8b/go.mod h1:9UKPKTn1Ws0XoFQRCpRas/4VUNsR5qHZLl2dNF0cBrs=
+github.com/ZaiiiRan/job_search_service/common v0.0.0-20251122231008-eb3caa57c308 h1:/PsvC0XC4WE2fQtHzQ2FPqBz+8xsn+CoE/yME2qzfpc=
+github.com/ZaiiiRan/job_search_service/common v0.0.0-20251122231008-eb3caa57c308/go.mod h1:9UKPKTn1Ws0XoFQRCpRas/4VUNsR5qHZLl2dNF0cBrs=
 github.com/agiledragon/gomonkey/v2 v2.3.1 h1:k+UnUY0EMNYUFUAQVETGY9uUTxjMdnUkP0ARyJS1zzs=
 github.com/agiledragon/gomonkey/v2 v2.3.1/go.mod h1:ap1AmDzcVOAz1YpeJ3TCzIgstoaWLA6jbbgxfB4w2iY=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=

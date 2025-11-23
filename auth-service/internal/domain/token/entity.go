@@ -12,6 +12,7 @@ type Token struct {
 	userId    int64
 	token     string
 	tokenType string
+	version   int
 	expiresAt time.Time
 	createdAt time.Time
 	updatedAt time.Time
@@ -20,6 +21,7 @@ type Token struct {
 func New(
 	userId int64,
 	token string, tokenType string,
+	version int,
 	expiresAt time.Time,
 ) *Token {
 	now := time.Now()
@@ -28,6 +30,7 @@ func New(
 		userId:    userId,
 		token:     token,
 		tokenType: tokenType,
+		version:   version,
 		expiresAt: expiresAt,
 		createdAt: now,
 		updatedAt: now,
@@ -37,6 +40,7 @@ func New(
 func FromStorage(
 	id int64, userId int64,
 	token string, tokenType string,
+	version int,
 	expiresAt time.Time, createdAt time.Time, updatedAt time.Time,
 ) *Token {
 	return &Token{
@@ -44,6 +48,7 @@ func FromStorage(
 		userId:    userId,
 		token:     token,
 		tokenType: tokenType,
+		version:   version,
 		expiresAt: expiresAt,
 		createdAt: createdAt,
 		updatedAt: updatedAt,
@@ -54,6 +59,7 @@ func (t *Token) Id() int64            { return t.id }
 func (t *Token) UserId() int64        { return t.userId }
 func (t *Token) Token() string        { return t.token }
 func (t *Token) TokenType() string    { return t.tokenType }
+func (t *Token) Version() int         { return t.version }
 func (t *Token) ExpiresAt() time.Time { return t.expiresAt }
 func (t *Token) CreatedAt() time.Time { return t.createdAt }
 func (t *Token) UpdatedAt() time.Time { return t.updatedAt }

@@ -24,6 +24,7 @@ func New(ctx context.Context, postgresCfg settings.PostgresSettings) (*PostgresC
 			"v1_user_password ", "_v1_user_password",
 			"v1_code", "_v1_code",
 			"v1_refresh_token", "_v1_refresh_token",
+			"v1_user_version", "_v1_user_version",
 		}
 		types, err := conn.LoadTypes(ctx, names)
 		if err != nil {

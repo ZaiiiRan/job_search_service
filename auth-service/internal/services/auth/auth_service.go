@@ -9,6 +9,7 @@ import (
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/domain/code"
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/domain/password"
 	"github.com/ZaiiiRan/job_search_service/auth-service/internal/domain/token"
+	userversion "github.com/ZaiiiRan/job_search_service/auth-service/internal/domain/user_version"
 	uow "github.com/ZaiiiRan/job_search_service/auth-service/internal/repositories/unitofwork/postgres"
 	codeservice "github.com/ZaiiiRan/job_search_service/auth-service/internal/services/code"
 	passwordservice "github.com/ZaiiiRan/job_search_service/auth-service/internal/services/password"
@@ -86,12 +87,17 @@ func (s *service) RegisterApplicant(ctx context.Context, req *pb.RegisterApplica
 		return nil, status.Errorf(codes.Internal, "internal server error")
 	}
 
+	uv, err := s.tokenService.CreateApplicantVersion(ctx, uow, applicant)
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "internal server error")
+	}
+
 	_, err = s.codeService.CreateApplicantActivationCode(ctx, uow, applicant)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "internal server error")
 	}
 
-	if err := s.generateApplicantTokens(ctx, uow, applicant, nil); err != nil {
+	if err := s.generateApplicantTokens(ctx, uow, applicant, uv, nil); err != nil {
 		return nil, err
 	}
 
@@ -162,8 +168,9 @@ func (s *service) ActivateApplicant(ctx context.Context, req *pb.ActivateApplica
 	}
 
 	// invalidate all refresh tokens
+	applicantVersion := userversion.New(applicant.Id)
 
-	if err := s.generateApplicantTokens(ctx, uow, applicant, nil); err != nil {
+	if err := s.generateApplicantTokens(ctx, uow, applicant, applicantVersion, nil); err != nil {
 		return nil, err
 	}
 
@@ -198,7 +205,12 @@ func (s *service) LoginApplicant(ctx context.Context, req *pb.LoginApplicantRequ
 		return nil, status.Errorf(codes.Unauthenticated, "invalid email or password")
 	}
 
-	if err := s.generateApplicantTokens(ctx, uow, applicant, nil); err != nil {
+	uv, err := s.tokenService.GetApplicantVersion(ctx, uow, applicant.Id)
+	if err != nil || uv == nil {
+		return nil, status.Errorf(codes.Internal, "internal server error")
+	}
+
+	if err := s.generateApplicantTokens(ctx, uow, applicant, uv, nil); err != nil {
 		return nil, err
 	}
 
@@ -222,7 +234,7 @@ func (s *service) RefreshApplicant(ctx context.Context, req *pb.RefreshApplicant
 	uow := uow.New(s.postgresClient)
 	defer uow.Close()
 
-	refreshToken, err := s.tokenService.ValidateApplicantRefreshToken(ctx, uow, refreshTokenStr[0])
+	refreshToken, _, err := s.tokenService.ValidateApplicantRefreshToken(ctx, uow, refreshTokenStr[0])
 	if err != nil {
 		if errors.Is(err, claims.ErrInvalidToken) {
 			return nil, status.Errorf(codes.Unauthenticated, "unauthorized")
@@ -238,7 +250,7 @@ func (s *service) RefreshApplicant(ctx context.Context, req *pb.RefreshApplicant
 		return nil, status.Errorf(codes.Unauthenticated, "unauthorized")
 	}
 
-	if err := s.generateApplicantTokens(ctx, uow, applicant, refreshToken); err != nil {
+	if err := s.generateApplicantTokens(ctx, uow, applicant, nil, refreshToken); err != nil {
 		return nil, err
 	}
 
@@ -337,8 +349,9 @@ func (s *service) ResetApplicantPassword(ctx context.Context, req *pb.ResetAppli
 	}
 
 	// invalidate all active tokens
+	applicantVersion := userversion.New(applicant.Id)
 
-	if err := s.generateApplicantTokens(ctx, uow, applicant, nil); err != nil {
+	if err := s.generateApplicantTokens(ctx, uow, applicant, applicantVersion, nil); err != nil {
 		return nil, err
 	}
 
@@ -392,8 +405,9 @@ func (s *service) ChangeApplicantPassword(ctx context.Context, req *pb.ChangeApp
 	}
 
 	// invalidate all active tokens
+	applicantVersion := userversion.New(applicant.Id)
 
-	if err := s.generateApplicantTokens(ctx, uow, applicant, nil); err != nil {
+	if err := s.generateApplicantTokens(ctx, uow, applicant, applicantVersion, nil); err != nil {
 		return nil, err
 	}
 
@@ -406,8 +420,12 @@ func (s *service) ChangeApplicantPassword(ctx context.Context, req *pb.ChangeApp
 	return &pb.ChangeApplicantPasswordResponse{}, nil
 }
 
-func (s *service) generateApplicantTokens(ctx context.Context, uow *uow.UnitOfWork, applicant *userv1.Applicant, existedRefreshToken *token.Token) error {
-	access, refresh, err := s.tokenService.GenerateApplicant(ctx, uow, applicant, existedRefreshToken)
+func (s *service) generateApplicantTokens(
+	ctx context.Context, uow *uow.UnitOfWork,
+	applicant *userv1.Applicant, applicantVersion *userversion.UserVersion,
+	existedRefreshToken *token.Token,
+) error {
+	access, refresh, err := s.tokenService.GenerateApplicant(ctx, uow, applicant, applicantVersion, existedRefreshToken)
 	if err != nil {
 		return status.Errorf(codes.Internal, "internal server error")
 	}

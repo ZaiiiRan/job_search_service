@@ -10,6 +10,7 @@ type V1RefreshTokenDal struct {
 	Id        int64     `db:"id" json:"id"`
 	UserId    int64     `db:"user_id" json:"user_id"`
 	Token     string    `db:"token" json:"token"`
+	Version   int       `db:"version" json:"version"`
 	ExpiresAt time.Time `db:"expires_at" json:"expires_at"`
 	CreatedAt time.Time `db:"created_at" json:"created_at"`
 	UpdatedAt time.Time `db:"updated_at" json:"updated_at"`
@@ -24,6 +25,7 @@ func V1RefreshTokenDalFromDomain(t *token.Token) V1RefreshTokenDal {
 		Id:        t.Id(),
 		UserId:    t.UserId(),
 		Token:     t.Token(),
+		Version:   t.Version(),
 		ExpiresAt: t.ExpiresAt(),
 		CreatedAt: t.CreatedAt(),
 		UpdatedAt: t.UpdatedAt(),
@@ -40,10 +42,12 @@ func (p V1RefreshTokenDal) Index(i int) any {
 	case 2:
 		return p.Token
 	case 3:
-		return p.ExpiresAt
+		return p.Version
 	case 4:
-		return p.CreatedAt
+		return p.ExpiresAt
 	case 5:
+		return p.CreatedAt
+	case 6:
 		return p.UpdatedAt
 	default:
 		return nil
@@ -54,6 +58,7 @@ func (p V1RefreshTokenDal) ToDomain() *token.Token {
 	return token.FromStorage(
 		p.Id, p.UserId,
 		p.Token, token.RefreshTokenType,
+		p.Version,
 		p.ExpiresAt, p.CreatedAt, p.UpdatedAt,
 	)
 }

@@ -40,6 +40,7 @@ func (r *TokenRepository) CreateToken(ctx context.Context, token *token.Token) e
 		INSERT INTO ` + r.tableName + ` (
 			user_id,
 			token,
+			version,
 			expires_at,
 			created_at,
 			updated_at
@@ -47,6 +48,7 @@ func (r *TokenRepository) CreateToken(ctx context.Context, token *token.Token) e
 		SELECT
 			(i).user_id,
 			(i).token,
+			(i).version,
 			(i).expires_at,
 			(i).created_at,
 			(i).updated_at
@@ -55,6 +57,7 @@ func (r *TokenRepository) CreateToken(ctx context.Context, token *token.Token) e
 			id,
 			user_id,
 			token,
+			version,
 			expires_at,
 			created_at,
 			updated_at
@@ -72,6 +75,7 @@ func (r *TokenRepository) CreateToken(ctx context.Context, token *token.Token) e
 			&res.Id,
 			&res.UserId,
 			&res.Token,
+			&res.Version,
 			&res.ExpiresAt,
 			&res.CreatedAt,
 			&res.UpdatedAt,
@@ -100,6 +104,7 @@ func (r *TokenRepository) UpdateToken(ctx context.Context, token *token.Token) e
 		SET
 			user_id = (i).user_id,
 			token = (i).token,
+			version = (i).version,
 			expires_at = (i).expires_at,
 			created_at = (i).created_at,
 			updated_at = (i).updated_at
@@ -109,6 +114,7 @@ func (r *TokenRepository) UpdateToken(ctx context.Context, token *token.Token) e
 			t.id,
 			t.user_id,
 			t.token,
+			t.version,
 			t.expires_at,
 			t.created_at,
 			t.updated_at
@@ -126,6 +132,7 @@ func (r *TokenRepository) UpdateToken(ctx context.Context, token *token.Token) e
 			&res.Id,
 			&res.UserId,
 			&res.Token,
+			&res.Version,
 			&res.ExpiresAt,
 			&res.CreatedAt,
 			&res.UpdatedAt,
@@ -195,7 +202,7 @@ func (r *TokenRepository) QueryToken(ctx context.Context, query *models.QueryTok
 
 	sb.WriteString(`
 		SELECT
-			id, user_id, token,
+			id, user_id, token, version,
 			expires_at, created_at, updated_at
 		FROM ` + r.tableName + `
 		WHERE 1=1
@@ -204,6 +211,7 @@ func (r *TokenRepository) QueryToken(ctx context.Context, query *models.QueryTok
 	appendEqual(&sb, "id", query.Id, &args, &argPos)
 	appendEqual(&sb, "user_id", query.UserId, &args, &argPos)
 	appendEqual(&sb, "token", query.Token, &args, &argPos)
+	appendEqual(&sb, "version", query.Version, &args, &argPos)
 	appendLimitOffset(&sb, 1, 0, &args, &argPos)
 
 	rows, err := conn.Query(ctx, sb.String(), args...)
@@ -218,6 +226,7 @@ func (r *TokenRepository) QueryToken(ctx context.Context, query *models.QueryTok
 			&res.Id,
 			&res.UserId,
 			&res.Token,
+			&res.Version,
 			&res.ExpiresAt,
 			&res.CreatedAt,
 			&res.UpdatedAt,
