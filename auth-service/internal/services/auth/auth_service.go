@@ -87,7 +87,7 @@ func (s *service) RegisterApplicant(ctx context.Context, req *pb.RegisterApplica
 		return nil, status.Errorf(codes.Internal, "internal server error")
 	}
 
-	uv, err := s.tokenService.CreateApplicantVersion(ctx, uow, applicant)
+	uv, err := s.tokenService.UpdateApplicantVersion(ctx, uow, applicant)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "internal server error")
 	}

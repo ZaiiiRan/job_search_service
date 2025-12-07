@@ -32,8 +32,8 @@ type TokenService interface {
 	InvalidateEmployer(ctx context.Context, uow *uow.UnitOfWork, refreshStr string) error
 	GetApplicantVersion(ctx context.Context, uow *uow.UnitOfWork, userId int64) (*userversion.UserVersion, error)
 	GetEmployerVersion(ctx context.Context, uow *uow.UnitOfWork, userId int64) (*userversion.UserVersion, error)
-	CreateApplicantVersion(ctx context.Context, uow *uow.UnitOfWork, applicant *pb.Applicant) (*userversion.UserVersion, error)
-	CreateEmployerVersion(ctx context.Context, uow *uow.UnitOfWork, employer *pb.Employer) (*userversion.UserVersion, error)
+	UpdateApplicantVersion(ctx context.Context, uow *uow.UnitOfWork, applicant *pb.Applicant) (*userversion.UserVersion, error)
+	UpdateEmployerVersion(ctx context.Context, uow *uow.UnitOfWork, employer *pb.Employer) (*userversion.UserVersion, error)
 }
 
 type service struct {
@@ -314,8 +314,8 @@ func (s *service) GetEmployerVersion(ctx context.Context, uow *uow.UnitOfWork, u
 	return uv, nil
 }
 
-func (s *service) CreateApplicantVersion(ctx context.Context, uow *uow.UnitOfWork, applicant *pb.Applicant) (*userversion.UserVersion, error) {
-	l := s.log.With("op", "create_applicant_version", "req_id", ctxmetadata.GetReqIdFromContext(ctx), "applicant_id", applicant.Id)
+func (s *service) UpdateApplicantVersion(ctx context.Context, uow *uow.UnitOfWork, applicant *pb.Applicant) (*userversion.UserVersion, error) {
+	l := s.log.With("op", "update_applicant_version", "req_id", ctxmetadata.GetReqIdFromContext(ctx), "applicant_id", applicant.Id)
 
 	var uv *userversion.UserVersion
 
@@ -337,12 +337,12 @@ func (s *service) CreateApplicantVersion(ctx context.Context, uow *uow.UnitOfWor
 		return nil, err
 	}
 
-	l.Infow("token.create_user_version.success")
+	l.Infow("token.update_user_version.success")
 	return uv, nil
 }
 
-func (s *service) CreateEmployerVersion(ctx context.Context, uow *uow.UnitOfWork, employer *pb.Employer) (*userversion.UserVersion, error) {
-	l := s.log.With("op", "create_employer_version", "req_id", ctxmetadata.GetReqIdFromContext(ctx), "employer_id", employer.Id)
+func (s *service) UpdateEmployerVersion(ctx context.Context, uow *uow.UnitOfWork, employer *pb.Employer) (*userversion.UserVersion, error) {
+	l := s.log.With("op", "update_employer_version", "req_id", ctxmetadata.GetReqIdFromContext(ctx), "employer_id", employer.Id)
 
 	var uv *userversion.UserVersion
 
@@ -364,7 +364,7 @@ func (s *service) CreateEmployerVersion(ctx context.Context, uow *uow.UnitOfWork
 		return nil, err
 	}
 
-	l.Infow("token.create_user_version.success")
+	l.Infow("token.update_user_version.success")
 	return uv, nil
 }
 
